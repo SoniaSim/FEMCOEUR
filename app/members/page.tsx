@@ -1,91 +1,35 @@
-import { getAllMembers } from '@/lib/dato-cms/fetchers';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
-import { Linkedin, Mail, Twitter } from 'lucide-react';
+import Image from "next/image";
+import { MembersHeroSection } from "@/components/content/members/MembersHeroSection";
+import { MembersListSection } from "@/components/content/members/MembersListSection";
+import type { Metadata } from "next";
 
-export default async function MembersPage() {
-  const members = await getAllMembers();
+export const metadata: Metadata = {
+  title: "Nos Membres - FEMCOEUR",
+  description:
+    "Rencontrez les cardiologues femmes engagées qui font avancer la cardiologie au féminin en France.",
+};
 
+export default function MembersPage() {
   return (
-    <div className="container py-16">
-      <h1 className="text-4xl font-bold mb-8">Nos Membres</h1>
-      <p className="text-lg text-muted-foreground mb-12">
-        Découvrez les cardiologues femmes qui font partie de notre association.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {members.map((member) => (
-          <Card key={member.id}>
-            <CardHeader>
-              <div className="flex items-center gap-4">
-                <Avatar className="h-16 w-16">
-                  <AvatarImage
-                    src={member.photo?.url}
-                    alt={`${member.firstName} ${member.lastName}`}
-                  />
-                  <AvatarFallback>
-                    {member.firstName[0]}
-                    {member.lastName[0]}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <CardTitle>
-                    {member.firstName} {member.lastName}
-                  </CardTitle>
-                  {member.role && <CardDescription>{member.role}</CardDescription>}
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Badge variant="secondary" className="mb-4">
-                {member.specialty}
-              </Badge>
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                {member.biography}
-              </p>
-              {member.socialLinks && (
-                <div className="flex gap-2">
-                  {member.socialLinks.linkedin && (
-                    <Link
-                      href={member.socialLinks.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </Link>
-                  )}
-                  {member.socialLinks.twitter && (
-                    <Link
-                      href={member.socialLinks.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary"
-                    >
-                      <Twitter className="h-4 w-4" />
-                    </Link>
-                  )}
-                  {member.socialLinks.email && (
-                    <Link
-                      href={`mailto:${member.socialLinks.email}`}
-                      className="text-muted-foreground hover:text-primary"
-                    >
-                      <Mail className="h-4 w-4" />
-                    </Link>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-      {members.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">Aucun membre disponible pour le moment.</p>
+    <>
+      {/* Wrapper pour illustration flottante entre hero et liste des membres */}
+      <div className="relative overflow-hidden">
+        <MembersHeroSection />
+        <MembersListSection />
+        {/* Illustration flottante à gauche, entre hero et membres du bureau */}
+        <div
+          className="hidden md:block absolute right-[8%] top-[14%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center -rotate-6 opacity-90"
+          aria-hidden
+        >
+          <Image
+            src="/illustrations/members.svg"
+            alt=""
+            width={280}
+            height={210}
+            className="w-full h-auto object-contain"
+          />
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
-

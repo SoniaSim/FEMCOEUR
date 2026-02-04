@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 const navigationItems = [
   { href: "/", label: "Accueil" },
   { href: "/about", label: "À propos" },
+  { href: "/join", label: "Rejoindre" },
   { href: "/members", label: "Membres" },
   { href: "/events", label: "Événements" },
   { href: "/resources", label: "Ressources" },

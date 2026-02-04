@@ -1,28 +1,36 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ContactForm } from '@/components/forms/ContactForm';
+import Image from "next/image";
+import { ContactHeroSection } from "@/components/content/contact/ContactHeroSection";
+import { ContactFormSection } from "@/components/content/contact/ContactFormSection";
+import { ContactInfoSection } from "@/components/content/contact/ContactInfoSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact - FEMCOEUR",
+  description:
+    "Contactez FEMCOEUR pour toute question sur la cardiologie des femmes, un projet ou un partenariat.",
+};
 
 export default function ContactPage() {
   return (
-    <div className="container py-16">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Contactez-nous</h1>
-        <p className="text-lg text-muted-foreground mb-12">
-          N&apos;hésitez pas à nous contacter pour toute question ou demande d&apos;information.
-        </p>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Formulaire de contact</CardTitle>
-            <CardDescription>
-              Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ContactForm />
-          </CardContent>
-        </Card>
+    <>
+      <div className="relative overflow-hidden">
+        <ContactHeroSection />
+        <ContactFormSection />
+        {/* Illustration flottante à droite, entre hero et formulaire */}
+        <div
+          className="hidden md:block absolute right-[4%] top-[38%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center rotate-6 opacity-90"
+          aria-hidden
+        >
+          <Image
+            src="/illustrations/contact.svg"
+            alt=""
+            width={280}
+            height={210}
+            className="w-full h-auto object-contain"
+          />
+        </div>
       </div>
-    </div>
+      <ContactInfoSection />
+    </>
   );
 }
-

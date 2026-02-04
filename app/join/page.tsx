@@ -1,40 +1,37 @@
-import { getPageBySlug } from '@/lib/dato-cms/fetchers';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Image from "next/image";
+import { JoinHeroSection } from "@/components/content/join/JoinHeroSection";
+import { WhyJoinSection } from "@/components/content/join/WhyJoinSection";
+import { MembershipModalitiesSection } from "@/components/content/join/MembershipModalitiesSection";
+import { JoinCtaSection } from "@/components/content/join/JoinCtaSection";
+import type { Metadata } from "next";
 
-export default async function JoinPage() {
-  const page = await getPageBySlug('join');
+export const metadata: Metadata = {
+  title: "Rejoindre - FEMCOEUR",
+  description:
+    "Rejoignez FEMCOEUR, le premier réseau français de cardiologues femmes. Découvrez les avantages de l'adhésion et les modalités pour nous rejoindre.",
+};
 
+export default function JoinPage() {
   return (
-    <div className="container py-16">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Rejoindre l&apos;association</h1>
-        <p className="text-lg text-muted-foreground mb-12">
-          Devenez membre de FEMCOEUR et participez à notre mission.
-        </p>
-
-        {page && (
-          <div
-            className="prose prose-lg max-w-none mb-12"
-            dangerouslySetInnerHTML={{ __html: page.content }}
+    <>
+      <div className="relative overflow-hidden">
+        <JoinHeroSection />
+        <WhyJoinSection />
+        <div
+          className="hidden md:block absolute right-[8%] top-[46%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center rotate-6 opacity-90"
+          aria-hidden
+        >
+          <Image
+            src="/illustrations/join.svg"
+            alt=""
+            width={280}
+            height={210}
+            className="w-full h-auto object-contain"
           />
-        )}
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Comment adhérer ?</CardTitle>
-            <CardDescription>
-              Pour rejoindre notre association, veuillez nous contacter via le formulaire de contact.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/contact">Nous contacter</Link>
-            </Button>
-          </CardContent>
-        </Card>
+        </div>
       </div>
-    </div>
+      <MembershipModalitiesSection />
+      <JoinCtaSection />
+    </>
   );
 }
