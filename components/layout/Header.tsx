@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -45,13 +44,15 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element -- img natif pour éviter crash next/image + SVG sur Safari/Chrome mobile */}
+          <img
             src="/simple-logo.svg"
             alt="FEMCOEUR - Association des Cardiologues Femmes"
             width={200}
             height={200}
             className="h-16 md:h-20 w-auto"
-            priority
+            fetchPriority="high"
+            decoding="async"
           />
         </Link>
 
