@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { MembersHeroSection } from "@/components/content/members/MembersHeroSection";
 import { MembersListSection } from "@/components/content/members/MembersListSection";
 import type { Metadata } from "next";
@@ -21,12 +20,15 @@ export default function MembersPage() {
           className="hidden md:block absolute right-[8%] top-[14%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center -rotate-6 opacity-90"
           aria-hidden
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/illustrations/members.svg"
             alt=""
             width={280}
             height={210}
             className="w-full h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { AboutHeroSection } from "@/components/content/about/AboutHeroSection";
 import { MissionSection } from "@/components/content/about/MissionSection";
 import { HistorySection } from "@/components/content/about/HistorySection";
@@ -23,12 +22,15 @@ export default function AboutPage() {
           className="hidden md:block absolute right-[8%] top-[44%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center rotate-6 opacity-90"
           aria-hidden
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/illustrations/about.svg"
             alt=""
             width={300}
             height={225}
             className="w-full h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -39,12 +41,15 @@ export default function AboutPage() {
           className="hidden md:block absolute left-[6%] top-[60%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center -rotate-6 opacity-90"
           aria-hidden
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/illustrations/missions.svg"
             alt=""
             width={280}
             height={210}
             className="w-full h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ContactHeroSection } from "@/components/content/contact/ContactHeroSection";
 import { ContactFormSection } from "@/components/content/contact/ContactFormSection";
 import { ContactInfoSection } from "@/components/content/contact/ContactInfoSection";
@@ -21,12 +20,15 @@ export default function ContactPage() {
           className="hidden md:block absolute right-[4%] top-[38%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center rotate-6 opacity-90"
           aria-hidden
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/illustrations/contact.svg"
             alt=""
             width={280}
             height={210}
             className="w-full h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export function WelcomeSection() {
   return (
     <section className="relative py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
@@ -7,24 +5,30 @@ export function WelcomeSection() {
         className="hidden md:block absolute top-8 left-[8%] w-[min(22vw,220px)] pointer-events-none origin-center -rotate-[8deg] opacity-85"
         aria-hidden
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/illustrations/cardiologist-pana.svg"
           alt=""
           width={220}
           height={200}
           className="w-full h-auto object-contain"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <div
         className="hidden md:block absolute bottom-8 right-[8%] w-[min(22vw,220px)] pointer-events-none origin-center rotate-6 opacity-85"
         aria-hidden
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/illustrations/home.svg"
           alt=""
           width={220}
           height={200}
           className="w-full h-auto object-contain"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <div className="container relative z-10">
