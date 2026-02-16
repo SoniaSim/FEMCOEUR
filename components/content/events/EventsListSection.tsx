@@ -14,7 +14,7 @@ export async function EventsListSection() {
   const pastEvents = await getAllEvents("past");
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-section md:py-section-md bg-background">
       <div className="container">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="upcoming" className="w-full">

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function WelcomeSection() {
   return (
-    <section className="relative py-20 md:py-28 bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
+    <section className="relative py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
       <div
         className="hidden md:block absolute top-8 left-[8%] w-[min(22vw,220px)] pointer-events-none origin-center -rotate-[8deg] opacity-85"
         aria-hidden

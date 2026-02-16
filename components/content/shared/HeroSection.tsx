@@ -27,7 +27,7 @@ export function HeroSection({ title, description }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative py-24 md:py-32 bg-linear-to-br from-primary/10 via-background to-primary/5">
+    <section className="relative py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-primary/5">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">

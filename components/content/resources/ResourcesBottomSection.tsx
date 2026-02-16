@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function ResourcesBottomSection() {
   return (
-    <section className="py-16 md:py-24 bg-muted/50">
+    <section className="py-section md:py-section-md bg-muted/50">
       <div className="container">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14">
           <div className="w-full max-w-sm shrink-0">

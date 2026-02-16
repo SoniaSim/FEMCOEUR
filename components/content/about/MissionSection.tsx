@@ -2,7 +2,7 @@ import { Target } from "lucide-react";
 
 export function MissionSection() {
   return (
-    <section className="py-16 md:py-24 bg-linear-to-br from-primary/10 via-background to-primary/5">
+    <section className="py-section md:py-section-md bg-linear-to-br from-primary/10 via-background to-primary/5">
       <div className="container">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col items-center text-center space-y-6">

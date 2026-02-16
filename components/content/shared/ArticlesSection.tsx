@@ -1,10 +1,16 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import type { Article } from '@/lib/types/dato-cms';
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import type { Article } from "@/lib/types/dato-cms";
 
 interface ArticlesSectionProps {
   articles: Article[];
@@ -16,7 +22,7 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
   }
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-section md:py-section-md bg-muted/50">
       <div className="container">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold">Dernières actualités</h2>
@@ -39,12 +45,16 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
               )}
               <CardHeader>
                 <CardDescription>
-                  {format(new Date(article.date), 'd MMMM yyyy', { locale: fr })}
+                  {format(new Date(article.date), "d MMMM yyyy", {
+                    locale: fr,
+                  })}
                 </CardDescription>
                 <CardTitle className="line-clamp-2">{article.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">Par {article.author}</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Par {article.author}
+                </p>
                 <Button asChild variant="link" className="p-0">
                   <Link href={`/blog/${article.slug}`}>Lire la suite →</Link>
                 </Button>
@@ -56,4 +66,3 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
     </section>
   );
 }
-

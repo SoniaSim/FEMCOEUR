@@ -98,7 +98,7 @@ export default async function ArticlePage({
       )}
 
       {/* Contenu de l'article */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-section md:py-section-md bg-background">
         <div className="container">
           <article className="max-w-4xl mx-auto">
             <Card className="p-8 md:p-12 border-2">

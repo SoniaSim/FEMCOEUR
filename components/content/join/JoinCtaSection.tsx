@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 
 export function JoinCtaSection() {
   return (
-    <section className="py-16 md:py-24 bg-linear-to-br from-secondary/5 via-background to-primary/5">
+    <section className="py-section md:py-section-md bg-linear-to-br from-secondary/5 via-background to-primary/5">
       <div className="container">
         <div className="max-w-3xl mx-auto">
           <Card className="p-8 md:p-12 border-2 border-primary/20 text-center space-y-8">

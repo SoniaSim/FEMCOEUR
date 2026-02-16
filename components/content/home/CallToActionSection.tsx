@@ -32,7 +32,7 @@ export function CallToActionSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-linear-to-br from-secondary/5 via-background to-accent/5">
+    <section className="py-section md:py-section-md bg-linear-to-br from-secondary/5 via-background to-accent/5">
       <div className="container">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-foreground">

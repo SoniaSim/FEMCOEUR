@@ -59,7 +59,7 @@ export async function ResourcesListSection() {
 
   if (resources.length === 0) {
     return (
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-section md:py-section-md bg-background">
         <div className="container">
           <Card className="p-12 text-center border-2 border-dashed max-w-2xl mx-auto">
             <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -77,7 +77,7 @@ export async function ResourcesListSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-section md:py-section-md bg-background">
       <div className="container">
         <div className="max-w-7xl mx-auto space-y-16">
           {Object.entries(resourcesByCategory).map(

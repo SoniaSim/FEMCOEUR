@@ -18,7 +18,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FEMCOEUR - Association des Cardiologues Femmes",
-  description: "Promouvoir la place de la femme dans le domaine de la cardiologie",
+  description:
+    "Promouvoir la place de la femme dans le domaine de la cardiologie",
+  icons: {
+    icon: "/simple-logo.svg",
+    shortcut: "/simple-logo.svg",
+    apple: "/simple-logo.svg",
+  },
+  openGraph: {
+    title: "FEMCOEUR - Association des Cardiologues Femmes",
+    description:
+      "Promouvoir la place de la femme dans le domaine de la cardiologie",
+    images: ["/simple-logo.svg"],
+  },
 };
 
 export default function RootLayout({

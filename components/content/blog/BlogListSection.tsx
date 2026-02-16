@@ -13,7 +13,7 @@ export async function BlogListSection() {
 
   if (allArticles.length === 0) {
     return (
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-section md:py-section-md bg-background">
         <div className="container">
           <Card className="p-12 text-center border-2 border-dashed max-w-2xl mx-auto">
             <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -30,7 +30,7 @@ export async function BlogListSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-section md:py-section-md bg-background">
       <div className="container">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
