@@ -21,15 +21,15 @@ export const metadata: Metadata = {
   description:
     "Promouvoir la place de la femme dans le domaine de la cardiologie",
   icons: {
-    icon: "/simple-logo.svg",
-    shortcut: "/simple-logo.svg",
-    apple: "/simple-logo.svg",
+    icon: "/simple-logo.png",
+    shortcut: "/simple-logo.png",
+    apple: "/simple-logo.png",
   },
   openGraph: {
     title: "FEMCOEUR - Association des Cardiologues Femmes",
     description:
       "Promouvoir la place de la femme dans le domaine de la cardiologie",
-    images: ["/simple-logo.svg"],
+    images: ["/simple-logo.png"],
   },
 };
 
