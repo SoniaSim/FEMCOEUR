@@ -1,6 +1,11 @@
 import { UserPlus } from "lucide-react";
 
-export function JoinHeroSection() {
+interface JoinHeroSectionProps {
+  title: string;
+  subtitle?: string;
+}
+
+export function JoinHeroSection({ title, subtitle }: JoinHeroSectionProps) {
   return (
     <section className="py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-accent/5">
       <div className="container">
@@ -9,15 +14,13 @@ export function JoinHeroSection() {
             <UserPlus className="w-10 h-10 text-primary" />
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-            Rejoindre FEMCOEUR
+            {title}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-            Rejoignez le premier réseau français de{" "}
-            <strong className="text-primary">
-              femmes médecins et chirurgiennes cardiovasculaires
-            </strong>{" "}
-            en exercice ou en formation.
-          </p>
+          {subtitle && (
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              {subtitle}
+            </p>
+          )}
         </div>
       </div>
     </section>

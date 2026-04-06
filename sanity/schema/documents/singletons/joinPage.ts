@@ -20,7 +20,26 @@ export default defineType({
       type: "object",
       fields: [
         defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
-        defineField({ name: "body", title: "Contenu", type: "blockContent", description: "Utilisez les listes à puces natives pour énumérer les bénéfices." }),
+        defineField({
+          name: "items",
+          title: "Bénéfices",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({ name: "text", title: "Texte", type: "text", validation: (Rule) => Rule.required() }),
+                defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
+              ],
+              preview: {
+                select: { text: "text" },
+                prepare({ text }) {
+                  return { title: text };
+                },
+              },
+            },
+          ],
+        }),
       ],
     }),
     defineField({

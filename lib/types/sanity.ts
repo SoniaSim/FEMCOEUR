@@ -22,6 +22,21 @@ export interface FooterColumn {
   links: FooterLink[];
 }
 
+export interface WhyJoinItem {
+  _key: string;
+  text: string;
+  icon?: string;
+}
+
+export interface JoinPage {
+  hero?: { title: string; subtitle?: string };
+  whyJoin?: { title: string; items?: WhyJoinItem[] };
+  modalities?: IconItem[];
+  membershipFee?: { amount: number; year: number };
+  cta?: { title?: string; body?: string; button?: { label: string; href: string } };
+  seo?: { title: string; description: string };
+}
+
 export interface IconItem {
   _key: string;
   title: string;

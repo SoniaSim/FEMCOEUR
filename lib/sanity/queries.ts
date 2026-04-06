@@ -45,6 +45,20 @@ export const siteSettingsQuery = groq`
 
 // ── Pages singletons ────────────────────────────────────────────
 
+export const joinPageQuery = groq`
+  *[_id == "joinPage"][0] {
+    hero { title, subtitle },
+    whyJoin {
+      title,
+      items[] { _key, text, icon }
+    },
+    modalities[] { _key, title, description, icon },
+    membershipFee { amount, year },
+    cta { title, body, button { label, href } },
+    seo { title, description }
+  }
+`;
+
 export const aboutPageQuery = groq`
   *[_id == "aboutPage"][0] {
     hero { title, subtitle },
