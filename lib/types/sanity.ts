@@ -28,6 +28,13 @@ export interface WhyJoinItem {
   icon?: string;
 }
 
+export interface ContactPage {
+  hero?: { title: string; subtitle?: string };
+  formIntro?: string;
+  contactInfoTitle?: string;
+  seo?: { title: string; description: string };
+}
+
 export interface JoinPage {
   hero?: { title: string; subtitle?: string };
   whyJoin?: { title: string; items?: WhyJoinItem[] };

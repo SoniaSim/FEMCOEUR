@@ -1,6 +1,7 @@
 import { client } from "./client";
 import {
   siteSettingsQuery,
+  contactPageQuery,
   joinPageQuery,
   aboutPageQuery,
   articlesListQuery,
@@ -20,6 +21,7 @@ import type {
   Testimonial,
   SiteSettings,
   AboutPage,
+  ContactPage,
   JoinPage,
 } from "@/lib/types/sanity";
 
@@ -35,6 +37,10 @@ export async function getAboutPage(): Promise<AboutPage | null> {
 
 export async function getJoinPage(): Promise<JoinPage | null> {
   return client.fetch(joinPageQuery);
+}
+
+export async function getContactPage(): Promise<ContactPage | null> {
+  return client.fetch(contactPageQuery);
 }
 
 // ── Articles ────────────────────────────────────────────────────

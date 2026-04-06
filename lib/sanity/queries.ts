@@ -45,6 +45,15 @@ export const siteSettingsQuery = groq`
 
 // ── Pages singletons ────────────────────────────────────────────
 
+export const contactPageQuery = groq`
+  *[_id == "contactPage"][0] {
+    hero { title, subtitle },
+    formIntro,
+    contactInfoTitle,
+    seo { title, description }
+  }
+`;
+
 export const joinPageQuery = groq`
   *[_id == "joinPage"][0] {
     hero { title, subtitle },
