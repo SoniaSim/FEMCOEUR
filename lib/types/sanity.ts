@@ -22,6 +22,22 @@ export interface FooterColumn {
   links: FooterLink[];
 }
 
+export interface IconItem {
+  _key: string;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+export interface AboutPage {
+  hero?: { title: string; subtitle?: string };
+  mission?: { title: string; body?: PortableTextBlock[] };
+  history?: { title: string; body?: PortableTextBlock[] };
+  values?: IconItem[];
+  keyActions?: IconItem[];
+  seo?: { title: string; description: string };
+}
+
 export interface SiteSettings {
   associationName: string;
   tagline: string;

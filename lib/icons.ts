@@ -15,6 +15,9 @@ import {
   UserPlus,
   Award,
   Star,
+  GraduationCap,
+  Scale,
+  Calendar,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +38,9 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   "user-plus": UserPlus,
   award: Award,
   star: Star,
+  "graduation-cap": GraduationCap,
+  scale: Scale,
+  calendar: Calendar,
 };
 
 export function getIcon(name?: string | null): LucideIcon | null {

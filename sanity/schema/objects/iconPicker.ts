@@ -22,6 +22,9 @@ export default defineType({
       { title: "Ajouter un utilisateur", value: "user-plus" },
       { title: "Récompense", value: "award" },
       { title: "Étoile", value: "star" },
+      { title: "Diplôme", value: "graduation-cap" },
+      { title: "Balance / Parité", value: "scale" },
+      { title: "Calendrier", value: "calendar" },
     ],
   },
 });

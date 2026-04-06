@@ -1,6 +1,7 @@
 import { client } from "./client";
 import {
   siteSettingsQuery,
+  aboutPageQuery,
   articlesListQuery,
   articleBySlugQuery,
   recentArticlesQuery,
@@ -17,12 +18,17 @@ import type {
   Page,
   Testimonial,
   SiteSettings,
+  AboutPage,
 } from "@/lib/types/sanity";
 
 // ── Site Settings ───────────────────────────────────────────────
 
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   return client.fetch(siteSettingsQuery);
+}
+
+export async function getAboutPage(): Promise<AboutPage | null> {
+  return client.fetch(aboutPageQuery);
 }
 
 // ── Articles ────────────────────────────────────────────────────

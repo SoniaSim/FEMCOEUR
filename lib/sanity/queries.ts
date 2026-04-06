@@ -43,6 +43,19 @@ export const siteSettingsQuery = groq`
   }
 `;
 
+// ── Pages singletons ────────────────────────────────────────────
+
+export const aboutPageQuery = groq`
+  *[_id == "aboutPage"][0] {
+    hero { title, subtitle },
+    mission { title, body },
+    history { title, body },
+    values[] { _key, title, description, icon },
+    keyActions[] { _key, title, description, icon },
+    seo { title, description }
+  }
+`;
+
 // ── Articles ────────────────────────────────────────────────────
 
 export const articlesListQuery = groq`
