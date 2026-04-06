@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { Toaster } from "@/components/ui/toaster";
-import { ToastProvider } from "@/components/providers/ToastProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,19 +13,45 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FEMCOEUR - Association des Cardiologues Femmes",
+  metadataBase: new URL("https://femcoeur.fr"),
+  title: {
+    template: "%s | FEMCOEUR",
+    default: "FEMCOEUR — Premier réseau français de cardiologues femmes",
+  },
   description:
-    "Promouvoir la place de la femme dans le domaine de la cardiologie",
+    "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+  keywords: [
+    "cardiologues femmes",
+    "FEMCOEUR",
+    "cardiologie féminine",
+    "association cardiologie",
+    "santé cardiovasculaire femme",
+    "réseau cardiologue France",
+  ],
   icons: {
     icon: "/simple-logo.png",
     shortcut: "/simple-logo.png",
     apple: "/simple-logo.png",
   },
   openGraph: {
-    title: "FEMCOEUR - Association des Cardiologues Femmes",
+    title: "FEMCOEUR — Premier réseau français de cardiologues femmes",
     description:
-      "Promouvoir la place de la femme dans le domaine de la cardiologie",
+      "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+    url: "https://femcoeur.fr",
+    siteName: "FEMCOEUR",
+    locale: "fr_FR",
+    type: "website",
     images: ["/simple-logo.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FEMCOEUR — Premier réseau français de cardiologues femmes",
+    description:
+      "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie.",
+    images: ["/simple-logo.png"],
+  },
+  alternates: {
+    canonical: "https://femcoeur.fr",
   },
 };
 
@@ -43,14 +65,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ToastProvider>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <Toaster />
-          </div>
-        </ToastProvider>
+        {children}
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ const footerLinks = {
     { href: '/join', label: 'Rejoindre' },
   ],
   ressources: [
-    { href: '/resources', label: 'Ressources' },
+    // { href: '/resources', label: 'Ressources' }, // Désactivé pour le lancement
     { href: '/blog', label: 'Blog' },
     { href: '/events', label: 'Événements' },
   ],

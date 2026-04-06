@@ -1,14 +1,15 @@
-import { getAllMembers } from "@/lib/dato-cms/fetchers";
+import { getMembers } from "@/lib/sanity/fetch";
+import { toPlainText } from "@/lib/sanity/portable-text";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Mail, Users as UsersIcon, Award } from "lucide-react";
-import { LinkedInIcon, TwitterIcon } from "@/components/ui/social-icons";
+import { LinkedInIcon } from "@/components/ui/social-icons";
 
 export async function MembersListSection() {
-  const members = await getAllMembers();
+  const members = await getMembers();
 
   if (members.length === 0) {
     return (
@@ -82,12 +83,12 @@ export async function MembersListSection() {
                       </div>
 
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4 grow">
-                        {member.biography}
+                        {toPlainText(member.biography)}
                       </p>
 
-                      {member.socialLinks && (
+                      {(member.linkedin || member.email) && (
                         <div className="flex gap-3 pt-4 border-t w-full justify-center">
-                          {member.socialLinks.linkedin && (
+                          {member.linkedin && (
                             <Button
                               asChild
                               variant="ghost"
@@ -95,7 +96,7 @@ export async function MembersListSection() {
                               className="hover:text-primary"
                             >
                               <Link
-                                href={member.socialLinks.linkedin}
+                                href={member.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -104,31 +105,14 @@ export async function MembersListSection() {
                               </Link>
                             </Button>
                           )}
-                          {member.socialLinks.twitter && (
+                          {member.email && (
                             <Button
                               asChild
                               variant="ghost"
                               size="icon"
                               className="hover:text-primary"
                             >
-                              <Link
-                                href={member.socialLinks.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <TwitterIcon className="w-5 h-5" />
-                                <span className="sr-only">Twitter</span>
-                              </Link>
-                            </Button>
-                          )}
-                          {member.socialLinks.email && (
-                            <Button
-                              asChild
-                              variant="ghost"
-                              size="icon"
-                              className="hover:text-primary"
-                            >
-                              <Link href={`mailto:${member.socialLinks.email}`}>
+                              <Link href={`mailto:${member.email}`}>
                                 <Mail className="w-5 h-5" />
                                 <span className="sr-only">Email</span>
                               </Link>
@@ -182,12 +166,12 @@ export async function MembersListSection() {
                       </div>
 
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 grow">
-                        {member.biography}
+                        {toPlainText(member.biography)}
                       </p>
 
-                      {member.socialLinks && (
+                      {(member.linkedin || member.email) && (
                         <div className="flex gap-3 pt-4 border-t w-full justify-center">
-                          {member.socialLinks.linkedin && (
+                          {member.linkedin && (
                             <Button
                               asChild
                               variant="ghost"
@@ -195,7 +179,7 @@ export async function MembersListSection() {
                               className="hover:text-primary"
                             >
                               <Link
-                                href={member.socialLinks.linkedin}
+                                href={member.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -204,31 +188,14 @@ export async function MembersListSection() {
                               </Link>
                             </Button>
                           )}
-                          {member.socialLinks.twitter && (
+                          {member.email && (
                             <Button
                               asChild
                               variant="ghost"
                               size="icon"
                               className="hover:text-primary"
                             >
-                              <Link
-                                href={member.socialLinks.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <TwitterIcon className="w-5 h-5" />
-                                <span className="sr-only">Twitter</span>
-                              </Link>
-                            </Button>
-                          )}
-                          {member.socialLinks.email && (
-                            <Button
-                              asChild
-                              variant="ghost"
-                              size="icon"
-                              className="hover:text-primary"
-                            >
-                              <Link href={`mailto:${member.socialLinks.email}`}>
+                              <Link href={`mailto:${member.email}`}>
                                 <Mail className="w-5 h-5" />
                                 <span className="sr-only">Email</span>
                               </Link>

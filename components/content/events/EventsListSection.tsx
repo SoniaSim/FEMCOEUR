@@ -1,4 +1,5 @@
-import { getAllEvents } from "@/lib/dato-cms/fetchers";
+import { getEvents } from "@/lib/sanity/fetch";
+import { toPlainText } from "@/lib/sanity/portable-text";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Calendar, ExternalLink } from "lucide-react";
 
 export async function EventsListSection() {
-  const upcomingEvents = await getAllEvents("upcoming");
-  const pastEvents = await getAllEvents("past");
+  const allEvents = await getEvents();
+  const upcomingEvents = allEvents.filter((e) => e.status === "upcoming");
+  const pastEvents = allEvents.filter((e) => e.status === "past");
 
   return (
     <section className="py-section md:py-section-md bg-background">
@@ -86,7 +88,7 @@ export async function EventsListSection() {
                         </div>
 
                         <p className="text-sm text-muted-foreground mb-4 line-clamp-3 grow">
-                          {event.description}
+                          {toPlainText(event.description)}
                         </p>
 
                         {event.registrationLink && (
@@ -164,7 +166,7 @@ export async function EventsListSection() {
                         </div>
 
                         <p className="text-sm text-muted-foreground line-clamp-3">
-                          {event.description}
+                          {toPlainText(event.description)}
                         </p>
                       </div>
                     </Card>

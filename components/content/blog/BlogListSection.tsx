@@ -1,7 +1,6 @@
-import { getAllArticles } from "@/lib/dato-cms/fetchers";
+import { getArticles } from "@/lib/sanity/fetch";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -9,7 +8,7 @@ import { fr } from "date-fns/locale";
 import { Calendar, User, ArrowRight, FileText } from "lucide-react";
 
 export async function BlogListSection() {
-  const { allArticles, _allArticlesMeta } = await getAllArticles(12, 0);
+  const allArticles = await getArticles();
 
   if (allArticles.length === 0) {
     return (
@@ -95,14 +94,7 @@ export async function BlogListSection() {
             ))}
           </div>
 
-          {_allArticlesMeta.count > allArticles.length && (
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" disabled>
-                Charger plus d&apos;articles (
-                {_allArticlesMeta.count - allArticles.length} restants)
-              </Button>
-            </div>
-          )}
+          {/* TODO: pagination si nécessaire */}
         </div>
       </div>
     </section>

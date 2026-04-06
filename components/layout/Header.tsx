@@ -24,7 +24,6 @@ import {
   UserPlus,
   Users,
   Calendar,
-  BookOpen,
   FileText,
   Mail,
 } from "lucide-react";
@@ -36,7 +35,7 @@ const navigationItems = [
   { href: "/join", label: "Rejoindre", icon: UserPlus },
   { href: "/members", label: "Membres", icon: Users },
   { href: "/events", label: "Événements", icon: Calendar },
-  { href: "/resources", label: "Ressources", icon: BookOpen },
+  // { href: "/resources", label: "Ressources", icon: BookOpen }, // Désactivé pour le lancement
   { href: "/blog", label: "Blog", icon: FileText },
   { href: "/contact", label: "Contact", icon: Mail },
 ];

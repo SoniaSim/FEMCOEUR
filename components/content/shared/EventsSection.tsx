@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import type { Event } from "@/lib/types/dato-cms";
+import type { Event } from "@/lib/types/sanity";
+import { toPlainText } from "@/lib/sanity/portable-text";
 
 interface EventsSectionProps {
   events: Event[];
@@ -57,7 +58,7 @@ export function EventsSection({ events }: EventsSectionProps) {
                 <p className="text-sm text-muted-foreground mb-2">
                   {event.location}
                 </p>
-                <p className="text-sm mb-4 line-clamp-3">{event.description}</p>
+                <p className="text-sm mb-4 line-clamp-3">{toPlainText(event.description)}</p>
                 {event.registrationLink && (
                   <Button asChild size="sm" className="w-full">
                     <Link
