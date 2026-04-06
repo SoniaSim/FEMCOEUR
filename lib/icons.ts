@@ -18,6 +18,9 @@ import {
   GraduationCap,
   Scale,
   Calendar,
+  AlertCircle,
+  Presentation,
+  FlaskConical,
   type LucideIcon,
 } from "lucide-react";
 
@@ -41,6 +44,9 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   "graduation-cap": GraduationCap,
   scale: Scale,
   calendar: Calendar,
+  "alert-circle": AlertCircle,
+  presentation: Presentation,
+  "flask-conical": FlaskConical,
 };
 
 export function getIcon(name?: string | null): LucideIcon | null {

@@ -25,6 +25,9 @@ export default defineType({
       { title: "Diplôme", value: "graduation-cap" },
       { title: "Balance / Parité", value: "scale" },
       { title: "Calendrier", value: "calendar" },
+      { title: "Alerte / Attention", value: "alert-circle" },
+      { title: "Présentation", value: "presentation" },
+      { title: "Flacon / Recherche", value: "flask-conical" },
     ],
   },
 });

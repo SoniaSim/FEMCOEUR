@@ -45,6 +45,30 @@ export const siteSettingsQuery = groq`
 
 // ── Pages singletons ────────────────────────────────────────────
 
+export const homePageQuery = groq`
+  *[_id == "homePage"][0] {
+    welcome {
+      titlePrefix,
+      titleHighlight,
+      subtitle
+    },
+    whyFeminine {
+      title,
+      items[] { _key, text, icon }
+    },
+    whatWeDo {
+      title,
+      items[] { _key, title, description, icon }
+    },
+    callToAction {
+      title,
+      subtitle,
+      items[] { _key, title, description, icon, buttonLabel, href, variant }
+    },
+    seo { title, description }
+  }
+`;
+
 export const contactPageQuery = groq`
   *[_id == "contactPage"][0] {
     hero { title, subtitle },

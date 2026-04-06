@@ -28,6 +28,41 @@ export interface WhyJoinItem {
   icon?: string;
 }
 
+export interface HomeWhyItem {
+  _key: string;
+  text: string;
+  icon?: string;
+}
+
+export interface HomeWhatItem {
+  _key: string;
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface HomeCtaItem {
+  _key: string;
+  title: string;
+  description?: string;
+  icon?: string;
+  buttonLabel: string;
+  href: string;
+  variant?: "default" | "outline";
+}
+
+export interface HomePage {
+  welcome?: {
+    titlePrefix: string;
+    titleHighlight: string;
+    subtitle?: PortableTextBlock[];
+  };
+  whyFeminine?: { title: string; items?: HomeWhyItem[] };
+  whatWeDo?: { title: string; items?: HomeWhatItem[] };
+  callToAction?: { title?: string; subtitle?: string; items?: HomeCtaItem[] };
+  seo?: { title: string; description: string };
+}
+
 export interface ContactPage {
   hero?: { title: string; subtitle?: string };
   formIntro?: string;

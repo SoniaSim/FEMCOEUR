@@ -37,7 +37,24 @@ export default defineType({
       type: "object",
       fields: [
         defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
-        defineField({ name: "body", title: "Contenu", type: "blockContent" }),
+        defineField({
+          name: "items",
+          title: "Raisons",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({ name: "text", title: "Texte", type: "text", validation: (Rule) => Rule.required() }),
+                defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
+              ],
+              preview: {
+                select: { text: "text" },
+                prepare({ text }) { return { title: text }; },
+              },
+            },
+          ],
+        }),
       ],
     }),
     defineField({
@@ -46,17 +63,62 @@ export default defineType({
       type: "object",
       fields: [
         defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
-        defineField({ name: "body", title: "Contenu", type: "blockContent" }),
+        defineField({
+          name: "items",
+          title: "Actions",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({ name: "description", title: "Description", type: "string" }),
+                defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
+              ],
+              preview: {
+                select: { title: "title" },
+                prepare({ title }) { return { title }; },
+              },
+            },
+          ],
+        }),
       ],
     }),
     defineField({
       name: "callToAction",
-      title: "Appel à l'action",
+      title: "Section « Appel à l'action »",
       type: "object",
       fields: [
         defineField({ name: "title", title: "Titre", type: "string" }),
-        defineField({ name: "body", title: "Texte", type: "text" }),
-        defineField({ name: "button", title: "Bouton", type: "ctaButton" }),
+        defineField({ name: "subtitle", title: "Sous-titre", type: "string" }),
+        defineField({
+          name: "items",
+          title: "CTAs",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({ name: "description", title: "Description", type: "string" }),
+                defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
+                defineField({ name: "buttonLabel", title: "Texte du bouton", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({ name: "href", title: "Lien", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({
+                  name: "variant",
+                  title: "Style du bouton",
+                  type: "string",
+                  options: { list: [{ title: "Plein", value: "default" }, { title: "Contour", value: "outline" }] },
+                  initialValue: "default",
+                }),
+              ],
+              preview: {
+                select: { title: "title" },
+                prepare({ title }) { return { title }; },
+              },
+            },
+          ],
+        }),
       ],
     }),
     defineField({

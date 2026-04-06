@@ -1,6 +1,7 @@
 import { client } from "./client";
 import {
   siteSettingsQuery,
+  homePageQuery,
   contactPageQuery,
   joinPageQuery,
   aboutPageQuery,
@@ -20,6 +21,7 @@ import type {
   Page,
   Testimonial,
   SiteSettings,
+  HomePage,
   AboutPage,
   ContactPage,
   JoinPage,
@@ -41,6 +43,10 @@ export async function getJoinPage(): Promise<JoinPage | null> {
 
 export async function getContactPage(): Promise<ContactPage | null> {
   return client.fetch(contactPageQuery);
+}
+
+export async function getHomePage(): Promise<HomePage | null> {
+  return client.fetch(homePageQuery);
 }
 
 // ── Articles ────────────────────────────────────────────────────
