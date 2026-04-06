@@ -15,6 +15,34 @@ const seoFields = groq`
   }
 `;
 
+// ── Site Settings ───────────────────────────────────────────────
+
+export const siteSettingsQuery = groq`
+  *[_id == "siteSettings"][0] {
+    associationName,
+    tagline,
+    shortMission,
+    "logo": logo { ${imageFields} },
+    contactEmails[] {
+      label,
+      email,
+      description,
+      icon
+    },
+    socialLinks[] {
+      platform,
+      url
+    },
+    footerColumns[] {
+      title,
+      links[] {
+        label,
+        href
+      }
+    }
+  }
+`;
+
 // ── Articles ────────────────────────────────────────────────────
 
 export const articlesListQuery = groq`

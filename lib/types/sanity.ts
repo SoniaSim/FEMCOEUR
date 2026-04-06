@@ -1,5 +1,37 @@
 import type { PortableTextBlock } from "next-sanity";
 
+export interface ContactEmail {
+  label: string;
+  email: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface SocialLink {
+  platform: string;
+  url: string;
+}
+
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+export interface SiteSettings {
+  associationName: string;
+  tagline: string;
+  shortMission: string;
+  logo?: Image;
+  contactEmails?: ContactEmail[];
+  socialLinks?: SocialLink[];
+  footerColumns?: FooterColumn[];
+}
+
 export interface Image {
   url: string;
   alt?: string;
