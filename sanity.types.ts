@@ -223,6 +223,223 @@ export type Member = {
   linkedin?: string;
 };
 
+export type JoinPage = {
+  _id: string;
+  _type: "joinPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: {
+    title?: string;
+    subtitle?: string;
+  };
+  whyJoin?: {
+    title?: string;
+    body?: BlockContent;
+  };
+  modalities?: Array<{
+    title?: string;
+    description?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
+  membershipFee?: {
+    amount?: number;
+    year?: number;
+  };
+  cta?: {
+    title?: string;
+    body?: string;
+    button?: CtaButton;
+  };
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
+
+export type CtaButton = {
+  _type: "ctaButton";
+  label?: string;
+  href?: string;
+};
+
+export type IconPicker =
+  | "heart"
+  | "megaphone"
+  | "users"
+  | "lightbulb"
+  | "network"
+  | "book-open"
+  | "file-text"
+  | "trophy"
+  | "file-check"
+  | "euro"
+  | "mail"
+  | "briefcase"
+  | "target"
+  | "user-plus"
+  | "award"
+  | "star";
+
+export type ContactPage = {
+  _id: string;
+  _type: "contactPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: {
+    title?: string;
+    subtitle?: string;
+  };
+  formIntro?: string;
+  contactInfoTitle?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
+
+export type AboutPage = {
+  _id: string;
+  _type: "aboutPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: {
+    title?: string;
+    subtitle?: string;
+  };
+  mission?: {
+    title?: string;
+    body?: BlockContent;
+  };
+  history?: {
+    title?: string;
+    body?: BlockContent;
+  };
+  values?: Array<{
+    title?: string;
+    description?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
+  keyActions?: Array<{
+    title?: string;
+    description?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  welcome?: {
+    titlePrefix?: string;
+    titleHighlight?: string;
+    subtitle?: BlockContent;
+  };
+  whyFeminine?: {
+    title?: string;
+    body?: BlockContent;
+  };
+  whatWeDo?: {
+    title?: string;
+    body?: BlockContent;
+  };
+  callToAction?: {
+    title?: string;
+    body?: string;
+    button?: CtaButton;
+  };
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
+
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  associationName?: string;
+  tagline?: string;
+  shortMission?: string;
+  logo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  contactEmails?: Array<{
+    label?: string;
+    email?: string;
+    description?: string;
+    icon?: IconPicker;
+    _key: string;
+  }>;
+  socialLinks?: Array<
+    {
+      _key: string;
+    } & SocialLink
+  >;
+  footerColumns?: Array<{
+    title?: string;
+    links?: Array<{
+      label?: string;
+      href?: string;
+      _key: string;
+    }>;
+    _key: string;
+  }>;
+};
+
+export type SocialLink = {
+  _type: "socialLink";
+  platform?: "linkedin" | "twitter" | "instagram" | "facebook" | "youtube";
+  url?: string;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -335,6 +552,14 @@ export type AllSanitySchemaTypes =
   | MemberReference
   | Article
   | Member
+  | JoinPage
+  | CtaButton
+  | IconPicker
+  | ContactPage
+  | AboutPage
+  | HomePage
+  | SiteSettings
+  | SocialLink
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
