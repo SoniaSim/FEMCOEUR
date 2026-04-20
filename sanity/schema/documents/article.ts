@@ -25,6 +25,7 @@ export default defineType({
       title: "Auteur",
       description: "Sélectionnez un membre de l'association",
       to: [{ type: "member" }],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "publishedAt",
@@ -43,6 +44,14 @@ export default defineType({
           type: "string",
           title: "Texte alternatif",
           description: "Description de l'image pour l'accessibilité",
+          validation: (Rule) =>
+            Rule.custom((alt, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && (!alt || !String(alt).trim())) {
+                return "Texte alternatif requis lorsqu'une image est définie";
+              }
+              return true;
+            }),
         }),
       ],
     }),

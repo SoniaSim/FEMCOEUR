@@ -32,6 +32,14 @@ export default defineType({
           name: "alt",
           type: "string",
           title: "Texte alternatif",
+          validation: (Rule) =>
+            Rule.custom((alt, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && (!alt || !String(alt).trim())) {
+                return "Texte alternatif requis lorsqu'une image est définie";
+              }
+              return true;
+            }),
         }),
       ],
     }),

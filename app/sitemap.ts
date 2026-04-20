@@ -51,12 +51,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const articleRoutes: MetadataRoute.Sitemap = allArticles.map((article) => ({
-    url: `${BASE_URL}/blog/${article.slug}`,
-    lastModified: new Date(article.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const articleRoutes: MetadataRoute.Sitemap = allArticles
+    .filter(
+      (article) =>
+        article.slug != null &&
+        String(article.slug).trim() !== "" &&
+        article.date != null &&
+        String(article.date).trim() !== ""
+    )
+    .map((article) => ({
+      url: `${BASE_URL}/blog/${article.slug}`,
+      lastModified: new Date(article.date as string),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
 
   return [...staticRoutes, ...articleRoutes];
 }

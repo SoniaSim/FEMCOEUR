@@ -4,7 +4,7 @@ import type { IconItem } from "@/lib/types/sanity";
 
 interface MembershipModalitiesSectionProps {
   modalities: IconItem[];
-  fee?: { amount: number; year: number };
+  fee?: { amount: number; year: number } | null;
 }
 
 export function MembershipModalitiesSection({ modalities, fee }: MembershipModalitiesSectionProps) {

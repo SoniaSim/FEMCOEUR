@@ -7,7 +7,6 @@ import articleSchema from './documents/article'
 import eventSchema from './documents/event'
 import memberSchema from './documents/member'
 import resourceSchema from './documents/resource'
-import pageSchema from './documents/page'
 import testimonialSchema from './documents/testimonial'
 import siteSettingsSchema from './documents/singletons/siteSettings'
 import homePageSchema from './documents/singletons/homePage'
@@ -33,6 +32,5 @@ export const schemaTypes = [
   eventSchema,
   memberSchema,
   resourceSchema,
-  pageSchema,
   testimonialSchema,
 ]

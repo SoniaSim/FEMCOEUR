@@ -38,6 +38,14 @@ export default defineType({
           name: "alt",
           type: "string",
           title: "Texte alternatif",
+          validation: (Rule) =>
+            Rule.custom((alt, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && (!alt || !String(alt).trim())) {
+                return "Texte alternatif requis lorsqu'une photo est définie";
+              }
+              return true;
+            }),
         }),
       ],
     }),
@@ -59,6 +67,13 @@ export default defineType({
       name: "email",
       type: "string",
       title: "Email",
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (value == null || String(value).trim() === "") return true;
+          const s = String(value).trim();
+          const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+          return ok || "Adresse email invalide";
+        }),
     }),
     defineField({
       name: "phone",

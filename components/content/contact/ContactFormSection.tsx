@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { ContactForm } from "@/components/forms/ContactForm";
 
 interface ContactFormSectionProps {
-  intro?: string;
+  intro?: string | null;
 }
 
 export function ContactFormSection({ intro }: ContactFormSectionProps) {

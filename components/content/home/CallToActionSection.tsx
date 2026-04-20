@@ -5,8 +5,8 @@ import { Card } from "@/components/ui/card";
 import type { HomeCtaItem } from "@/lib/types/sanity";
 
 interface CallToActionSectionProps {
-  title?: string;
-  subtitle?: string;
+  title?: string | null;
+  subtitle?: string | null;
   items: HomeCtaItem[];
 }
 
@@ -47,12 +47,17 @@ export function CallToActionSection({ title, subtitle, items }: CallToActionSect
                     )}
                   </div>
                   <Button
-                    asChild
+                    asChild={Boolean(item.href)}
                     variant={item.variant ?? "default"}
                     size="lg"
                     className="w-full"
+                    disabled={!item.href}
                   >
-                    <Link href={item.href}>{item.buttonLabel}</Link>
+                    {item.href ? (
+                      <Link href={item.href}>{item.buttonLabel}</Link>
+                    ) : (
+                      <span>{item.buttonLabel}</span>
+                    )}
                   </Button>
                 </Card>
               );

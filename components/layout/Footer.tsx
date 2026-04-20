@@ -34,16 +34,18 @@ export function Footer({ siteSettings }: FooterProps) {
             <div key={column.title}>
               <h4 className="font-semibold mb-4">{column.title}</h4>
               <ul className="space-y-2">
-                {column.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {(column.links ?? []).map((link, index) =>
+                  link.href ? (
+                    <li key={`${column.title ?? "col"}-${index}`}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {link.label ?? ""}
+                      </Link>
+                    </li>
+                  ) : null
+                )}
               </ul>
             </div>
           ))}

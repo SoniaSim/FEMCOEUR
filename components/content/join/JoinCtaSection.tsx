@@ -4,10 +4,10 @@ import { Mail, FileText } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 interface JoinCtaSectionProps {
-  title?: string;
-  body?: string;
-  button?: { label: string; href: string };
-  adhesionEmail?: string;
+  title?: string | null;
+  body?: string | null;
+  button?: { label: string; href: string } | null;
+  adhesionEmail?: string | null;
 }
 
 export function JoinCtaSection({ title, body, button, adhesionEmail }: JoinCtaSectionProps) {

@@ -1,184 +1,70 @@
-import type { PortableTextBlock } from "next-sanity";
+/**
+ * Types dérivés depuis sanity.types.ts
+ * Ne pas modifier manuellement — schémas / queries puis `npm run sanity:types`
+ */
 
-export interface ContactEmail {
-  label: string;
-  email: string;
-  description?: string;
-  icon?: string;
-}
+import type {
+  SiteSettingsQueryResult,
+  HomePageQueryResult,
+  ContactPageQueryResult,
+  JoinPageQueryResult,
+  AboutPageQueryResult,
+  ArticlesListQueryResult,
+  ArticleBySlugQueryResult,
+  EventsListQueryResult,
+  UpcomingEventsQueryResult,
+  MembersListQueryResult,
+  TestimonialsListQueryResult,
+} from "@/sanity.types";
 
-export interface SocialLink {
-  platform: string;
-  url: string;
-}
+// ── Pages singletons ───────────────────────────────────────────
 
-export interface FooterLink {
-  label: string;
-  href: string;
-}
+export type SiteSettings = NonNullable<SiteSettingsQueryResult>;
+export type HomePage = NonNullable<HomePageQueryResult>;
+export type ContactPage = NonNullable<ContactPageQueryResult>;
+export type JoinPage = NonNullable<JoinPageQueryResult>;
+export type AboutPage = NonNullable<AboutPageQueryResult>;
 
-export interface FooterColumn {
-  title: string;
-  links: FooterLink[];
-}
+// ── Listes ────────────────────────────────────────────────────
 
-export interface WhyJoinItem {
-  _key: string;
-  text: string;
-  icon?: string;
-}
+export type Article = ArticlesListQueryResult[number];
+export type ArticleDetail = NonNullable<ArticleBySlugQueryResult>;
+export type Event = EventsListQueryResult[number];
+export type UpcomingEvent = UpcomingEventsQueryResult[number];
+export type Member = MembersListQueryResult[number];
+export type Testimonial = TestimonialsListQueryResult[number];
 
-export interface HomeWhyItem {
-  _key: string;
-  text: string;
-  icon?: string;
-}
+// ── Sous-types extraits pour les composants ───────────────────
 
-export interface HomeWhatItem {
-  _key: string;
-  title: string;
-  description?: string;
-  icon?: string;
-}
+// SiteSettings
+export type ContactEmail = NonNullable<
+  NonNullable<SiteSettingsQueryResult>["contactEmails"]
+>[number];
+export type SocialLink = NonNullable<
+  NonNullable<SiteSettingsQueryResult>["socialLinks"]
+>[number];
+export type FooterColumn = NonNullable<
+  NonNullable<SiteSettingsQueryResult>["footerColumns"]
+>[number];
+export type FooterLink = NonNullable<FooterColumn["links"]>[number];
 
-export interface HomeCtaItem {
-  _key: string;
-  title: string;
-  description?: string;
-  icon?: string;
-  buttonLabel: string;
-  href: string;
-  variant?: "default" | "outline";
-}
+// HomePage
+export type HomeWhyItem = NonNullable<
+  NonNullable<NonNullable<HomePageQueryResult>["whyFeminine"]>["items"]
+>[number];
+export type HomeWhatItem = NonNullable<
+  NonNullable<NonNullable<HomePageQueryResult>["whatWeDo"]>["items"]
+>[number];
+export type HomeCtaItem = NonNullable<
+  NonNullable<NonNullable<HomePageQueryResult>["callToAction"]>["items"]
+>[number];
 
-export interface HomePage {
-  welcome?: {
-    titlePrefix: string;
-    titleHighlight: string;
-    subtitle?: PortableTextBlock[];
-  };
-  whyFeminine?: { title: string; items?: HomeWhyItem[] };
-  whatWeDo?: { title: string; items?: HomeWhatItem[] };
-  callToAction?: { title?: string; subtitle?: string; items?: HomeCtaItem[] };
-  seo?: { title: string; description: string };
-}
+// JoinPage
+export type WhyJoinItem = NonNullable<
+  NonNullable<NonNullable<JoinPageQueryResult>["whyJoin"]>["items"]
+>[number];
 
-export interface ContactPage {
-  hero?: { title: string; subtitle?: string };
-  formIntro?: string;
-  contactInfoTitle?: string;
-  seo?: { title: string; description: string };
-}
-
-export interface JoinPage {
-  hero?: { title: string; subtitle?: string };
-  whyJoin?: { title: string; items?: WhyJoinItem[] };
-  modalities?: IconItem[];
-  membershipFee?: { amount: number; year: number };
-  cta?: { title?: string; body?: string; button?: { label: string; href: string } };
-  seo?: { title: string; description: string };
-}
-
-export interface IconItem {
-  _key: string;
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-export interface AboutPage {
-  hero?: { title: string; subtitle?: string };
-  mission?: { title: string; body?: PortableTextBlock[] };
-  history?: { title: string; body?: PortableTextBlock[] };
-  values?: IconItem[];
-  keyActions?: IconItem[];
-  seo?: { title: string; description: string };
-}
-
-export interface SiteSettings {
-  associationName: string;
-  tagline: string;
-  shortMission: string;
-  logo?: Image;
-  contactEmails?: ContactEmail[];
-  socialLinks?: SocialLink[];
-  footerColumns?: FooterColumn[];
-}
-
-export interface Image {
-  url: string;
-  alt?: string;
-}
-
-export interface SEO {
-  title?: string;
-  description?: string;
-  image?: Image;
-}
-
-export interface Page {
-  id: string;
-  title: string;
-  slug: string;
-  content: PortableTextBlock[];
-  seo?: SEO;
-}
-
-export interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  author: string;
-  date: string;
-  body?: PortableTextBlock[];
-  image?: Image;
-  categories?: string[];
-  seo?: SEO;
-}
-
-export interface Event {
-  id: string;
-  title: string;
-  slug: string;
-  date: string;
-  endDate?: string;
-  location: string;
-  description: PortableTextBlock[];
-  image?: Image;
-  registrationLink?: string;
-  status: "upcoming" | "past" | "cancelled";
-  seo?: SEO;
-}
-
-export interface Member {
-  id: string;
-  firstName: string;
-  lastName: string;
-  role?: string;
-  specialty: string;
-  biography: PortableTextBlock[];
-  photo?: Image;
-  email?: string;
-  phone?: string;
-  linkedin?: string;
-}
-
-export interface Resource {
-  id: string;
-  title: string;
-  description: string;
-  type: "pdf" | "link" | "video";
-  category: string;
-  file?: {
-    url: string;
-  };
-  link?: string;
-}
-
-export interface Testimonial {
-  id: string;
-  name: string;
-  role: string;
-  content: string;
-  image?: Image;
-}
+// Partagé entre AboutPage (values, keyActions) et JoinPage (modalities)
+export type IconItem = NonNullable<
+  NonNullable<AboutPageQueryResult>["values"]
+>[number];

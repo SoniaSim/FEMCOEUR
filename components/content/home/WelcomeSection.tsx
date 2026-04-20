@@ -1,10 +1,10 @@
 import { PortableText } from "@portabletext/react";
-import type { PortableTextBlock } from "next-sanity";
+import type { BlockContent } from "@/sanity.types";
 
 interface WelcomeSectionProps {
   titlePrefix: string;
   titleHighlight: string;
-  subtitle?: PortableTextBlock[];
+  subtitle?: BlockContent | null;
 }
 
 export function WelcomeSection({ titlePrefix, titleHighlight, subtitle }: WelcomeSectionProps) {

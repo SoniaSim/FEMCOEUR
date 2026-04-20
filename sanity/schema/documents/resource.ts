@@ -4,6 +4,26 @@ export default defineType({
   name: "resource",
   title: "Ressource",
   type: "document",
+  validation: (Rule) =>
+    Rule.custom((doc) => {
+      if (!doc || typeof doc !== "object") return true;
+      const d = doc as {
+        type?: string;
+        file?: { asset?: unknown } | null;
+        link?: string | null;
+      };
+      if (d.type === "pdf") {
+        if (!d.file?.asset) {
+          return "Ajoutez un fichier PDF pour une ressource de type PDF";
+        }
+      }
+      if (d.type === "link" || d.type === "video") {
+        if (d.link == null || String(d.link).trim() === "") {
+          return "Ajoutez une URL pour une ressource de type lien ou vidéo";
+        }
+      }
+      return true;
+    }),
   fields: [
     defineField({
       name: "title",

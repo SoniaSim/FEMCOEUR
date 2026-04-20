@@ -29,6 +29,15 @@ export default defineType({
       name: "endDate",
       type: "datetime",
       title: "Date de fin",
+      validation: (Rule) =>
+        Rule.custom((endDate, context) => {
+          const start = context.document?.startDate as string | undefined;
+          if (!endDate || !start) return true;
+          if (new Date(endDate) < new Date(start)) {
+            return "La date de fin doit être postérieure ou égale à la date de début";
+          }
+          return true;
+        }),
     }),
     defineField({
       name: "location",
@@ -51,6 +60,14 @@ export default defineType({
           name: "alt",
           type: "string",
           title: "Texte alternatif",
+          validation: (Rule) =>
+            Rule.custom((alt, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && (!alt || !String(alt).trim())) {
+                return "Texte alternatif requis lorsqu'une image est définie";
+              }
+              return true;
+            }),
         }),
       ],
     }),
@@ -64,13 +81,16 @@ export default defineType({
       name: "status",
       type: "string",
       title: "Statut",
+      initialValue: "upcoming",
       options: {
         list: [
           { title: "À venir", value: "upcoming" },
           { title: "Passé", value: "past" },
           { title: "Annulé", value: "cancelled" },
         ],
+        layout: "radio",
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "seo",

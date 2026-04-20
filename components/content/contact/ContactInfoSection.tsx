@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import type { ContactEmail } from "@/lib/types/sanity";
 
 interface ContactInfoSectionProps {
-  title?: string;
+  title?: string | null;
   contacts: ContactEmail[];
 }
 

@@ -31,13 +31,13 @@ export default async function Home() {
       />
       {data?.whyFeminine && data.whyFeminine.items && data.whyFeminine.items.length > 0 && (
         <WhyFeminineSection
-          title={data.whyFeminine.title}
+          title={data.whyFeminine.title ?? ""}
           items={data.whyFeminine.items}
         />
       )}
       {data?.whatWeDo && data.whatWeDo.items && data.whatWeDo.items.length > 0 && (
         <WhatWeDoSection
-          title={data.whatWeDo.title}
+          title={data.whatWeDo.title ?? ""}
           items={data.whatWeDo.items}
         />
       )}

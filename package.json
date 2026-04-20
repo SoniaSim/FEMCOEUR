@@ -8,8 +8,8 @@
     "build": "npm run sanity:types && next build",
     "start": "next start",
     "lint": "eslint",
-    "sanity:types": "sanity schema extract && sanity typegen generate",
-    "sanity:types:watch": "sanity schema extract && sanity typegen generate --watch",
+    "sanity:types": "sanity schema extract --enforce-required-fields && sanity typegen generate",
+    "sanity:types:watch": "sanity schema extract --enforce-required-fields && sanity typegen generate --watch",
     "seed": "tsx scripts/seed-sanity.ts"
   },
   "dependencies": {

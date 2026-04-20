@@ -3,10 +3,9 @@ import { toPlainText } from "@/lib/sanity/portable-text";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
+import { SanityImage } from "@/components/ui/SanityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Calendar, ExternalLink } from "lucide-react";
 
@@ -49,11 +48,11 @@ export async function EventsListSection() {
                       key={event.id}
                       className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col"
                     >
-                      {event.image && (
+                      {event.image?.url && (
                         <div className="relative h-48 w-full overflow-hidden">
-                          <Image
-                            src={event.image.url}
-                            alt={event.image.alt || event.title}
+                          <SanityImage
+                            image={event.image}
+                            fallbackAlt={event.title ?? ""}
                             fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
                           />
@@ -73,16 +72,12 @@ export async function EventsListSection() {
                         <div className="space-y-2 mb-4">
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Calendar className="w-4 h-4 shrink-0" />
-                            <span>
-                              {format(new Date(event.date), "d MMMM yyyy", {
-                                locale: fr,
-                              })}
-                            </span>
+                            <span>{formatSanityDateFr(event.date)}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <MapPin className="w-4 h-4 shrink-0" />
                             <span className="line-clamp-1">
-                              {event.location}
+                              {event.location ?? "—"}
                             </span>
                           </div>
                         </div>
@@ -129,11 +124,11 @@ export async function EventsListSection() {
                       key={event.id}
                       className="overflow-hidden border-2 hover:border-secondary/50 transition-all duration-300 flex flex-col opacity-90"
                     >
-                      {event.image && (
+                      {event.image?.url && (
                         <div className="relative h-48 w-full overflow-hidden grayscale">
-                          <Image
-                            src={event.image.url}
-                            alt={event.image.alt || event.title}
+                          <SanityImage
+                            image={event.image}
+                            fallbackAlt={event.title ?? ""}
                             fill
                             className="object-cover"
                           />
@@ -151,16 +146,12 @@ export async function EventsListSection() {
                         <div className="space-y-2 mb-4">
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Calendar className="w-4 h-4 shrink-0" />
-                            <span>
-                              {format(new Date(event.date), "d MMMM yyyy", {
-                                locale: fr,
-                              })}
-                            </span>
+                            <span>{formatSanityDateFr(event.date)}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <MapPin className="w-4 h-4 shrink-0" />
                             <span className="line-clamp-1">
-                              {event.location}
+                              {event.location ?? "—"}
                             </span>
                           </div>
                         </div>

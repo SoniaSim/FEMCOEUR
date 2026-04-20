@@ -2,7 +2,7 @@ import { UserPlus } from "lucide-react";
 
 interface JoinHeroSectionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | null;
 }
 
 export function JoinHeroSection({ title, subtitle }: JoinHeroSectionProps) {

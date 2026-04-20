@@ -2,7 +2,7 @@ import { Users } from "lucide-react";
 
 interface AboutHeroSectionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | null;
 }
 
 export function AboutHeroSection({ title, subtitle }: AboutHeroSectionProps) {

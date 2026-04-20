@@ -2,7 +2,7 @@ import { Mail } from "lucide-react";
 
 interface ContactHeroSectionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | null;
 }
 
 export function ContactHeroSection({ title, subtitle }: ContactHeroSectionProps) {

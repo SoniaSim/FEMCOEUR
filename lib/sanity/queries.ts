@@ -1,13 +1,14 @@
-import { groq } from "next-sanity";
+import { defineQuery } from "groq";
 
 // ── Fragments réutilisables ─────────────────────────────────────
+// Les fragments ne sont pas des queries autonomes → pas de defineQuery
 
-const imageFields = groq`
+const imageFields = `
   "url": asset->url,
   alt
 `;
 
-const seoFields = groq`
+const seoFields = `
   seo {
     title,
     description,
@@ -17,7 +18,7 @@ const seoFields = groq`
 
 // ── Site Settings ───────────────────────────────────────────────
 
-export const siteSettingsQuery = groq`
+export const siteSettingsQuery = defineQuery(`
   *[_id == "siteSettings"][0] {
     associationName,
     tagline,
@@ -41,11 +42,11 @@ export const siteSettingsQuery = groq`
       }
     }
   }
-`;
+`);
 
 // ── Pages singletons ────────────────────────────────────────────
 
-export const homePageQuery = groq`
+export const homePageQuery = defineQuery(`
   *[_id == "homePage"][0] {
     welcome {
       titlePrefix,
@@ -67,18 +68,18 @@ export const homePageQuery = groq`
     },
     seo { title, description }
   }
-`;
+`);
 
-export const contactPageQuery = groq`
+export const contactPageQuery = defineQuery(`
   *[_id == "contactPage"][0] {
     hero { title, subtitle },
     formIntro,
     contactInfoTitle,
     seo { title, description }
   }
-`;
+`);
 
-export const joinPageQuery = groq`
+export const joinPageQuery = defineQuery(`
   *[_id == "joinPage"][0] {
     hero { title, subtitle },
     whyJoin {
@@ -90,9 +91,9 @@ export const joinPageQuery = groq`
     cta { title, body, button { label, href } },
     seo { title, description }
   }
-`;
+`);
 
-export const aboutPageQuery = groq`
+export const aboutPageQuery = defineQuery(`
   *[_id == "aboutPage"][0] {
     hero { title, subtitle },
     mission { title, body },
@@ -101,11 +102,11 @@ export const aboutPageQuery = groq`
     keyActions[] { _key, title, description, icon },
     seo { title, description }
   }
-`;
+`);
 
 // ── Articles ────────────────────────────────────────────────────
 
-export const articlesListQuery = groq`
+export const articlesListQuery = defineQuery(`
   *[_type == "article"] | order(publishedAt desc) {
     "id": _id,
     title,
@@ -115,9 +116,9 @@ export const articlesListQuery = groq`
     "image": mainImage { ${imageFields} },
     categories
   }
-`;
+`);
 
-export const articleBySlugQuery = groq`
+export const articleBySlugQuery = defineQuery(`
   *[_type == "article" && slug.current == $slug][0] {
     "id": _id,
     title,
@@ -129,9 +130,9 @@ export const articleBySlugQuery = groq`
     categories,
     ${seoFields}
   }
-`;
+`);
 
-export const recentArticlesQuery = groq`
+export const recentArticlesQuery = defineQuery(`
   *[_type == "article"] | order(publishedAt desc) [0...3] {
     "id": _id,
     title,
@@ -141,11 +142,11 @@ export const recentArticlesQuery = groq`
     "image": mainImage { ${imageFields} },
     categories
   }
-`;
+`);
 
 // ── Événements ──────────────────────────────────────────────────
 
-export const eventsListQuery = groq`
+export const eventsListQuery = defineQuery(`
   *[_type == "event"] | order(startDate desc) {
     "id": _id,
     title,
@@ -158,9 +159,9 @@ export const eventsListQuery = groq`
     registrationLink,
     status
   }
-`;
+`);
 
-export const upcomingEventsQuery = groq`
+export const upcomingEventsQuery = defineQuery(`
   *[_type == "event" && status == "upcoming"] | order(startDate asc) {
     "id": _id,
     title,
@@ -172,11 +173,11 @@ export const upcomingEventsQuery = groq`
     registrationLink,
     status
   }
-`;
+`);
 
 // ── Membres ─────────────────────────────────────────────────────
 
-export const membersListQuery = groq`
+export const membersListQuery = defineQuery(`
   *[_type == "member"] | order(
     select(
       role == "presidente" => 0,
@@ -198,23 +199,11 @@ export const membersListQuery = groq`
     phone,
     linkedin
   }
-`;
-
-// ── Pages ───────────────────────────────────────────────────────
-
-export const pageBySlugQuery = groq`
-  *[_type == "page" && slug.current == $slug][0] {
-    "id": _id,
-    title,
-    "slug": slug.current,
-    content,
-    ${seoFields}
-  }
-`;
+`);
 
 // ── Témoignages ─────────────────────────────────────────────────
 
-export const testimonialsListQuery = groq`
+export const testimonialsListQuery = defineQuery(`
   *[_type == "testimonial"] {
     "id": _id,
     name,
@@ -222,4 +211,4 @@ export const testimonialsListQuery = groq`
     content,
     image { ${imageFields} }
   }
-`;
+`);

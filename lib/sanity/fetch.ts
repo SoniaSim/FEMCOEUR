@@ -11,14 +11,14 @@ import {
   eventsListQuery,
   upcomingEventsQuery,
   membersListQuery,
-  pageBySlugQuery,
   testimonialsListQuery,
 } from "./queries";
 import type {
   Article,
+  ArticleDetail,
   Event,
+  UpcomingEvent,
   Member,
-  Page,
   Testimonial,
   SiteSettings,
   HomePage,
@@ -57,7 +57,7 @@ export async function getArticles(): Promise<Article[]> {
 
 export async function getArticleBySlug(
   slug: string
-): Promise<Article | null> {
+): Promise<ArticleDetail | null> {
   return client.fetch(articleBySlugQuery, { slug });
 }
 
@@ -71,7 +71,7 @@ export async function getEvents(): Promise<Event[]> {
   return client.fetch(eventsListQuery);
 }
 
-export async function getUpcomingEvents(): Promise<Event[]> {
+export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
   return client.fetch(upcomingEventsQuery);
 }
 
@@ -81,11 +81,6 @@ export async function getMembers(): Promise<Member[]> {
   return client.fetch(membersListQuery);
 }
 
-// ── Pages ───────────────────────────────────────────────────────
-
-export async function getPageBySlug(slug: string): Promise<Page | null> {
-  return client.fetch(pageBySlugQuery, { slug });
-}
 
 // ── Témoignages ─────────────────────────────────────────────────
 

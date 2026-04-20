@@ -59,12 +59,15 @@ export async function MembersListSection() {
                     <div className="flex flex-col items-center text-center space-y-4">
                       <Avatar className="w-24 h-24 border-4 border-primary/20">
                         <AvatarImage
-                          src={member.photo?.url}
-                          alt={`${member.firstName} ${member.lastName}`}
+                          src={member.photo?.url ?? undefined}
+                          alt={
+                            [member.firstName, member.lastName].filter(Boolean).join(" ") ||
+                            "Membre"
+                          }
                         />
                         <AvatarFallback className="text-xl bg-primary/10 text-primary">
-                          {member.firstName[0]}
-                          {member.lastName[0]}
+                          {member.firstName?.charAt(0) ?? "?"}
+                          {member.lastName?.charAt(0) ?? "?"}
                         </AvatarFallback>
                       </Avatar>
 
@@ -149,12 +152,15 @@ export async function MembersListSection() {
                     <div className="flex flex-col items-center text-center space-y-4">
                       <Avatar className="w-20 h-20 border-2 border-accent/20">
                         <AvatarImage
-                          src={member.photo?.url}
-                          alt={`${member.firstName} ${member.lastName}`}
+                          src={member.photo?.url ?? undefined}
+                          alt={
+                            [member.firstName, member.lastName].filter(Boolean).join(" ") ||
+                            "Membre"
+                          }
                         />
                         <AvatarFallback className="text-lg bg-accent/10 text-accent-foreground">
-                          {member.firstName[0]}
-                          {member.lastName[0]}
+                          {member.firstName?.charAt(0) ?? "?"}
+                          {member.lastName?.charAt(0) ?? "?"}
                         </AvatarFallback>
                       </Avatar>
 

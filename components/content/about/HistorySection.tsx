@@ -1,11 +1,11 @@
 import { Clock } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { Card } from "@/components/ui/card";
-import type { PortableTextBlock } from "next-sanity";
+import type { BlockContent } from "@/sanity.types";
 
 interface HistorySectionProps {
-  title: string;
-  body?: PortableTextBlock[];
+  title: string | null;
+  body?: BlockContent | null;
 }
 
 export function HistorySection({ title, body }: HistorySectionProps) {

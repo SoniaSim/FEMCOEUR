@@ -1,21 +1,22 @@
 import { getArticleBySlug, getArticles } from "@/lib/sanity/fetch";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
 import { PortableText } from "@portabletext/react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Calendar, User, ArrowLeft, Share2 } from "lucide-react";
 import type { Metadata } from "next";
+import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
+import { SanityImage } from "@/components/ui/SanityImage";
 
 export async function generateStaticParams() {
   const articles = await getArticles();
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
+  return articles
+    .filter((article) => article.slug != null && String(article.slug).trim() !== "")
+    .map((article) => ({
+      slug: article.slug as string,
+    }));
 }
 
 export async function generateMetadata({
@@ -32,25 +33,23 @@ export async function generateMetadata({
     };
   }
 
+  const title = article.title ?? "";
+  const ogImageUrl = article.seo?.image?.url ?? article.image?.url ?? null;
+  const ogImageAlt =
+    article.seo?.image?.alt ?? article.image?.alt ?? title;
+
   return {
-    title: article.seo?.title || article.title,
-    description: article.seo?.description || "",
+    title: article.seo?.title ?? title,
+    description: article.seo?.description ?? "",
     alternates: {
       canonical: `https://femcoeur.fr/blog/${slug}`,
     },
     openGraph: {
-      title: article.seo?.title || article.title,
-      description: article.seo?.description || "",
+      title: (article.seo?.title ?? title) || undefined,
+      description: article.seo?.description ?? undefined,
       url: `https://femcoeur.fr/blog/${slug}`,
       type: "article",
-      images: article.image
-        ? [
-            {
-              url: article.image.url,
-              alt: article.image.alt || article.title,
-            },
-          ]
-        : [],
+      images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
     },
   };
 }
@@ -82,14 +81,14 @@ export default async function ArticlePage({
       </section>
 
       {/* Image de l'article */}
-      {article.image && (
+      {article.image?.url && (
         <section className="bg-background">
           <div className="container">
             <div className="max-w-4xl mx-auto">
               <div className="relative h-64 md:h-96 lg:h-[500px] w-full rounded-xl overflow-hidden border-2 border-border shadow-lg">
-                <Image
-                  src={article.image.url}
-                  alt={article.image.alt || article.title}
+                <SanityImage
+                  image={article.image}
+                  fallbackAlt={article.title ?? ""}
                   fill
                   className="object-cover"
                   priority
@@ -127,15 +126,11 @@ export default async function ArticlePage({
                 <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
-                    <span>
-                      {format(new Date(article.date), "d MMMM yyyy", {
-                        locale: fr,
-                      })}
-                    </span>
+                    <span>{formatSanityDateFr(article.date)}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <User className="w-5 h-5" />
-                    <span className="font-medium">{article.author}</span>
+                    <span className="font-medium">{article.author ?? "—"}</span>
                   </div>
                   <Button variant="ghost" size="sm" className="ml-auto gap-2">
                     <Share2 className="w-4 h-4" />

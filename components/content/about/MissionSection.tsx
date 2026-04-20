@@ -1,10 +1,10 @@
 import { Target } from "lucide-react";
 import { PortableText } from "@portabletext/react";
-import type { PortableTextBlock } from "next-sanity";
+import type { BlockContent } from "@/sanity.types";
 
 interface MissionSectionProps {
-  title: string;
-  body?: PortableTextBlock[];
+  title: string | null;
+  body?: BlockContent | null;
 }
 
 export function MissionSection({ title, body }: MissionSectionProps) {

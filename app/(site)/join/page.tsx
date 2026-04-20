@@ -19,7 +19,9 @@ export default async function JoinPage() {
   const [data, siteSettings] = await Promise.all([getJoinPage(), getSiteSettings()]);
 
   const adhesionEmail = siteSettings?.contactEmails?.find(
-    (c) => c.label.toLowerCase().includes("adhésion") || c.email.includes("adhesion")
+    (c) =>
+      (c.label?.toLowerCase().includes("adhésion") ?? false) ||
+      (c.email?.includes("adhesion") ?? false)
   )?.email;
 
   return (
@@ -31,7 +33,7 @@ export default async function JoinPage() {
         />
         {data?.whyJoin && data.whyJoin.items && data.whyJoin.items.length > 0 && (
           <WhyJoinSection
-            title={data.whyJoin.title}
+            title={data.whyJoin.title ?? ""}
             items={data.whyJoin.items}
           />
         )}
@@ -51,13 +53,21 @@ export default async function JoinPage() {
       {data?.modalities && data.modalities.length > 0 && (
         <MembershipModalitiesSection
           modalities={data.modalities}
-          fee={data.membershipFee}
+          fee={
+            data.membershipFee?.amount != null && data.membershipFee?.year != null
+              ? { amount: data.membershipFee.amount, year: data.membershipFee.year }
+              : null
+          }
         />
       )}
       <JoinCtaSection
         title={data?.cta?.title}
         body={data?.cta?.body}
-        button={data?.cta?.button}
+        button={
+          data?.cta?.button?.label != null && data.cta.button.href != null
+            ? { label: data.cta.button.label, href: data.cta.button.href }
+            : null
+        }
         adhesionEmail={adhesionEmail}
       />
     </>
