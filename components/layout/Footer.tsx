@@ -2,25 +2,17 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { NewsletterForm } from '@/components/forms/NewsletterForm';
 import { LogoText } from '@/components/ui/logo-text';
+import type { SiteSettings } from '@/lib/types/sanity';
 
-const footerLinks = {
-  association: [
-    { href: '/about', label: 'À propos' },
-    { href: '/members', label: 'Membres' },
-    { href: '/join', label: 'Rejoindre' },
-  ],
-  ressources: [
-    { href: '/resources', label: 'Ressources' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/events', label: 'Événements' },
-  ],
-  contact: [
-    { href: '/contact', label: 'Contact' },
-    { href: '#', label: 'Newsletter' },
-  ],
-};
+interface FooterProps {
+  siteSettings: SiteSettings | null;
+}
 
-export function Footer() {
+export function Footer({ siteSettings }: FooterProps) {
+  const tagline = siteSettings?.tagline ?? "Promouvoir la place de la femme dans le domaine de la cardiologie.";
+  const associationName = siteSettings?.associationName ?? "FEMCOEUR";
+  const footerColumns = siteSettings?.footerColumns ?? [];
+
   return (
     <footer className="border-t bg-muted/50">
       <div className="container py-12">
@@ -30,7 +22,7 @@ export function Footer() {
               <LogoText />
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Promouvoir la place de la femme dans le domaine de la cardiologie.
+              {tagline}
             </p>
             <div>
               <h4 className="font-semibold mb-2 text-sm">Newsletter</h4>
@@ -38,54 +30,31 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h4 className="font-semibold mb-4">Association</h4>
-            <ul className="space-y-2">
-              {footerLinks.association.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Ressources</h4>
-            <ul className="space-y-2">
-              {footerLinks.ressources.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerColumns.map((column) => (
+            <div key={column.title}>
+              <h4 className="font-semibold mb-4">{column.title}</h4>
+              <ul className="space-y-2">
+                {(column.links ?? []).map((link, index) =>
+                  link.href ? (
+                    <li key={`${column.title ?? "col"}-${index}`}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {link.label ?? ""}
+                      </Link>
+                    </li>
+                  ) : null
+                )}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <Separator className="my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} <LogoText />. Tous droits réservés.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            {footerLinks.contact.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+          <p>© {new Date().getFullYear()} {associationName}. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

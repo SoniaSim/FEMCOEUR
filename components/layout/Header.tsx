@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -24,11 +23,11 @@ import {
   UserPlus,
   Users,
   Calendar,
-  BookOpen,
   FileText,
   Mail,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { SiteSettings } from "@/lib/types/sanity";
 
 const navigationItems = [
   { href: "/", label: "Accueil", icon: Home },
@@ -36,12 +35,16 @@ const navigationItems = [
   { href: "/join", label: "Rejoindre", icon: UserPlus },
   { href: "/members", label: "Membres", icon: Users },
   { href: "/events", label: "Événements", icon: Calendar },
-  { href: "/resources", label: "Ressources", icon: BookOpen },
+  // { href: "/resources", label: "Ressources", icon: BookOpen }, // Désactivé pour le lancement
   { href: "/blog", label: "Blog", icon: FileText },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
-export function Header() {
+interface HeaderProps {
+  siteSettings: SiteSettings | null;
+}
+
+export function Header({ siteSettings }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -51,17 +54,20 @@ export function Header() {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
+  const logoSrc = siteSettings?.logo?.url ?? "/simple-logo.png";
+  const logoAlt = siteSettings?.logo?.alt ?? `${siteSettings?.associationName ?? "FEMCOEUR"} — Association des Cardiologues Femmes`;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src="/simple-logo.png"
-            alt="FEMCOEUR - Association des Cardiologues Femmes"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={logoSrc}
+            alt={logoAlt}
             width={200}
             height={200}
             className="h-16 md:h-20 w-auto"
-            priority
           />
         </Link>
 
@@ -106,7 +112,6 @@ export function Header() {
             className="flex w-[min(100vw-2rem,320px)] flex-col border-l border-border/80 bg-background p-0 shadow-xl"
           >
             <SheetTitle className="sr-only">Menu de navigation</SheetTitle>
-            {/* Légère bande dégradée en haut pour ancrer le menu */}
             <div
               className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-primary/6 to-transparent"
               aria-hidden

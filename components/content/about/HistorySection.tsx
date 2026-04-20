@@ -1,7 +1,14 @@
 import { Clock } from "lucide-react";
+import { PortableText } from "@portabletext/react";
 import { Card } from "@/components/ui/card";
+import type { BlockContent } from "@/sanity.types";
 
-export function HistorySection() {
+interface HistorySectionProps {
+  title: string | null;
+  body?: BlockContent | null;
+}
+
+export function HistorySection({ title, body }: HistorySectionProps) {
   return (
     <section className="py-section md:py-section-md bg-background">
       <div className="container">
@@ -9,26 +16,16 @@ export function HistorySection() {
           <div className="flex items-center justify-center gap-3 mb-8">
             <Clock className="w-8 h-8 text-primary" />
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Notre histoire
+              {title}
             </h2>
           </div>
-          <Card className="p-8 md:p-12 border-2">
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed text-center">
-              <strong className="text-primary">FEMCOEUR</strong> est une
-              association fondée par et pour des femmes médecins et
-              chirurgiennes impliquées dans la prise en charge des maladies
-              cardiovasculaires en France. Elle est née de la volonté de{" "}
-              <strong className="text-foreground">
-                promouvoir l&apos;égalité femme-homme
-              </strong>{" "}
-              dans notre profession, de créer un réseau solidaire et de porter
-              une voix forte,{" "}
-              <strong className="text-foreground">
-                féministe, bienveillante et indépendante
-              </strong>{" "}
-              dans le monde cardiovasculaire.
-            </p>
-          </Card>
+          {body && (
+            <Card className="p-8 md:p-12 border-2">
+              <div className="text-base md:text-lg text-muted-foreground leading-relaxed text-center">
+                <PortableText value={body} />
+              </div>
+            </Card>
+          )}
         </div>
       </div>
     </section>

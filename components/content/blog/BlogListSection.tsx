@@ -1,15 +1,13 @@
-import { getAllArticles } from "@/lib/dato-cms/fetchers";
+import { getArticles } from "@/lib/sanity/fetch";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
+import { SanityImage } from "@/components/ui/SanityImage";
 import { Calendar, User, ArrowRight, FileText } from "lucide-react";
 
 export async function BlogListSection() {
-  const { allArticles, _allArticlesMeta } = await getAllArticles(12, 0);
+  const allArticles = await getArticles();
 
   if (allArticles.length === 0) {
     return (
@@ -35,13 +33,13 @@ export async function BlogListSection() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {allArticles.map((article) => (
-              <Link key={article.id} href={`/blog/${article.slug}`}>
+              <Link key={article.id} href={`/blog/${article.slug ?? ""}`}>
                 <Card className="h-full overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col group">
-                  {article.image && (
+                  {article.image?.url && (
                     <div className="relative h-48 w-full overflow-hidden">
-                      <Image
-                        src={article.image.url}
-                        alt={article.image.alt || article.title}
+                      <SanityImage
+                        image={article.image}
+                        fallbackAlt={article.title ?? ""}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
@@ -71,15 +69,11 @@ export async function BlogListSection() {
                     <div className="space-y-2 mb-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 shrink-0" />
-                        <span>
-                          {format(new Date(article.date), "d MMMM yyyy", {
-                            locale: fr,
-                          })}
-                        </span>
+                        <span>{formatSanityDateFr(article.date)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <User className="w-4 h-4 shrink-0" />
-                        <span>{article.author}</span>
+                        <span>{article.author ?? "—"}</span>
                       </div>
                     </div>
 
@@ -95,14 +89,7 @@ export async function BlogListSection() {
             ))}
           </div>
 
-          {_allArticlesMeta.count > allArticles.length && (
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" disabled>
-                Charger plus d&apos;articles (
-                {_allArticlesMeta.count - allArticles.length} restants)
-              </Button>
-            </div>
-          )}
+          {/* TODO: pagination si nécessaire */}
         </div>
       </div>
     </section>

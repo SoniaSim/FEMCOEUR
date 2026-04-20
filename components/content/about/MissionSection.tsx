@@ -1,6 +1,13 @@
 import { Target } from "lucide-react";
+import { PortableText } from "@portabletext/react";
+import type { BlockContent } from "@/sanity.types";
 
-export function MissionSection() {
+interface MissionSectionProps {
+  title: string | null;
+  body?: BlockContent | null;
+}
+
+export function MissionSection({ title, body }: MissionSectionProps) {
   return (
     <section className="py-section md:py-section-md bg-linear-to-br from-primary/10 via-background to-primary/5">
       <div className="container">
@@ -10,16 +17,13 @@ export function MissionSection() {
               <Target className="w-10 h-10 text-primary" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Notre mission
+              {title}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
-              Promouvoir l&apos;
-              <strong className="text-primary">
-                équilibre femme-homme
-              </strong>{" "}
-              dans le champ des maladies cardiovasculaires, que ce soit en
-              médecine, en chirurgie, dans la recherche ou l&apos;enseignement.
-            </p>
+            {body && (
+              <div className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
+                <PortableText value={body} />
+              </div>
+            )}
           </div>
         </div>
       </div>

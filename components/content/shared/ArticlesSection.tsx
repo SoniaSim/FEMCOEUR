@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -8,9 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import type { Article } from "@/lib/types/dato-cms";
+import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
+import { SanityImage } from "@/components/ui/SanityImage";
+import type { Article } from "@/lib/types/sanity";
 
 interface ArticlesSectionProps {
   articles: Article[];
@@ -33,11 +32,11 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article) => (
             <Card key={article.id} className="overflow-hidden">
-              {article.image && (
+              {article.image?.url && (
                 <div className="relative h-48 w-full">
-                  <Image
-                    src={article.image.url}
-                    alt={article.image.alt || article.title}
+                  <SanityImage
+                    image={article.image}
+                    fallbackAlt={article.title ?? ""}
                     fill
                     className="object-cover"
                   />
@@ -45,18 +44,16 @@ export function ArticlesSection({ articles }: ArticlesSectionProps) {
               )}
               <CardHeader>
                 <CardDescription>
-                  {format(new Date(article.date), "d MMMM yyyy", {
-                    locale: fr,
-                  })}
+                  {formatSanityDateFr(article.date)}
                 </CardDescription>
                 <CardTitle className="line-clamp-2">{article.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Par {article.author}
+                  Par {article.author ?? "—"}
                 </p>
                 <Button asChild variant="link" className="p-0">
-                  <Link href={`/blog/${article.slug}`}>Lire la suite →</Link>
+                  <Link href={`/blog/${article.slug ?? ""}`}>Lire la suite →</Link>
                 </Button>
               </CardContent>
             </Card>

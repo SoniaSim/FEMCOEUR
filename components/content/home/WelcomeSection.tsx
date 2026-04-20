@@ -1,4 +1,13 @@
-export function WelcomeSection() {
+import { PortableText } from "@portabletext/react";
+import type { BlockContent } from "@/sanity.types";
+
+interface WelcomeSectionProps {
+  titlePrefix: string;
+  titleHighlight: string;
+  subtitle?: BlockContent | null;
+}
+
+export function WelcomeSection({ titlePrefix, titleHighlight, subtitle }: WelcomeSectionProps) {
   return (
     <section className="relative py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-primary/5 overflow-hidden">
       <div
@@ -34,20 +43,14 @@ export function WelcomeSection() {
       <div className="container relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
-            Bienvenue au sein du premier réseau français de{" "}
-            <span className="text-primary">
-              femmes médecins et chirurgiennes cardiovasculaires
-            </span>
+            {titlePrefix}{" "}
+            <span className="text-primary">{titleHighlight}</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Une voix{" "}
-            <strong className="text-foreground">
-              féministe, bienveillante et indépendante
-            </strong>{" "}
-            dans le monde cardiovasculaire, mobilisée pour promouvoir
-            l&apos;égalité femme-homme et améliorer la prise en charge des
-            maladies cardiovasculaires.
-          </p>
+          {subtitle && (
+            <div className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <PortableText value={subtitle} />
+            </div>
+          )}
         </div>
       </div>
     </section>

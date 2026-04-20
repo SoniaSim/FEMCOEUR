@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -9,9 +8,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import type { Event } from "@/lib/types/dato-cms";
+import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
+import { SanityImage } from "@/components/ui/SanityImage";
+import type { Event } from "@/lib/types/sanity";
+import { toPlainText } from "@/lib/sanity/portable-text";
 
 interface EventsSectionProps {
   events: Event[];
@@ -34,11 +34,11 @@ export function EventsSection({ events }: EventsSectionProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.slice(0, 3).map((event) => (
             <Card key={event.id} className="overflow-hidden">
-              {event.image && (
+              {event.image?.url && (
                 <div className="relative h-48 w-full">
-                  <Image
-                    src={event.image.url}
-                    alt={event.image.alt || event.title}
+                  <SanityImage
+                    image={event.image}
+                    fallbackAlt={event.title ?? ""}
                     fill
                     className="object-cover"
                   />
@@ -49,15 +49,15 @@ export function EventsSection({ events }: EventsSectionProps) {
                   <Badge variant="default">À venir</Badge>
                 </div>
                 <CardDescription>
-                  {format(new Date(event.date), "d MMMM yyyy", { locale: fr })}
+                  {formatSanityDateFr(event.date)}
                 </CardDescription>
                 <CardTitle className="line-clamp-2">{event.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-2">
-                  {event.location}
+                  {event.location ?? "—"}
                 </p>
-                <p className="text-sm mb-4 line-clamp-3">{event.description}</p>
+                <p className="text-sm mb-4 line-clamp-3">{toPlainText(event.description)}</p>
                 {event.registrationLink && (
                   <Button asChild size="sm" className="w-full">
                     <Link
