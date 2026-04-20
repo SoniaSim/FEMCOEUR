@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { getSiteSettings } from "@/lib/sanity/fetch";
 
+export const revalidate = false;
+
 export default async function SiteLayout({
   children,
 }: {
