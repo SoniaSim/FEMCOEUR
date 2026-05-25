@@ -28,6 +28,9 @@ export default defineType({
       { title: "Alerte / Attention", value: "alert-circle" },
       { title: "Présentation", value: "presentation" },
       { title: "Flacon / Recherche", value: "flask-conical" },
+      { title: "Facebook", value: "facebook" },
+      { title: "Instagram", value: "instagram" },
+      { title: "LinkedIn", value: "linkedin" },
     ],
   },
 });

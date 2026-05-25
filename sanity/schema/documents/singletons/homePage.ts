@@ -45,12 +45,13 @@ export default defineType({
             {
               type: "object",
               fields: [
-                defineField({ name: "text", title: "Texte", type: "text", validation: (Rule) => Rule.required() }),
+                defineField({ name: "title", title: "Titre (ex : Notre Combat)", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({ name: "text", title: "Description", type: "text", validation: (Rule) => Rule.required() }),
                 defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
               ],
               preview: {
-                select: { text: "text" },
-                prepare({ text }) { return { title: text }; },
+                select: { title: "title" },
+                prepare({ title }) { return { title }; },
               },
             },
           ],

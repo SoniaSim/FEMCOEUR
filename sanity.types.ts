@@ -128,7 +128,7 @@ export type BlockContent = Array<
         _type: "span";
         _key: string;
       }>;
-      style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+      style?: "normal" | "center" | "h2" | "h3" | "h4" | "blockquote";
       listItem?: "bullet" | "number";
       markDefs?: Array<{
         href?: string;
@@ -285,7 +285,10 @@ export type IconPicker =
   | "calendar"
   | "alert-circle"
   | "presentation"
-  | "flask-conical";
+  | "flask-conical"
+  | "facebook"
+  | "instagram"
+  | "linkedin";
 
 export type ContactPage = {
   _id: string;
@@ -369,6 +372,7 @@ export type HomePage = {
   whyFeminine?: {
     title: string;
     items?: Array<{
+      title: string;
       text: string;
       icon?: IconPicker;
       _key: string;
@@ -626,7 +630,7 @@ export type SiteSettingsQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: homePageQuery
-// Query: *[_id == "homePage"][0] {    welcome {      titlePrefix,      titleHighlight,      subtitle    },    whyFeminine {      title,      items[] { _key, text, icon }    },    whatWeDo {      title,      items[] { _key, title, description, icon }    },    callToAction {      title,      subtitle,      items[] { _key, title, description, icon, buttonLabel, href, variant }    },    seo { title, description }  }
+// Query: *[_id == "homePage"][0] {    welcome {      titlePrefix,      titleHighlight,      subtitle    },    whyFeminine {      title,      items[] { _key, title, text, icon }    },    whatWeDo {      title,      items[] { _key, title, description, icon }    },    callToAction {      title,      subtitle,      items[] { _key, title, description, icon, buttonLabel, href, variant }    },    seo { title, description }  }
 export type HomePageQueryResult =
   | {
       welcome: null;
@@ -665,6 +669,7 @@ export type HomePageQueryResult =
         title: string;
         items: Array<{
           _key: string;
+          title: string;
           text: string;
           icon: IconPicker | null;
         }> | null;
@@ -1050,7 +1055,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_id == "siteSettings"][0] {\n    associationName,\n    tagline,\n    shortMission,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    contactEmails[] {\n      label,\n      email,\n      description,\n      icon\n    },\n    socialLinks[] {\n      platform,\n      url\n    },\n    footerColumns[] {\n      title,\n      links[] {\n        label,\n        href\n      }\n    }\n  }\n': SiteSettingsQueryResult;
-    '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      subtitle\n    },\n    whyFeminine {\n      title,\n      items[] { _key, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
+    '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      subtitle\n    },\n    whyFeminine {\n      title,\n      items[] { _key, title, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
     '\n  *[_id == "contactPage"][0] {\n    hero { title, subtitle },\n    formIntro,\n    contactInfoTitle,\n    seo { title, description }\n  }\n': ContactPageQueryResult;
     '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle },\n    whyJoin {\n      title,\n      items[] { _key, text, icon }\n    },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
     '\n  *[_id == "aboutPage"][0] {\n    hero { title, subtitle },\n    mission { title, body },\n    history { title, body },\n    values[] { _key, title, description, icon },\n    keyActions[] { _key, title, description, icon },\n    seo { title, description }\n  }\n': AboutPageQueryResult;

@@ -1,5 +1,6 @@
 import { Clock } from "lucide-react";
 import { PortableText } from "@portabletext/react";
+import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { Card } from "@/components/ui/card";
 import type { BlockContent } from "@/sanity.types";
 
@@ -22,7 +23,7 @@ export function HistorySection({ title, body }: HistorySectionProps) {
           {body && (
             <Card className="p-8 md:p-12 border-2">
               <div className="text-base md:text-lg text-muted-foreground leading-relaxed text-center">
-                <PortableText value={body} />
+                <PortableText value={body} components={basePortableTextComponents} />
               </div>
             </Card>
           )}

@@ -9,7 +9,7 @@ export function MembersHeroSection() {
             <Users className="w-10 h-10 text-primary" />
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-            Nos Membres
+            L&apos;équipe
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
             Rencontrez les{" "}

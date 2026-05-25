@@ -55,7 +55,7 @@ export const homePageQuery = defineQuery(`
     },
     whyFeminine {
       title,
-      items[] { _key, text, icon }
+      items[] { _key, title, text, icon }
     },
     whatWeDo {
       title,

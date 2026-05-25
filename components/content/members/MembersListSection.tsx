@@ -43,7 +43,7 @@ export async function MembersListSection() {
               <div className="flex items-center gap-3 mb-8">
                 <Award className="w-6 h-6 text-primary" />
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  Bureau de l&apos;association
+                  Le Bureau Femcoeur
                 </h2>
                 <Badge variant="outline" className="ml-2">
                   {boardMembers.length}
@@ -61,8 +61,9 @@ export async function MembersListSection() {
                         <AvatarImage
                           src={member.photo?.url ?? undefined}
                           alt={
-                            [member.firstName, member.lastName].filter(Boolean).join(" ") ||
-                            "Membre"
+                            [member.firstName, member.lastName]
+                              .filter(Boolean)
+                              .join(" ") || "Membre"
                           }
                         />
                         <AvatarFallback className="text-xl bg-primary/10 text-primary">
@@ -73,7 +74,7 @@ export async function MembersListSection() {
 
                       <div className="space-y-2 flex flex-col items-center">
                         <h3 className="text-lg md:text-xl font-bold text-foreground">
-                          Dr. {member.firstName} {member.lastName}
+                          Dre. {member.firstName} {member.lastName}
                         </h3>
                         {member.role && (
                           <Badge className="bg-primary text-primary-foreground">
@@ -136,7 +137,7 @@ export async function MembersListSection() {
               <div className="flex items-center gap-3 mb-8">
                 <UsersIcon className="w-6 h-6 text-primary" />
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  Membres de l&apos;association
+                  L’équipe communication
                 </h2>
                 <Badge variant="outline" className="ml-2">
                   {regularMembers.length}
@@ -154,8 +155,9 @@ export async function MembersListSection() {
                         <AvatarImage
                           src={member.photo?.url ?? undefined}
                           alt={
-                            [member.firstName, member.lastName].filter(Boolean).join(" ") ||
-                            "Membre"
+                            [member.firstName, member.lastName]
+                              .filter(Boolean)
+                              .join(" ") || "Membre"
                           }
                         />
                         <AvatarFallback className="text-lg bg-accent/10 text-accent-foreground">
@@ -166,7 +168,7 @@ export async function MembersListSection() {
 
                       <div className="space-y-2">
                         <h3 className="text-lg font-bold text-foreground">
-                          Dr. {member.firstName} {member.lastName}
+                          Dre. {member.firstName} {member.lastName}
                         </h3>
                         <Badge variant="outline">{member.specialty}</Badge>
                       </div>

@@ -33,7 +33,7 @@ const navigationItems = [
   { href: "/", label: "Accueil", icon: Home },
   { href: "/about", label: "À propos", icon: Info },
   { href: "/join", label: "Rejoindre", icon: UserPlus },
-  { href: "/members", label: "Membres", icon: Users },
+  { href: "/equipe", label: "L'équipe", icon: Users },
   { href: "/events", label: "Événements", icon: Calendar },
   // { href: "/resources", label: "Ressources", icon: BookOpen }, // Désactivé pour le lancement
   { href: "/blog", label: "Blog", icon: FileText },
@@ -55,7 +55,9 @@ export function Header({ siteSettings }: HeaderProps) {
   };
 
   const logoSrc = siteSettings?.logo?.url ?? "/simple-logo.png";
-  const logoAlt = siteSettings?.logo?.alt ?? `${siteSettings?.associationName ?? "FEMCOEUR"} — Association des Cardiologues Femmes`;
+  const logoAlt =
+    siteSettings?.logo?.alt ??
+    `${siteSettings?.associationName ?? "FEMCOEUR"} — Association des Cardiologues Femmes`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">

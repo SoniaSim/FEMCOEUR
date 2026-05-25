@@ -3,11 +3,11 @@ import { MembersListSection } from "@/components/content/members/MembersListSect
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nos Membres",
+  title: "L'équipe",
   description:
-    "Rencontrez les cardiologues femmes engagées qui font avancer la cardiologie au féminin en France.",
+    "Rencontrez l'équipe de FEMCOEUR, des cardiologues femmes engagées qui font avancer la cardiologie au féminin en France.",
   alternates: {
-    canonical: "https://femcoeur.fr/members",
+    canonical: "https://femcoeur.fr/equipe",
   },
 };
 

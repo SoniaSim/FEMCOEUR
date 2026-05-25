@@ -21,6 +21,9 @@ import {
   AlertCircle,
   Presentation,
   FlaskConical,
+  Facebook,
+  Instagram,
+  Linkedin,
   type LucideIcon,
 } from "lucide-react";
 
@@ -47,6 +50,9 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   "alert-circle": AlertCircle,
   presentation: Presentation,
   "flask-conical": FlaskConical,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
 };
 
 export function getIcon(name?: string | null): LucideIcon | null {

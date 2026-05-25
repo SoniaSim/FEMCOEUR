@@ -9,6 +9,7 @@ export default defineType({
       type: "block",
       styles: [
         { title: "Normal", value: "normal" },
+        { title: "Centré", value: "center" },
         { title: "Titre 2", value: "h2" },
         { title: "Titre 3", value: "h3" },
         { title: "Titre 4", value: "h4" },

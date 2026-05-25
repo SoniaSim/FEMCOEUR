@@ -1,5 +1,6 @@
 import { Target } from "lucide-react";
 import { PortableText } from "@portabletext/react";
+import { basePortableTextComponents } from "@/lib/portable-text-components";
 import type { BlockContent } from "@/sanity.types";
 
 interface MissionSectionProps {
@@ -21,7 +22,7 @@ export function MissionSection({ title, body }: MissionSectionProps) {
             </h2>
             {body && (
               <div className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
-                <PortableText value={body} />
+                <PortableText value={body} components={basePortableTextComponents} />
               </div>
             )}
           </div>
