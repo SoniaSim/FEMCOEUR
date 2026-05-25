@@ -75,7 +75,22 @@ export default defineType({
       name: "registrationLink",
       type: "url",
       title: "Lien d'inscription",
-      description: "URL vers le formulaire d'inscription",
+      description: "URL vers le formulaire d'inscription (événement à venir)",
+    }),
+    defineField({
+      name: "relatedArticle",
+      type: "reference",
+      title: "Article lié (compte-rendu)",
+      description:
+        "Article du blog FEMCOEUR qui raconte l'événement. Affiché sur la carte des événements passés.",
+      to: [{ type: "article" }],
+    }),
+    defineField({
+      name: "recapLink",
+      type: "url",
+      title: "Lien externe (compte-rendu)",
+      description:
+        "URL externe vers un compte-rendu (presse, partenaire, PDF...). Utilisé si aucun article lié n'est défini.",
     }),
     defineField({
       name: "status",

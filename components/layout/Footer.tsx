@@ -30,25 +30,27 @@ export function Footer({ siteSettings }: FooterProps) {
             </div>
           </div>
 
-          {footerColumns.map((column) => (
-            <div key={column.title}>
-              <h4 className="font-semibold mb-4">{column.title}</h4>
-              <ul className="space-y-2">
-                {(column.links ?? []).map((link, index) =>
-                  link.href ? (
-                    <li key={`${column.title ?? "col"}-${index}`}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {link.label ?? ""}
-                      </Link>
-                    </li>
-                  ) : null
-                )}
-              </ul>
-            </div>
-          ))}
+          <div className="col-span-1 md:col-span-2 grid grid-cols-2 gap-8 md:contents">
+            {footerColumns.map((column) => (
+              <div key={column.title}>
+                <h4 className="font-semibold mb-4">{column.title}</h4>
+                <ul className="space-y-2">
+                  {(column.links ?? []).map((link, index) =>
+                    link.href ? (
+                      <li key={`${column.title ?? "col"}-${index}`}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          {link.label ?? ""}
+                        </Link>
+                      </li>
+                    ) : null
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         <Separator className="my-8" />

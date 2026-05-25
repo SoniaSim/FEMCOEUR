@@ -1,28 +1,50 @@
-import { Mail } from "lucide-react";
+import { SquiggleUnderline } from "@/components/ui/squiggle-underline";
+import { PageHero } from "@/components/content/shared/PageHero";
 
 interface ContactHeroSectionProps {
   title: string;
   subtitle?: string | null;
 }
 
+/**
+ * Cherche la dernière occurrence de "nous" dans le titre et la souligne
+ * avec le squiggle. Fallback : rend le titre tel quel.
+ */
+function renderTitle(title: string) {
+  const lower = title.toLowerCase();
+  const idx = lower.lastIndexOf("nous");
+  if (idx < 0) return title;
+  const before = title.slice(0, idx);
+  const word = title.slice(idx, idx + 4);
+  const after = title.slice(idx + 4);
+  return (
+    <>
+      {before}
+      <span className="relative inline-block text-primary">
+        {word}
+        <SquiggleUnderline />
+      </span>
+      {after}
+    </>
+  );
+}
+
 export function ContactHeroSection({ title, subtitle }: ContactHeroSectionProps) {
   return (
-    <section className="py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-accent/5">
-      <div className="container">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center mx-auto">
-            <Mail className="w-10 h-10 text-primary" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              {subtitle}
-            </p>
-          )}
-        </div>
-      </div>
-    </section>
+    <PageHero
+      badge="Restons en lien"
+      leftImage="/illustrations/contact.svg"
+      rightImage="/illustrations/cardiologist-pana.svg"
+    >
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-tight mb-6">
+        {renderTitle(title)}
+      </h1>
+
+      {subtitle && (
+        <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
+          {subtitle}
+        </p>
+      )}
+    </PageHero>
   );
 }

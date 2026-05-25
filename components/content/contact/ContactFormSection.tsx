@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { ContactForm } from "@/components/forms/ContactForm";
 
 interface ContactFormSectionProps {
@@ -7,22 +6,31 @@ interface ContactFormSectionProps {
 
 export function ContactFormSection({ intro }: ContactFormSectionProps) {
   return (
-    <section className="py-section md:py-section-md bg-background">
+    <section className="pt-14 md:pt-20 pb-8 md:pb-10 bg-background">
       <div className="container">
         <div className="max-w-3xl mx-auto">
-          <Card className="p-8 md:p-12 border-2">
-            <div className="space-y-6">
-              <div className="text-center space-y-2">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  Envoyez-nous un message
-                </h2>
-                {intro && (
-                  <p className="text-muted-foreground">{intro}</p>
-                )}
+          <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden bg-card border border-primary/15 shadow-sm">
+            {/* Barre d'accent top */}
+            <div className="absolute top-0 left-12 right-12 h-1 rounded-full bg-gradient-to-r from-primary to-accent" />
+
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-4 bg-primary/15 border border-primary/30">
+                <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                  Écrivez-nous
+                </span>
               </div>
-              <ContactForm />
+              <h2 className="text-2xl md:text-3xl font-black text-foreground leading-tight">
+                Envoyez-nous un message
+              </h2>
+              {intro && (
+                <p className="text-base text-foreground/65 leading-relaxed mt-3 max-w-xl mx-auto">
+                  {intro}
+                </p>
+              )}
             </div>
-          </Card>
+
+            <ContactForm />
+          </div>
         </div>
       </div>
     </section>

@@ -14,26 +14,8 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <>
-      <div className="relative overflow-hidden">
-        <EventsHeroSection />
-        <EventsListSection />
-        {/* Illustration flottante à droite, entre hero et liste des événements */}
-        <div
-          className="hidden md:block absolute right-[4%] top-[22%] -translate-y-1/2 w-[min(24vw,280px)] pointer-events-none z-10 origin-center rotate-6 opacity-90"
-          aria-hidden
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/illustrations/event.svg"
-            alt=""
-            width={280}
-            height={210}
-            className="w-full h-auto object-contain"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      </div>
+      <EventsHeroSection />
+      <EventsListSection />
     </>
   );
 }

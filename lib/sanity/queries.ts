@@ -81,11 +81,7 @@ export const contactPageQuery = defineQuery(`
 
 export const joinPageQuery = defineQuery(`
   *[_id == "joinPage"][0] {
-    hero { title, subtitle },
-    whyJoin {
-      title,
-      items[] { _key, text, icon }
-    },
+    hero { title, subtitle, cta { label, href } },
     modalities[] { _key, title, description, icon },
     membershipFee { amount, year },
     cta { title, body, button { label, href } },
@@ -132,18 +128,6 @@ export const articleBySlugQuery = defineQuery(`
   }
 `);
 
-export const recentArticlesQuery = defineQuery(`
-  *[_type == "article"] | order(publishedAt desc) [0...3] {
-    "id": _id,
-    title,
-    "slug": slug.current,
-    "author": author->firstName + " " + author->lastName,
-    "date": publishedAt,
-    "image": mainImage { ${imageFields} },
-    categories
-  }
-`);
-
 // ── Événements ──────────────────────────────────────────────────
 
 export const eventsListQuery = defineQuery(`
@@ -157,21 +141,29 @@ export const eventsListQuery = defineQuery(`
     description,
     "image": mainImage { ${imageFields} },
     registrationLink,
+    recapLink,
+    "relatedArticleSlug": relatedArticle->slug.current,
+    "relatedArticleTitle": relatedArticle->title,
     status
   }
 `);
 
-export const upcomingEventsQuery = defineQuery(`
-  *[_type == "event" && status == "upcoming"] | order(startDate asc) {
+export const eventBySlugQuery = defineQuery(`
+  *[_type == "event" && slug.current == $slug][0] {
     "id": _id,
     title,
     "slug": slug.current,
     "date": startDate,
+    endDate,
     location,
     description,
     "image": mainImage { ${imageFields} },
     registrationLink,
-    status
+    recapLink,
+    "relatedArticleSlug": relatedArticle->slug.current,
+    "relatedArticleTitle": relatedArticle->title,
+    status,
+    ${seoFields}
   }
 `);
 
@@ -201,14 +193,3 @@ export const membersListQuery = defineQuery(`
   }
 `);
 
-// ── Témoignages ─────────────────────────────────────────────────
-
-export const testimonialsListQuery = defineQuery(`
-  *[_type == "testimonial"] {
-    "id": _id,
-    name,
-    role,
-    content,
-    image { ${imageFields} }
-  }
-`);

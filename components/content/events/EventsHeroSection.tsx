@@ -1,26 +1,29 @@
-import { Calendar } from "lucide-react";
+import { SquiggleUnderline } from "@/components/ui/squiggle-underline";
+import { PageHero } from "@/components/content/shared/PageHero";
 
 export function EventsHeroSection() {
   return (
-    <section className="py-section-hero md:py-section-hero-md bg-linear-to-br from-primary/10 via-background to-accent/5">
-      <div className="container">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center mx-auto">
-            <Calendar className="w-10 h-10 text-primary" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-            Nos événements
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-            Découvrez nos rencontres{" "}
-            <strong className="text-primary">
-              &quot;cardiologies femmes&quot;
-            </strong>{" "}
-            : webinaires experts, ateliers patients et sessions de formation
-            certifiante.
-          </p>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      badge="Notre agenda"
+      leftImage="/illustrations/event.svg"
+      rightImage="/illustrations/conference-speaker-bro.svg"
+    >
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-tight mb-6">
+        Nos{" "}
+        <span className="relative inline-block text-primary">
+          événements
+          <SquiggleUnderline />
+        </span>
+      </h1>
+
+      <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
+        Découvrez nos rencontres{" "}
+        <strong className="text-primary font-bold">
+          &quot;cardiologies femmes&quot;
+        </strong>{" "}
+        : webinaires experts, ateliers patients et sessions de formation
+        certifiante.
+      </p>
+    </PageHero>
   );
 }

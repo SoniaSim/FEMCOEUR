@@ -12,33 +12,11 @@ export default defineType({
       fields: [
         defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
         defineField({ name: "subtitle", title: "Sous-titre", type: "text" }),
-      ],
-    }),
-    defineField({
-      name: "whyJoin",
-      title: "Pourquoi nous rejoindre",
-      type: "object",
-      fields: [
-        defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
         defineField({
-          name: "items",
-          title: "Bénéfices",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                defineField({ name: "text", title: "Texte", type: "text", validation: (Rule) => Rule.required() }),
-                defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
-              ],
-              preview: {
-                select: { text: "text" },
-                prepare({ text }) {
-                  return { title: text };
-                },
-              },
-            },
-          ],
+          name: "cta",
+          title: "Bouton sous le texte d'introduction",
+          description: "Si vide, le bouton par défaut « Devenir membre » pointe vers la section adhésion de la même page.",
+          type: "ctaButton",
         }),
       ],
     }),

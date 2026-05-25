@@ -7,50 +7,59 @@ import {
   aboutPageQuery,
   articlesListQuery,
   articleBySlugQuery,
-  recentArticlesQuery,
   eventsListQuery,
-  upcomingEventsQuery,
+  eventBySlugQuery,
   membersListQuery,
-  testimonialsListQuery,
 } from "./queries";
 import type {
-  Article,
-  ArticleDetail,
-  Event,
-  UpcomingEvent,
-  Member,
-  Testimonial,
-  SiteSettings,
-  HomePage,
-  AboutPage,
-  ContactPage,
-  JoinPage,
-} from "@/lib/types/sanity";
+  SiteSettingsQueryResult,
+  HomePageQueryResult,
+  ContactPageQueryResult,
+  JoinPageQueryResult,
+  AboutPageQueryResult,
+  ArticlesListQueryResult,
+  ArticleBySlugQueryResult,
+  EventsListQueryResult,
+  EventBySlugQueryResult,
+  MembersListQueryResult,
+} from "@/sanity.types";
 
 // ── Site Settings ───────────────────────────────────────────────
 
-export async function getSiteSettings(): Promise<SiteSettings | null> {
-  return client.fetch(
+export async function getSiteSettings() {
+  return client.fetch<SiteSettingsQueryResult>(
     siteSettingsQuery,
     {},
     { next: { tags: ["siteSettings"] } }
   );
 }
 
-export async function getAboutPage(): Promise<AboutPage | null> {
-  return client.fetch(aboutPageQuery, {}, { next: { tags: ["about"] } });
+export async function getAboutPage() {
+  return client.fetch<AboutPageQueryResult>(
+    aboutPageQuery,
+    {},
+    { next: { tags: ["about"] } }
+  );
 }
 
-export async function getJoinPage(): Promise<JoinPage | null> {
-  return client.fetch(joinPageQuery, {}, { next: { tags: ["join"] } });
+export async function getJoinPage() {
+  return client.fetch<JoinPageQueryResult>(
+    joinPageQuery,
+    {},
+    { next: { tags: ["join"] } }
+  );
 }
 
-export async function getContactPage(): Promise<ContactPage | null> {
-  return client.fetch(contactPageQuery, {}, { next: { tags: ["contact"] } });
+export async function getContactPage() {
+  return client.fetch<ContactPageQueryResult>(
+    contactPageQuery,
+    {},
+    { next: { tags: ["contact"] } }
+  );
 }
 
-export async function getHomePage(): Promise<HomePage | null> {
-  return client.fetch(
+export async function getHomePage() {
+  return client.fetch<HomePageQueryResult>(
     homePageQuery,
     {},
     { next: { tags: ["homepage", "siteSettings"] } }
@@ -59,50 +68,46 @@ export async function getHomePage(): Promise<HomePage | null> {
 
 // ── Articles ────────────────────────────────────────────────────
 
-export async function getArticles(): Promise<Article[]> {
-  return client.fetch(articlesListQuery, {}, { next: { tags: ["articles"] } });
+export async function getArticles() {
+  return client.fetch<ArticlesListQueryResult>(
+    articlesListQuery,
+    {},
+    { next: { tags: ["articles"] } }
+  );
 }
 
-export async function getArticleBySlug(
-  slug: string
-): Promise<ArticleDetail | null> {
-  return client.fetch(
+export async function getArticleBySlug(slug: string) {
+  return client.fetch<ArticleBySlugQueryResult>(
     articleBySlugQuery,
     { slug },
     { next: { tags: [`article:${slug}`, "articles"] } }
   );
 }
 
-export async function getRecentArticles(): Promise<Article[]> {
-  return client.fetch(
-    recentArticlesQuery,
+// ── Événements ──────────────────────────────────────────────────
+
+export async function getEvents() {
+  return client.fetch<EventsListQueryResult>(
+    eventsListQuery,
     {},
-    { next: { tags: ["articles"] } }
+    { next: { tags: ["events"] } }
   );
 }
 
-// ── Événements ──────────────────────────────────────────────────
-
-export async function getEvents(): Promise<Event[]> {
-  return client.fetch(eventsListQuery, {}, { next: { tags: ["events"] } });
-}
-
-export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
-  return client.fetch(upcomingEventsQuery, {}, { next: { tags: ["events"] } });
+export async function getEventBySlug(slug: string) {
+  return client.fetch<EventBySlugQueryResult>(
+    eventBySlugQuery,
+    { slug },
+    { next: { tags: [`event:${slug}`, "events"] } }
+  );
 }
 
 // ── Membres ─────────────────────────────────────────────────────
 
-export async function getMembers(): Promise<Member[]> {
-  return client.fetch(membersListQuery, {}, { next: { tags: ["members"] } });
-}
-
-// ── Témoignages ─────────────────────────────────────────────────
-
-export async function getTestimonials(): Promise<Testimonial[]> {
-  return client.fetch(
-    testimonialsListQuery,
+export async function getMembers() {
+  return client.fetch<MembersListQueryResult>(
+    membersListQuery,
     {},
-    { next: { tags: ["testimonials"] } }
+    { next: { tags: ["members"] } }
   );
 }

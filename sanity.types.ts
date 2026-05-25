@@ -82,6 +82,13 @@ export type Resource = {
   link?: string;
 };
 
+export type ArticleReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "article";
+};
+
 export type Event = {
   _id: string;
   _type: "event";
@@ -103,6 +110,8 @@ export type Event = {
     _type: "image";
   };
   registrationLink?: string;
+  relatedArticle?: ArticleReference;
+  recapLink?: string;
   status: "upcoming" | "past" | "cancelled";
   seo?: Seo;
 };
@@ -205,7 +214,14 @@ export type Member = {
     alt?: string;
     _type: "image";
   };
-  role?: "presidente" | "vice-presidente" | "tresoriere" | "secretaire";
+  role?:
+    | "presidente"
+    | "vice-presidente"
+    | "tresoriere"
+    | "tresoriere-adjointe"
+    | "secretaire"
+    | "secretaire-adjointe"
+    | "membre-bureau";
   email?: string;
   phone?: string;
   linkedin?: string;
@@ -220,14 +236,7 @@ export type JoinPage = {
   hero?: {
     title: string;
     subtitle?: string;
-  };
-  whyJoin?: {
-    title: string;
-    items?: Array<{
-      text: string;
-      icon?: IconPicker;
-      _key: string;
-    }>;
+    cta?: CtaButton;
   };
   modalities?: Array<{
     title: string;
@@ -563,6 +572,7 @@ export type AllSanitySchemaTypes =
   | SanityImageHotspot
   | SanityFileAssetReference
   | Resource
+  | ArticleReference
   | Event
   | Seo
   | BlockContent
@@ -759,11 +769,10 @@ export type ContactPageQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: joinPageQuery
-// Query: *[_id == "joinPage"][0] {    hero { title, subtitle },    whyJoin {      title,      items[] { _key, text, icon }    },    modalities[] { _key, title, description, icon },    membershipFee { amount, year },    cta { title, body, button { label, href } },    seo { title, description }  }
+// Query: *[_id == "joinPage"][0] {    hero { title, subtitle, cta { label, href } },    modalities[] { _key, title, description, icon },    membershipFee { amount, year },    cta { title, body, button { label, href } },    seo { title, description }  }
 export type JoinPageQueryResult =
   | {
       hero: null;
-      whyJoin: null;
       modalities: null;
       membershipFee: null;
       cta: null;
@@ -771,7 +780,6 @@ export type JoinPageQueryResult =
     }
   | {
       hero: null;
-      whyJoin: null;
       modalities: null;
       membershipFee: null;
       cta: null;
@@ -782,7 +790,6 @@ export type JoinPageQueryResult =
     }
   | {
       hero: null;
-      whyJoin: null;
       modalities: null;
       membershipFee: null;
       cta: null;
@@ -795,8 +802,8 @@ export type JoinPageQueryResult =
       hero: {
         title: string;
         subtitle: string | null;
+        cta: null;
       } | null;
-      whyJoin: null;
       modalities: null;
       membershipFee: null;
       cta: null;
@@ -809,14 +816,10 @@ export type JoinPageQueryResult =
       hero: {
         title: string;
         subtitle: string | null;
-      } | null;
-      whyJoin: {
-        title: string;
-        items: Array<{
-          _key: string;
-          text: string;
-          icon: IconPicker | null;
-        }> | null;
+        cta: {
+          label: string;
+          href: string;
+        } | null;
       } | null;
       modalities: Array<{
         _key: string;
@@ -965,24 +968,8 @@ export type ArticleBySlugQueryResult = {
 } | null;
 
 // Source: lib/sanity/queries.ts
-// Variable: recentArticlesQuery
-// Query: *[_type == "article"] | order(publishedAt desc) [0...3] {    "id": _id,    title,    "slug": slug.current,    "author": author->firstName + " " + author->lastName,    "date": publishedAt,    "image": mainImage {   "url": asset->url,  alt },    categories  }
-export type RecentArticlesQueryResult = Array<{
-  id: string;
-  title: string;
-  slug: string;
-  author: string;
-  date: string;
-  image: {
-    url: string | null;
-    alt: string | null;
-  } | null;
-  categories: Array<string> | null;
-}>;
-
-// Source: lib/sanity/queries.ts
 // Variable: eventsListQuery
-// Query: *[_type == "event"] | order(startDate desc) {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    endDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    registrationLink,    status  }
+// Query: *[_type == "event"] | order(startDate desc) {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    endDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    registrationLink,    recapLink,    "relatedArticleSlug": relatedArticle->slug.current,    "relatedArticleTitle": relatedArticle->title,    status  }
 export type EventsListQueryResult = Array<{
   id: string;
   title: string;
@@ -996,17 +983,21 @@ export type EventsListQueryResult = Array<{
     alt: string | null;
   } | null;
   registrationLink: string | null;
+  recapLink: string | null;
+  relatedArticleSlug: string | null;
+  relatedArticleTitle: string | null;
   status: "cancelled" | "past" | "upcoming";
 }>;
 
 // Source: lib/sanity/queries.ts
-// Variable: upcomingEventsQuery
-// Query: *[_type == "event" && status == "upcoming"] | order(startDate asc) {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    registrationLink,    status  }
-export type UpcomingEventsQueryResult = Array<{
+// Variable: eventBySlugQuery
+// Query: *[_type == "event" && slug.current == $slug][0] {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    endDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    registrationLink,    recapLink,    "relatedArticleSlug": relatedArticle->slug.current,    "relatedArticleTitle": relatedArticle->title,    status,      seo {    title,    description,    image {   "url": asset->url,  alt }  }  }
+export type EventBySlugQueryResult = {
   id: string;
   title: string;
   slug: string;
   date: string;
+  endDate: string | null;
   location: string;
   description: BlockContent | null;
   image: {
@@ -1014,8 +1005,19 @@ export type UpcomingEventsQueryResult = Array<{
     alt: string | null;
   } | null;
   registrationLink: string | null;
-  status: "upcoming";
-}>;
+  recapLink: string | null;
+  relatedArticleSlug: string | null;
+  relatedArticleTitle: string | null;
+  status: "cancelled" | "past" | "upcoming";
+  seo: {
+    title: string | null;
+    description: string | null;
+    image: {
+      url: string | null;
+      alt: null;
+    } | null;
+  } | null;
+} | null;
 
 // Source: lib/sanity/queries.ts
 // Variable: membersListQuery
@@ -1024,7 +1026,15 @@ export type MembersListQueryResult = Array<{
   id: string;
   firstName: string;
   lastName: string;
-  role: "presidente" | "secretaire" | "tresoriere" | "vice-presidente" | null;
+  role:
+    | "membre-bureau"
+    | "presidente"
+    | "secretaire-adjointe"
+    | "secretaire"
+    | "tresoriere-adjointe"
+    | "tresoriere"
+    | "vice-presidente"
+    | null;
   specialty: string;
   biography: BlockContent | null;
   photo: {
@@ -1036,20 +1046,6 @@ export type MembersListQueryResult = Array<{
   linkedin: string | null;
 }>;
 
-// Source: lib/sanity/queries.ts
-// Variable: testimonialsListQuery
-// Query: *[_type == "testimonial"] {    "id": _id,    name,    role,    content,    image {   "url": asset->url,  alt }  }
-export type TestimonialsListQueryResult = Array<{
-  id: string;
-  name: string;
-  role: string | null;
-  content: string;
-  image: {
-    url: string | null;
-    alt: string | null;
-  } | null;
-}>;
-
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -1057,14 +1053,12 @@ declare module "@sanity/client" {
     '\n  *[_id == "siteSettings"][0] {\n    associationName,\n    tagline,\n    shortMission,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    contactEmails[] {\n      label,\n      email,\n      description,\n      icon\n    },\n    socialLinks[] {\n      platform,\n      url\n    },\n    footerColumns[] {\n      title,\n      links[] {\n        label,\n        href\n      }\n    }\n  }\n': SiteSettingsQueryResult;
     '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      subtitle\n    },\n    whyFeminine {\n      title,\n      items[] { _key, title, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
     '\n  *[_id == "contactPage"][0] {\n    hero { title, subtitle },\n    formIntro,\n    contactInfoTitle,\n    seo { title, description }\n  }\n': ContactPageQueryResult;
-    '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle },\n    whyJoin {\n      title,\n      items[] { _key, text, icon }\n    },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
+    '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle, cta { label, href } },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
     '\n  *[_id == "aboutPage"][0] {\n    hero { title, subtitle },\n    mission { title, body },\n    history { title, body },\n    values[] { _key, title, description, icon },\n    keyActions[] { _key, title, description, icon },\n    seo { title, description }\n  }\n': AboutPageQueryResult;
     '\n  *[_type == "article"] | order(publishedAt desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': ArticlesListQueryResult;
     '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
-    '\n  *[_type == "article"] | order(publishedAt desc) [0...3] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': RecentArticlesQueryResult;
-    '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    status\n  }\n': EventsListQueryResult;
-    '\n  *[_type == "event" && status == "upcoming"] | order(startDate asc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    status\n  }\n': UpcomingEventsQueryResult;
+    '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status\n  }\n': EventsListQueryResult;
+    '\n  *[_type == "event" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': EventBySlugQueryResult;
     '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    phone,\n    linkedin\n  }\n': MembersListQueryResult;
-    '\n  *[_type == "testimonial"] {\n    "id": _id,\n    name,\n    role,\n    content,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n': TestimonialsListQueryResult;
   }
 }

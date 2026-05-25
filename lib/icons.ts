@@ -24,6 +24,8 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  Twitter,
+  Youtube,
   type LucideIcon,
 } from "lucide-react";
 
@@ -53,6 +55,8 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   facebook: Facebook,
   instagram: Instagram,
   linkedin: Linkedin,
+  twitter: Twitter,
+  youtube: Youtube,
 };
 
 export function getIcon(name?: string | null): LucideIcon | null {

@@ -224,6 +224,28 @@
   }
 }
 
+/* ========================================
+   Card utility classes
+   Design tokens partagés pour toutes les cards "light" du site.
+   À combiner avec un padding au choix (p-4 sm:p-6, p-5 sm:p-7, etc.).
+   ======================================== */
+@layer components {
+  /* Shell de base : fond, bordure, coins arrondis, ombre douce. */
+  .card-base {
+    @apply rounded-2xl bg-card border border-primary/12 shadow-sm;
+  }
+
+  /* Hover effect pour les cards interactives (lift + shadow + bordure orange). */
+  .card-interactive {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30;
+  }
+
+  /* Variante "subtle" : lift et shadow moins prononcés, pour les cartes dans une grille dense. */
+  .card-interactive-subtle {
+    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/30;
+  }
+}
+
 /* Styles des articles de blog (contenu riche h2, h3, p…) */
 .prose {
   max-width: none;

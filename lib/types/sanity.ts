@@ -12,9 +12,8 @@ import type {
   ArticlesListQueryResult,
   ArticleBySlugQueryResult,
   EventsListQueryResult,
-  UpcomingEventsQueryResult,
+  EventBySlugQueryResult,
   MembersListQueryResult,
-  TestimonialsListQueryResult,
 } from "@/sanity.types";
 
 // ── Pages singletons ───────────────────────────────────────────
@@ -30,9 +29,8 @@ export type AboutPage = NonNullable<AboutPageQueryResult>;
 export type Article = ArticlesListQueryResult[number];
 export type ArticleDetail = NonNullable<ArticleBySlugQueryResult>;
 export type Event = EventsListQueryResult[number];
-export type UpcomingEvent = UpcomingEventsQueryResult[number];
+export type EventDetail = NonNullable<EventBySlugQueryResult>;
 export type Member = MembersListQueryResult[number];
-export type Testimonial = TestimonialsListQueryResult[number];
 
 // ── Sous-types extraits pour les composants ───────────────────
 
@@ -57,11 +55,6 @@ export type HomeWhatItem = NonNullable<
 >[number];
 export type HomeCtaItem = NonNullable<
   NonNullable<NonNullable<HomePageQueryResult>["callToAction"]>["items"]
->[number];
-
-// JoinPage
-export type WhyJoinItem = NonNullable<
-  NonNullable<NonNullable<JoinPageQueryResult>["whyJoin"]>["items"]
 >[number];
 
 // Partagé entre AboutPage (values, keyActions) et JoinPage (modalities)

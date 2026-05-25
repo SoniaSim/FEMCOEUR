@@ -1,4 +1,6 @@
 import { getIcon } from "@/lib/icons";
+import { Reveal } from "@/components/ui/reveal";
+import { NumberedCard } from "@/components/content/shared/NumberedCard";
 import type { IconItem } from "@/lib/types/sanity";
 
 interface ValuesSectionProps {
@@ -7,34 +9,34 @@ interface ValuesSectionProps {
 
 export function ValuesSection({ values }: ValuesSectionProps) {
   return (
-    <section className="py-section md:py-section-md bg-linear-to-br from-secondary/5 via-background to-accent/5">
+    <section className="py-16 md:py-24 bg-linear-to-b from-background to-primary/5">
       <div className="container">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
-            Nos valeurs
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-            {values.map((value) => {
-              const Icon = getIcon(value.icon);
-              return (
-                <div
-                  key={value._key}
-                  className="flex gap-4 p-6 md:p-8 rounded-lg bg-card border-2 border-border hover:border-primary/40 transition-all duration-300"
-                >
-                  <div className="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    {Icon && <Icon className="w-6 h-6 text-primary" />}
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-base md:text-lg text-foreground">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                      {value.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-5 bg-primary/15 border border-primary/30">
+              <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                Ce qui nous porte
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground leading-tight">
+              Nos valeurs
+            </h2>
+            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-primary to-accent" />
+          </div>
+
+          <div className="flex flex-col gap-5">
+            {values.map((value, index) => (
+              <Reveal key={value._key} delay={index * 80} from="left">
+                <NumberedCard
+                  icon={getIcon(value.icon)}
+                  title={value.title ?? ""}
+                  description={value.description}
+                  number={index + 1}
+                  variant="light"
+                  layout="row"
+                />
+              </Reveal>
+            ))}
           </div>
         </div>
       </div>

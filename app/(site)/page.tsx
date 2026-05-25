@@ -3,7 +3,8 @@ import { WelcomeSection } from "@/components/content/home/WelcomeSection";
 import { WhyFeminineSection } from "@/components/content/home/WhyFeminineSection";
 import { WhatWeDoSection } from "@/components/content/home/WhatWeDoSection";
 import { CallToActionSection } from "@/components/content/home/CallToActionSection";
-import { getHomePage } from "@/lib/sanity/fetch";
+import { FollowUsSection } from "@/components/content/shared/FollowUsSection";
+import { getHomePage, getSiteSettings } from "@/lib/sanity/fetch";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
@@ -20,7 +21,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const data = await getHomePage();
+  const [data, siteSettings] = await Promise.all([
+    getHomePage(),
+    getSiteSettings(),
+  ]);
+
+  const socialLinks = siteSettings?.socialLinks ?? [];
 
   return (
     <>
@@ -29,25 +35,26 @@ export default async function Home() {
         titleHighlight={data?.welcome?.titleHighlight ?? "femmes médecins et chirurgiennes cardiovasculaires"}
         subtitle={data?.welcome?.subtitle}
       />
-      {data?.whyFeminine && data.whyFeminine.items && data.whyFeminine.items.length > 0 && (
+      {data?.whyFeminine?.items?.length ? (
         <WhyFeminineSection
           title={data.whyFeminine.title ?? ""}
           items={data.whyFeminine.items}
         />
-      )}
-      {data?.whatWeDo && data.whatWeDo.items && data.whatWeDo.items.length > 0 && (
+      ) : null}
+      {data?.whatWeDo?.items?.length ? (
         <WhatWeDoSection
           title={data.whatWeDo.title ?? ""}
           items={data.whatWeDo.items}
         />
-      )}
-      {data?.callToAction && data.callToAction.items && data.callToAction.items.length > 0 && (
+      ) : null}
+      {data?.callToAction?.items?.length ? (
         <CallToActionSection
           title={data.callToAction.title}
           subtitle={data.callToAction.subtitle}
           items={data.callToAction.items}
         />
-      )}
+      ) : null}
+      <FollowUsSection socialLinks={socialLinks} />
     </>
   );
 }
