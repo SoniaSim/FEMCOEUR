@@ -61,3 +61,8 @@ export type HomeCtaItem = NonNullable<
 export type IconItem = NonNullable<
   NonNullable<AboutPageQueryResult>["values"]
 >[number];
+
+// EventDetail — photo de la galerie « Retour en images »
+export type GalleryPhoto = NonNullable<
+  NonNullable<EventBySlugQueryResult>["gallery"]
+>[number];

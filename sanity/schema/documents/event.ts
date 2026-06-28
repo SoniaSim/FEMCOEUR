@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export default defineType({
   name: "event",
@@ -70,6 +70,27 @@ export default defineType({
             }),
         }),
       ],
+    }),
+    defineField({
+      name: "gallery",
+      type: "array",
+      title: "Galerie photo (events passés)",
+      description:
+        "Photos affichées dans la section « Retour en images ». Visibles uniquement quand le statut de l'événement est « Passé ». ⚠️ Formats acceptés : JPG ou PNG. Les fichiers iPhone .HEIC ne s'affichent pas dans le navigateur — convertissez-les en JPG avant l'import (sur Mac : Aperçu → Fichier → Exporter en JPEG).",
+      of: [
+        defineArrayMember({
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              type: "string",
+              title: "Texte alternatif (optionnel)",
+            }),
+          ],
+        }),
+      ],
+      validation: (Rule) => Rule.max(40),
     }),
     defineField({
       name: "registrationLink",

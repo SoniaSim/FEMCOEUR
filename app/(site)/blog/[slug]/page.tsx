@@ -80,7 +80,11 @@ export default async function ArticlePage({
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-accent/15 blur-2xl pointer-events-none" />
 
-        <div className="container relative z-10 py-10 md:py-14">
+        <div
+          className={`container relative z-10 pt-10 md:pt-14 ${
+            article.image?.url ? "pb-32 md:pb-44" : "pb-10 md:pb-14"
+          }`}
+        >
           <div className="max-w-4xl mx-auto">
             <Link
               href="/blog"
@@ -127,18 +131,19 @@ export default async function ArticlePage({
         </div>
       </section>
 
-      {/* ===== IMAGE PRINCIPALE ===== */}
+      {/* ===== IMAGE PRINCIPALE (chevauche proprement le bas du header) ===== */}
       {article.image?.url && (
-        <section className="bg-background -mt-1">
+        <section className="bg-background">
           <div className="container">
-            <div className="max-w-4xl mx-auto -translate-y-12 md:-translate-y-16">
-              <div className="relative h-64 md:h-96 lg:h-[480px] w-full rounded-3xl overflow-hidden border border-primary/15 shadow-xl">
+            <div className="relative z-10 max-w-4xl mx-auto -mt-24 md:-mt-32">
+              <div className="relative h-64 md:h-96 lg:h-[460px] w-full rounded-3xl overflow-hidden border border-primary/15 shadow-xl">
                 <SanityImage
                   image={article.image}
                   fallbackAlt={article.title ?? ""}
                   fill
+                  sizes="(max-width: 896px) 100vw, 896px"
                   className="object-cover"
-                  priority
+                  preload
                 />
               </div>
             </div>
@@ -147,7 +152,7 @@ export default async function ArticlePage({
       )}
 
       {/* ===== CONTENU ===== */}
-      <section className={`bg-background ${article.image?.url ? "-mt-12 md:-mt-16 pb-16 md:pb-24" : "py-16 md:py-24"}`}>
+      <section className={`bg-background ${article.image?.url ? "pt-10 md:pt-14 pb-16 md:pb-24" : "py-16 md:py-24"}`}>
         <div className="container">
           <article className="max-w-3xl mx-auto">
             {article.body && (
