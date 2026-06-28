@@ -17,12 +17,8 @@ export function EventsHeroSection() {
       </h1>
 
       <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
-        Découvrez nos rencontres{" "}
-        <strong className="text-primary font-bold">
-          &quot;cardiologies femmes&quot;
-        </strong>{" "}
-        : webinaires experts, ateliers patients et sessions de formation
-        certifiante.
+        Découvrez nos rencontres : webinaires experts, ateliers patients et
+        sessions de formation certifiante.
       </p>
     </PageHero>
   );

@@ -158,6 +158,14 @@ export const eventBySlugQuery = defineQuery(`
     location,
     description,
     "image": mainImage { ${imageFields} },
+    "gallery": gallery[defined(asset)]{
+      _key,
+      "url": asset->url,
+      alt,
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
     registrationLink,
     recapLink,
     "relatedArticleSlug": relatedArticle->slug.current,

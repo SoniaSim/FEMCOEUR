@@ -19,7 +19,7 @@ export function MembersHeroSection() {
       <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
         Rencontrez les{" "}
         <strong className="text-primary font-bold">
-          cardiologues femmes engagées
+          médecins et chirurgiennes en cardiologie et pathologies vasculaires
         </strong>{" "}
         qui font avancer la cardiologie au féminin en France.
       </p>

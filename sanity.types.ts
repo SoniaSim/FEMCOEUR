@@ -109,6 +109,15 @@ export type Event = {
     alt?: string;
     _type: "image";
   };
+  gallery?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
   registrationLink?: string;
   relatedArticle?: ArticleReference;
   recapLink?: string;
@@ -991,7 +1000,7 @@ export type EventsListQueryResult = Array<{
 
 // Source: lib/sanity/queries.ts
 // Variable: eventBySlugQuery
-// Query: *[_type == "event" && slug.current == $slug][0] {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    endDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    registrationLink,    recapLink,    "relatedArticleSlug": relatedArticle->slug.current,    "relatedArticleTitle": relatedArticle->title,    status,      seo {    title,    description,    image {   "url": asset->url,  alt }  }  }
+// Query: *[_type == "event" && slug.current == $slug][0] {    "id": _id,    title,    "slug": slug.current,    "date": startDate,    endDate,    location,    description,    "image": mainImage {   "url": asset->url,  alt },    "gallery": gallery[defined(asset)]{      _key,      "url": asset->url,      alt,      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    registrationLink,    recapLink,    "relatedArticleSlug": relatedArticle->slug.current,    "relatedArticleTitle": relatedArticle->title,    status,      seo {    title,    description,    image {   "url": asset->url,  alt }  }  }
 export type EventBySlugQueryResult = {
   id: string;
   title: string;
@@ -1004,6 +1013,14 @@ export type EventBySlugQueryResult = {
     url: string | null;
     alt: string | null;
   } | null;
+  gallery: Array<{
+    _key: string;
+    url: string;
+    alt: string | null;
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  }> | null;
   registrationLink: string | null;
   recapLink: string | null;
   relatedArticleSlug: string | null;
@@ -1058,7 +1075,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "article"] | order(publishedAt desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': ArticlesListQueryResult;
     '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
     '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status\n  }\n': EventsListQueryResult;
-    '\n  *[_type == "event" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': EventBySlugQueryResult;
+    '\n  *[_type == "event" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    "gallery": gallery[defined(asset)]{\n      _key,\n      "url": asset->url,\n      alt,\n      "width": asset->metadata.dimensions.width,\n      "height": asset->metadata.dimensions.height,\n      "lqip": asset->metadata.lqip\n    },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': EventBySlugQueryResult;
     '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    phone,\n    linkedin\n  }\n': MembersListQueryResult;
   }
 }
