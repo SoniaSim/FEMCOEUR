@@ -46,7 +46,9 @@ export async function getJoinPage() {
   return client.fetch<JoinPageQueryResult>(
     joinPageQuery,
     {},
-    { next: { tags: ["join"] } }
+    // Double tag : "testimonials" pour que l'édition d'un témoignage référencé
+    // rafraîchisse aussi /join (le layout est en revalidate = false).
+    { next: { tags: ["join", "testimonials"] } }
   );
 }
 

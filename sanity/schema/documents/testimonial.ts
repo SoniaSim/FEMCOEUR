@@ -14,7 +14,8 @@ export default defineType({
     defineField({
       name: "role",
       type: "string",
-      title: "Fonction / Titre",
+      title: "Spécialité / fonction",
+      description: "Ex : « Cardiologue interventionnelle », « Interne en cardiologie »",
     }),
     defineField({
       name: "content",

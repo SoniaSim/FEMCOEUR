@@ -51,6 +51,15 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "testimonials",
+      title: "Témoignages affichés",
+      description:
+        "Sélectionnez et ordonnez 1 à 3 témoignages de membres. La section est masquée si aucun n'est sélectionné.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "testimonial" }] }],
+      validation: (Rule) => Rule.max(3),
+    }),
+    defineField({
       name: "cta",
       title: "Appel à l'action final",
       type: "object",

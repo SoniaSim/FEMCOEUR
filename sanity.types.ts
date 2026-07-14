@@ -236,6 +236,13 @@ export type Member = {
   linkedin?: string;
 };
 
+export type TestimonialReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "testimonial";
+};
+
 export type JoinPage = {
   _id: string;
   _type: "joinPage";
@@ -257,6 +264,11 @@ export type JoinPage = {
     amount: number;
     year: number;
   };
+  testimonials?: Array<
+    {
+      _key: string;
+    } & TestimonialReference
+  >;
   cta?: {
     title?: string;
     body?: string;
@@ -346,6 +358,15 @@ export type AboutPage = {
   mission?: {
     title: string;
     body?: BlockContent;
+    images?: Array<{
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }>;
   };
   history?: {
     title: string;
@@ -395,6 +416,17 @@ export type HomePage = {
       _type: "image";
     };
     subtitle?: BlockContent;
+  };
+  keyStats?: {
+    eyebrow: string;
+    title: string;
+    items?: Array<{
+      value: string;
+      label: string;
+      sourceLabel?: string;
+      sourceUrl?: string;
+      _key: string;
+    }>;
   };
   whyFeminine?: {
     title: string;
@@ -484,6 +516,15 @@ export type SocialLink = {
   _type: "socialLink";
   platform: "linkedin" | "twitter" | "instagram" | "facebook" | "youtube";
   url: string;
+};
+
+export type MediaTag = {
+  _id: string;
+  _type: "media.tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -598,6 +639,7 @@ export type AllSanitySchemaTypes =
   | MemberReference
   | Article
   | Member
+  | TestimonialReference
   | JoinPage
   | CtaButton
   | IconPicker
@@ -606,6 +648,7 @@ export type AllSanitySchemaTypes =
   | HomePage
   | SiteSettings
   | SocialLink
+  | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -658,10 +701,11 @@ export type SiteSettingsQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: homePageQuery
-// Query: *[_id == "homePage"][0] {    welcome {      titlePrefix,      titleHighlight,      tagline,      subtitle,      "heroImage": heroImage {   "url": asset->url,  alt }    },    whyFeminine {      title,      items[] { _key, title, text, icon }    },    whatWeDo {      title,      items[] { _key, title, description, icon }    },    callToAction {      title,      subtitle,      items[] { _key, title, description, icon, buttonLabel, href, variant }    },    seo { title, description }  }
+// Query: *[_id == "homePage"][0] {    welcome {      titlePrefix,      titleHighlight,      tagline,      subtitle,      "heroImage": heroImage {   "url": asset->url,  alt }    },    keyStats {      eyebrow,      title,      items[] { _key, value, label, sourceLabel, sourceUrl }    },    whyFeminine {      title,      items[] { _key, title, text, icon }    },    whatWeDo {      title,      items[] { _key, title, description, icon }    },    callToAction {      title,      subtitle,      items[] { _key, title, description, icon, buttonLabel, href, variant }    },    seo { title, description }  }
 export type HomePageQueryResult =
   | {
       welcome: null;
+      keyStats: null;
       whyFeminine: null;
       whatWeDo: null;
       callToAction: null;
@@ -669,6 +713,7 @@ export type HomePageQueryResult =
     }
   | {
       welcome: null;
+      keyStats: null;
       whyFeminine: null;
       whatWeDo: null;
       callToAction: null;
@@ -679,6 +724,7 @@ export type HomePageQueryResult =
     }
   | {
       welcome: null;
+      keyStats: null;
       whyFeminine: null;
       whatWeDo: null;
       callToAction: null;
@@ -697,6 +743,17 @@ export type HomePageQueryResult =
           url: string | null;
           alt: string | null;
         } | null;
+      } | null;
+      keyStats: {
+        eyebrow: string;
+        title: string;
+        items: Array<{
+          _key: string;
+          value: string;
+          label: string;
+          sourceLabel: string | null;
+          sourceUrl: string | null;
+        }> | null;
       } | null;
       whyFeminine: {
         title: string;
@@ -792,12 +849,13 @@ export type ContactPageQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: joinPageQuery
-// Query: *[_id == "joinPage"][0] {    hero { title, subtitle, cta { label, href } },    modalities[] { _key, title, description, icon },    membershipFee { amount, year },    cta { title, body, button { label, href } },    seo { title, description }  }
+// Query: *[_id == "joinPage"][0] {    hero { title, subtitle, cta { label, href } },    modalities[] { _key, title, description, icon },    membershipFee { amount, year },    testimonials[]->{ _id, name, role, content, image {   "url": asset->url,  alt } },    cta { title, body, button { label, href } },    seo { title, description }  }
 export type JoinPageQueryResult =
   | {
       hero: null;
       modalities: null;
       membershipFee: null;
+      testimonials: null;
       cta: null;
       seo: null;
     }
@@ -805,6 +863,7 @@ export type JoinPageQueryResult =
       hero: null;
       modalities: null;
       membershipFee: null;
+      testimonials: null;
       cta: null;
       seo: {
         title: string;
@@ -815,6 +874,7 @@ export type JoinPageQueryResult =
       hero: null;
       modalities: null;
       membershipFee: null;
+      testimonials: null;
       cta: null;
       seo: {
         title: string | null;
@@ -829,6 +889,7 @@ export type JoinPageQueryResult =
       } | null;
       modalities: null;
       membershipFee: null;
+      testimonials: null;
       cta: null;
       seo: {
         title: string;
@@ -854,6 +915,16 @@ export type JoinPageQueryResult =
         amount: number;
         year: number;
       } | null;
+      testimonials: Array<{
+        _id: string;
+        name: string;
+        role: string | null;
+        content: string;
+        image: {
+          url: string | null;
+          alt: string | null;
+        } | null;
+      }> | null;
       cta: {
         title: string | null;
         body: string | null;
@@ -871,7 +942,7 @@ export type JoinPageQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: aboutPageQuery
-// Query: *[_id == "aboutPage"][0] {    hero { title, subtitle },    mission { title, body },    history { title, body },    values[] { _key, title, description, icon },    keyActions[] { _key, title, description, icon },    seo { title, description }  }
+// Query: *[_id == "aboutPage"][0] {    hero { title, subtitle },    mission {      title,      body,      images[] {        _key,        "url": asset->url,        alt,        "hotspot": hotspot { x, y }      }    },    history { title, body },    values[] { _key, title, description, icon },    keyActions[] { _key, title, description, icon },    seo { title, description }  }
 export type AboutPageQueryResult =
   | {
       hero: null;
@@ -925,6 +996,15 @@ export type AboutPageQueryResult =
       mission: {
         title: string;
         body: BlockContent | null;
+        images: Array<{
+          _key: string;
+          url: string | null;
+          alt: string | null;
+          hotspot: {
+            x: number;
+            y: number;
+          } | null;
+        }> | null;
       } | null;
       history: {
         title: string;
@@ -1082,10 +1162,10 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_id == "siteSettings"][0] {\n    associationName,\n    tagline,\n    shortMission,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    contactEmails[] {\n      label,\n      email,\n      description,\n      icon\n    },\n    socialLinks[] {\n      platform,\n      url\n    },\n    footerColumns[] {\n      title,\n      links[] {\n        label,\n        href\n      }\n    }\n  }\n': SiteSettingsQueryResult;
-    '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      tagline,\n      subtitle,\n      "heroImage": heroImage { \n  "url": asset->url,\n  alt\n }\n    },\n    whyFeminine {\n      title,\n      items[] { _key, title, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
+    '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      tagline,\n      subtitle,\n      "heroImage": heroImage { \n  "url": asset->url,\n  alt\n }\n    },\n    keyStats {\n      eyebrow,\n      title,\n      items[] { _key, value, label, sourceLabel, sourceUrl }\n    },\n    whyFeminine {\n      title,\n      items[] { _key, title, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
     '\n  *[_id == "contactPage"][0] {\n    hero { title, subtitle },\n    formIntro,\n    contactInfoTitle,\n    seo { title, description }\n  }\n': ContactPageQueryResult;
-    '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle, cta { label, href } },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
-    '\n  *[_id == "aboutPage"][0] {\n    hero { title, subtitle },\n    mission { title, body },\n    history { title, body },\n    values[] { _key, title, description, icon },\n    keyActions[] { _key, title, description, icon },\n    seo { title, description }\n  }\n': AboutPageQueryResult;
+    '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle, cta { label, href } },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    testimonials[]->{ _id, name, role, content, image { \n  "url": asset->url,\n  alt\n } },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
+    '\n  *[_id == "aboutPage"][0] {\n    hero { title, subtitle },\n    mission {\n      title,\n      body,\n      images[] {\n        _key,\n        "url": asset->url,\n        alt,\n        "hotspot": hotspot { x, y }\n      }\n    },\n    history { title, body },\n    values[] { _key, title, description, icon },\n    keyActions[] { _key, title, description, icon },\n    seo { title, description }\n  }\n': AboutPageQueryResult;
     '\n  *[_type == "article"] | order(publishedAt desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': ArticlesListQueryResult;
     '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
     '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status\n  }\n': EventsListQueryResult;

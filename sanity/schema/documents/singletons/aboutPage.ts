@@ -21,6 +21,35 @@ export default defineType({
       fields: [
         defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
         defineField({ name: "body", title: "Contenu", type: "blockContent" }),
+        defineField({
+          name: "images",
+          title: "Photos (sous le manifeste)",
+          description:
+            "1 à 3 photos inclinées façon polaroïd, affichées sous le texte de mission. 2 ou 3 rendent le mieux. Section masquée si vide.",
+          type: "array",
+          validation: (Rule) => Rule.max(3),
+          of: [
+            {
+              type: "image",
+              options: { hotspot: true },
+              fields: [
+                defineField({
+                  name: "alt",
+                  type: "string",
+                  title: "Texte alternatif",
+                  validation: (Rule) =>
+                    Rule.custom((alt, context) => {
+                      const parent = context.parent as { asset?: unknown } | undefined;
+                      if (parent?.asset && (!alt || !String(alt).trim())) {
+                        return "Texte alternatif requis lorsqu'une image est définie";
+                      }
+                      return true;
+                    }),
+                }),
+              ],
+            },
+          ],
+        }),
       ],
     }),
     defineField({

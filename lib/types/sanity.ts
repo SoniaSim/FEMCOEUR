@@ -47,6 +47,9 @@ export type FooterColumn = NonNullable<
 export type FooterLink = NonNullable<FooterColumn["links"]>[number];
 
 // HomePage
+export type HomeKeyStat = NonNullable<
+  NonNullable<NonNullable<HomePageQueryResult>["keyStats"]>["items"]
+>[number];
 export type HomeWhyItem = NonNullable<
   NonNullable<NonNullable<HomePageQueryResult>["whyFeminine"]>["items"]
 >[number];
@@ -60,6 +63,16 @@ export type HomeCtaItem = NonNullable<
 // Partagé entre AboutPage (values, keyActions) et JoinPage (modalities)
 export type IconItem = NonNullable<
   NonNullable<AboutPageQueryResult>["values"]
+>[number];
+
+// AboutPage — photos inclinées sous le manifeste de mission
+export type AboutMissionImage = NonNullable<
+  NonNullable<NonNullable<AboutPageQueryResult>["mission"]>["images"]
+>[number];
+
+// JoinPage — témoignages référencés
+export type JoinTestimonial = NonNullable<
+  NonNullable<JoinPageQueryResult>["testimonials"]
 >[number];
 
 // EventDetail — photo de la galerie « Retour en images »

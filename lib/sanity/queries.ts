@@ -55,6 +55,11 @@ export const homePageQuery = defineQuery(`
       subtitle,
       "heroImage": heroImage { ${imageFields} }
     },
+    keyStats {
+      eyebrow,
+      title,
+      items[] { _key, value, label, sourceLabel, sourceUrl }
+    },
     whyFeminine {
       title,
       items[] { _key, title, text, icon }
@@ -86,6 +91,7 @@ export const joinPageQuery = defineQuery(`
     hero { title, subtitle, cta { label, href } },
     modalities[] { _key, title, description, icon },
     membershipFee { amount, year },
+    testimonials[]->{ _id, name, role, content, image { ${imageFields} } },
     cta { title, body, button { label, href } },
     seo { title, description }
   }
@@ -94,7 +100,16 @@ export const joinPageQuery = defineQuery(`
 export const aboutPageQuery = defineQuery(`
   *[_id == "aboutPage"][0] {
     hero { title, subtitle },
-    mission { title, body },
+    mission {
+      title,
+      body,
+      images[] {
+        _key,
+        "url": asset->url,
+        alt,
+        "hotspot": hotspot { x, y }
+      }
+    },
     history { title, body },
     values[] { _key, title, description, icon },
     keyActions[] { _key, title, description, icon },
