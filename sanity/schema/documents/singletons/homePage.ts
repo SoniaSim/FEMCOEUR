@@ -25,6 +25,38 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
         defineField({
+          name: "tagline",
+          title: "Accroche (sous le titre)",
+          type: "text",
+          rows: 2,
+          description:
+            "Phrase d'accroche affichée sous « FEMCOEUR » dans le hero. Ex : « Faire entendre la voix des femmes en cardiologie, pour une médecine plus juste, inclusive et représentative. »",
+          validation: (Rule) => Rule.max(180),
+        }),
+        defineField({
+          name: "heroImage",
+          title: "Photo du hero",
+          type: "image",
+          description:
+            "Photo de couverture affichée à droite du titre. ⚠️ JPG ou PNG (pas de .HEIC). Privilégier une photo lumineuse de la communauté.",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              type: "string",
+              title: "Texte alternatif",
+              validation: (Rule) =>
+                Rule.custom((alt, context) => {
+                  const parent = context.parent as { asset?: unknown } | undefined;
+                  if (parent?.asset && (!alt || !String(alt).trim())) {
+                    return "Texte alternatif requis lorsqu'une image est définie";
+                  }
+                  return true;
+                }),
+            }),
+          ],
+        }),
+        defineField({
           name: "subtitle",
           title: "Sous-titre",
           type: "blockContent",

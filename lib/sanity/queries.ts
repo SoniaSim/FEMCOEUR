@@ -51,7 +51,9 @@ export const homePageQuery = defineQuery(`
     welcome {
       titlePrefix,
       titleHighlight,
-      subtitle
+      tagline,
+      subtitle,
+      "heroImage": heroImage { ${imageFields} }
     },
     whyFeminine {
       title,

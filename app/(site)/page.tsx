@@ -33,6 +33,8 @@ export default async function Home() {
       <WelcomeSection
         titlePrefix={data?.welcome?.titlePrefix ?? "Bienvenue au sein du premier réseau français de"}
         titleHighlight={data?.welcome?.titleHighlight ?? "femmes médecins et chirurgiennes cardiovasculaires"}
+        tagline={data?.welcome?.tagline}
+        heroImage={data?.welcome?.heroImage}
         subtitle={data?.welcome?.subtitle}
       />
       {data?.whyFeminine?.items?.length ? (
