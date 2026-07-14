@@ -1,5 +1,6 @@
 import { JoinHeroSection } from "@/components/content/join/JoinHeroSection";
 import { MembershipModalitiesSection } from "@/components/content/join/MembershipModalitiesSection";
+import { TestimonialsSection } from "@/components/content/join/TestimonialsSection";
 import { JoinCtaSection } from "@/components/content/join/JoinCtaSection";
 import { FollowUsSection } from "@/components/content/shared/FollowUsSection";
 import { getJoinPage, getSiteSettings } from "@/lib/sanity/fetch";
@@ -46,6 +47,9 @@ export default async function JoinPage() {
               : null
           }
         />
+      ) : null}
+      {data?.testimonials?.length ? (
+        <TestimonialsSection testimonials={data.testimonials} />
       ) : null}
       <JoinCtaSection
         title={data?.cta?.title}

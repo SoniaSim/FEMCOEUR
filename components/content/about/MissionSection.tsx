@@ -1,10 +1,15 @@
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { BlockContent } from "@/sanity.types";
+import type { AboutMissionImage } from "@/lib/types/sanity";
 
 interface MissionSectionProps {
   title: string | null;
   body?: BlockContent | null;
+  images?: AboutMissionImage[] | null;
 }
+
+// Inclinaisons alternées façon photos épinglées.
+const MISSION_TILTS = ["-rotate-6", "rotate-3", "-rotate-3"];
 
 const manifestoComponents: PortableTextComponents = {
   block: {
@@ -26,7 +31,8 @@ const manifestoComponents: PortableTextComponents = {
   },
 };
 
-export function MissionSection({ title, body }: MissionSectionProps) {
+export function MissionSection({ title, body, images }: MissionSectionProps) {
+  const photos = (images ?? []).filter((photo) => photo.url);
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-b from-background via-primary/5 to-background overflow-hidden">
       {/* Blob décoratif */}
@@ -72,6 +78,32 @@ export function MissionSection({ title, body }: MissionSectionProps) {
               </svg>
 
               <PortableText value={body} components={manifestoComponents} />
+            </div>
+          )}
+
+          {/* Cluster de photos inclinées façon polaroïd */}
+          {photos.length > 0 && (
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-0">
+              {photos.map((photo, i) => {
+                const posX = (photo.hotspot?.x ?? 0.5) * 100;
+                const posY = (photo.hotspot?.y ?? 0.5) * 100;
+                return (
+                  <div
+                    key={photo._key}
+                    className={`relative rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/5 ${MISSION_TILTS[i % MISSION_TILTS.length]} ${i > 0 ? "-ml-4 sm:-ml-6" : ""}`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`${photo.url}?w=480&h=360&fit=crop&auto=format`}
+                      alt={photo.alt ?? ""}
+                      className="h-24 w-32 rounded-xl object-cover sm:h-40 sm:w-52"
+                      style={{ objectPosition: `${posX}% ${posY}%` }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                );
+              })}
             </div>
           )}
 

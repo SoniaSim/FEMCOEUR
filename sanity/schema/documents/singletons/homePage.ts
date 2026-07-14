@@ -25,9 +25,108 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
         defineField({
+          name: "tagline",
+          title: "Accroche (sous le titre)",
+          type: "text",
+          rows: 2,
+          description:
+            "Phrase d'accroche affichée sous « FEMCOEUR » dans le hero. Ex : « Faire entendre la voix des femmes en cardiologie, pour une médecine plus juste, inclusive et représentative. »",
+          validation: (Rule) => Rule.max(180),
+        }),
+        defineField({
+          name: "heroImage",
+          title: "Photo du hero",
+          type: "image",
+          description:
+            "Photo de couverture affichée à droite du titre. ⚠️ JPG ou PNG (pas de .HEIC). Privilégier une photo lumineuse de la communauté.",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              type: "string",
+              title: "Texte alternatif",
+              validation: (Rule) =>
+                Rule.custom((alt, context) => {
+                  const parent = context.parent as { asset?: unknown } | undefined;
+                  if (parent?.asset && (!alt || !String(alt).trim())) {
+                    return "Texte alternatif requis lorsqu'une image est définie";
+                  }
+                  return true;
+                }),
+            }),
+          ],
+        }),
+        defineField({
           name: "subtitle",
           title: "Sous-titre",
           type: "blockContent",
+        }),
+      ],
+    }),
+    defineField({
+      name: "keyStats",
+      title: "Chiffres-clés (bande engagée)",
+      description:
+        "Bande de statistiques sur fond navy. Masquée s'il y a moins de 2 chiffres.",
+      type: "object",
+      fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Sur-titre (petit badge au-dessus)",
+          type: "string",
+          description: "Ex : « La réalité en chiffres »",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "title",
+          title: "Titre de la bande",
+          type: "string",
+          description: "Ex : « Le cœur des femmes nous concerne toutes »",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "items",
+          title: "Statistiques",
+          description:
+            "2 à 4 statistiques sourcées. La bande est masquée s'il y en a moins de 2.",
+          type: "array",
+          validation: (Rule) => Rule.min(2).max(4),
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "value",
+                  title: "Valeur",
+                  type: "string",
+                  description: "Ex : « 1 sur 3 », « 56 % », « ×3 »",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "label",
+                  title: "Libellé",
+                  type: "string",
+                  description:
+                    "Ex : « des décès féminins sont d'origine cardiovasculaire »",
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: "sourceLabel",
+                  title: "Source",
+                  type: "string",
+                  description: "Ex : « ESC, 2024 »",
+                }),
+                defineField({
+                  name: "sourceUrl",
+                  title: "Lien source (optionnel)",
+                  type: "url",
+                }),
+              ],
+              preview: {
+                select: { title: "value", subtitle: "label" },
+              },
+            },
+          ],
         }),
       ],
     }),

@@ -27,7 +27,11 @@ export default async function AboutPage() {
         subtitle={data?.hero?.subtitle}
       />
       {data?.mission && (
-        <MissionSection title={data.mission.title} body={data.mission.body} />
+        <MissionSection
+          title={data.mission.title}
+          body={data.mission.body}
+          images={data.mission.images}
+        />
       )}
       {data?.history && (
         <HistorySection title={data.history.title} body={data.history.body} />
