@@ -1,4 +1,5 @@
 import { getIcon } from "@/lib/icons";
+import { TitleWithFemcoeurMark } from "@/components/ui/title-with-femcoeur-mark";
 import type { HomeWhyItem } from "@/lib/types/sanity";
 
 interface WhyFeminineSectionProps {
@@ -13,7 +14,7 @@ export function WhyFeminineSection({ title, items }: WhyFeminineSectionProps) {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground leading-tight">
-              {title}
+              <TitleWithFemcoeurMark title={title} />
             </h2>
             <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-primary to-accent" />
           </div>
@@ -32,7 +33,9 @@ export function WhyFeminineSection({ title, items }: WhyFeminineSectionProps) {
                   <div className="relative grid grid-cols-[auto_1fr] sm:grid-cols-1 gap-x-4 gap-y-3 sm:gap-y-0">
                     {/* Icône : à gauche du titre sur mobile, au-dessus sur desktop (grille 3-col oblige) */}
                     <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center bg-primary/10 sm:mb-5">
-                      {Icon && <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />}
+                      {Icon && (
+                        <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
+                      )}
                     </div>
 
                     {/* Titre */}

@@ -23,7 +23,8 @@ function formatRole(role: string | null | undefined): string | null {
 }
 
 function MemberCard({ member }: { member: Member }) {
-  const fullName = [member.firstName, member.lastName].filter(Boolean).join(" ") || "Membre";
+  const fullName =
+    [member.firstName, member.lastName].filter(Boolean).join(" ") || "Membre";
   const bio = toPlainText(member.biography);
   const hasContacts = Boolean(member.linkedin || member.email);
 
@@ -100,7 +101,12 @@ interface GroupProps {
   variant?: "default" | "secondary";
 }
 
-function MembersGroup({ badge, title, members, variant = "default" }: GroupProps) {
+function MembersGroup({
+  badge,
+  title,
+  members,
+  variant = "default",
+}: GroupProps) {
   const isDark = variant === "secondary";
   return (
     <section
@@ -175,7 +181,7 @@ export async function MembersListSection() {
       {boardMembers.length > 0 && (
         <MembersGroup
           badge="Notre direction"
-          title="Le Bureau Femcoeur"
+          title="Le Bureau FemCoeur"
           members={boardMembers}
         />
       )}

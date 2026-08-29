@@ -9,7 +9,7 @@ interface AboutHeroSectionProps {
 export function AboutHeroSection({ title, subtitle }: AboutHeroSectionProps) {
   return (
     <PageHero
-      badge="Notre association"
+      badge="Qui nous sommes"
       leftImage="/illustrations/about.svg"
       rightImage="/illustrations/powerful-pana.svg"
     >

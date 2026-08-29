@@ -14,11 +14,6 @@ export function ContactFormSection({ intro }: ContactFormSectionProps) {
             <div className="absolute top-0 left-12 right-12 h-1 rounded-full bg-gradient-to-r from-primary to-accent" />
 
             <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-4 bg-primary/15 border border-primary/30">
-                <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-                  Écrivez-nous
-                </span>
-              </div>
               <h2 className="text-2xl md:text-3xl font-black text-foreground leading-tight">
                 Envoyez-nous un message
               </h2>

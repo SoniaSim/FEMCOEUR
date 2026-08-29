@@ -32,7 +32,7 @@ function renderTitle(title: string) {
 export function ContactHeroSection({ title, subtitle }: ContactHeroSectionProps) {
   return (
     <PageHero
-      badge="Restons en lien"
+      badge="Parlons-en"
       leftImage="/illustrations/contact.svg"
       rightImage="/illustrations/cardiologist-pana.svg"
     >

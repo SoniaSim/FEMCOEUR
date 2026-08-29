@@ -71,7 +71,7 @@ export function WelcomeSection({
                   size="lg"
                   className="font-bold px-8 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
                 >
-                  <Link href="/join">Rejoindre FEMCOEUR</Link>
+                  <Link href="/join">Rejoindre le mouvement</Link>
                 </Button>
               </div>
             </div>
@@ -105,7 +105,7 @@ export function WelcomeSection({
         <section id="mission" className="py-4 md:py-6 bg-background">
           <div className="container">
             <div className="max-w-4xl mx-auto">
-              <EditorialCard cta={{ label: "Rejoindre FEMCOEUR", href: "/join" }}>
+              <EditorialCard cta={{ label: "Rejoindre le mouvement", href: "/join" }}>
                 <PortableText value={subtitle} components={basePortableTextComponents} />
               </EditorialCard>
             </div>

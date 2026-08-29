@@ -33,7 +33,7 @@ export function MembershipModalitiesSection({
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-secondary-foreground leading-tight">
-              Modalités d&apos;adhésion
+              Comment nous rejoindre
             </h2>
             <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-primary to-accent" />
 

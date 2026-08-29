@@ -4,7 +4,7 @@ import { PageHero } from "@/components/content/shared/PageHero";
 export function EventsHeroSection() {
   return (
     <PageHero
-      badge="Notre agenda"
+      badge="Nos rendez-vous"
       leftImage="/illustrations/event.svg"
       rightImage="/illustrations/conference-speaker-bro.svg"
     >
@@ -17,8 +17,8 @@ export function EventsHeroSection() {
       </h1>
 
       <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
-        Découvrez nos rencontres : webinaires experts, ateliers patients et
-        sessions de formation certifiante.
+        Webinaires experts, ateliers patients, formations certifiantes{"\u202F"}:
+        des rendez-vous pour faire avancer la cardiologie au féminin.
       </p>
     </PageHero>
   );
