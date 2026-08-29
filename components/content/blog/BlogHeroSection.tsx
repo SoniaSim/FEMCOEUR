@@ -4,7 +4,7 @@ import { PageHero } from "@/components/content/shared/PageHero";
 export function BlogHeroSection() {
   return (
     <PageHero
-      badge="Le journal"
+      badge="Prise de parole"
       leftImage="/illustrations/oline-article-pana.svg"
       rightImage="/illustrations/resource.svg"
     >

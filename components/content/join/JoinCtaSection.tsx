@@ -65,7 +65,7 @@ export function JoinCtaSection({
                 >
                   <a href={`mailto:${email}`}>
                     <Mail className="w-5 h-5" />
-                    Envoyer un email
+                    Nous écrire
                   </a>
                 </Button>
               </div>

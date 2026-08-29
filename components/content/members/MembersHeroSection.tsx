@@ -19,9 +19,11 @@ export function MembersHeroSection() {
       <p className="text-base md:text-lg text-foreground/65 leading-relaxed">
         Rencontrez les{" "}
         <strong className="text-primary font-bold">
-          médecins et chirurgiennes en cardiologie et pathologies vasculaires
+          médecins et chirurgiennes
         </strong>{" "}
-        qui font avancer la cardiologie au féminin en France.
+        qui font avancer la prise en charge des maladies cardiaques et
+        vasculaires et portent l&apos;ambition d&apos;une médecine au féminin en
+        France.
       </p>
     </PageHero>
   );

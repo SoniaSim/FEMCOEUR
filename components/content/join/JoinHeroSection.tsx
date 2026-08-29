@@ -15,7 +15,7 @@ export function JoinHeroSection({ title, subtitle, cta }: JoinHeroSectionProps) 
   return (
     <>
       <PageHero
-        badge="Adhésion"
+        badge="Passer à l'action"
         leftImage="/illustrations/join.svg"
         rightImage="/illustrations/welcome-rafiki.svg"
       >
