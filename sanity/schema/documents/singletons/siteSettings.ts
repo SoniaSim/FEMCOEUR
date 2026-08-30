@@ -68,6 +68,38 @@ export default defineType({
       of: [{ type: "socialLink" }],
     }),
     defineField({
+      name: "newsletter",
+      title: "Newsletter (section « Restons en contact »)",
+      description:
+        "Textes du bloc d'inscription. La mention légale (RGPD) et le lien vers la politique de confidentialité ne sont pas modifiables ici : ils engagent l'association et restent dans le code.",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Titre de la section",
+          type: "string",
+          description: "Ex : « Restons en contact »",
+          validation: (Rule) => Rule.required().max(60),
+        }),
+        defineField({
+          name: "description",
+          title: "Promesse",
+          type: "text",
+          rows: 2,
+          description:
+            "Ce que la visiteuse recevra. Éviter d'annoncer une fréquence qui ne serait pas tenue. Ex : « Quelques mails par an : nos événements, nos publications et la vie du réseau. »",
+          validation: (Rule) => Rule.required().max(200),
+        }),
+        defineField({
+          name: "buttonLabel",
+          title: "Libellé du bouton",
+          type: "string",
+          description: "Ex : « S'inscrire ». Laisser vide pour utiliser « S'inscrire ».",
+          validation: (Rule) => Rule.max(30),
+        }),
+      ],
+    }),
+    defineField({
       name: "footerColumns",
       title: "Colonnes du footer",
       type: "array",

@@ -1,5 +1,7 @@
 import { BlogHeroSection } from "@/components/content/blog/BlogHeroSection";
 import { BlogListSection } from "@/components/content/blog/BlogListSection";
+import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
+import { getSiteSettings } from "@/lib/sanity/fetch";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,11 +13,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <>
       <BlogHeroSection />
       <BlogListSection />
+      <StayInTouchSection
+        socialLinks={siteSettings?.socialLinks ?? []}
+        newsletter={siteSettings?.newsletter ?? null}
+      />
     </>
   );
 }

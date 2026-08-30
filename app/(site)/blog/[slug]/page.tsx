@@ -1,4 +1,8 @@
-import { getArticleBySlug, getArticles } from "@/lib/sanity/fetch";
+import {
+  getArticleBySlug,
+  getArticles,
+  getSiteSettings,
+} from "@/lib/sanity/fetch";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
@@ -8,6 +12,7 @@ import type { Metadata } from "next";
 import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
+import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
 
 const CATEGORY_LABELS: Record<string, string> = {
   research: "Recherche",
@@ -67,7 +72,10 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const [article, siteSettings] = await Promise.all([
+    getArticleBySlug(slug),
+    getSiteSettings(),
+  ]);
 
   if (!article) {
     notFound();
@@ -199,6 +207,11 @@ export default async function ArticlePage({
           </div>
         </div>
       </section>
+
+      <StayInTouchSection
+        socialLinks={siteSettings?.socialLinks ?? []}
+        newsletter={siteSettings?.newsletter ?? null}
+      />
     </>
   );
 }

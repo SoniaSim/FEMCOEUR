@@ -1,5 +1,7 @@
 import { EventsHeroSection } from "@/components/content/events/EventsHeroSection";
 import { EventsListSection } from "@/components/content/events/EventsListSection";
+import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
+import { getSiteSettings } from "@/lib/sanity/fetch";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,11 +13,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <>
       <EventsHeroSection />
       <EventsListSection />
+      <StayInTouchSection
+        socialLinks={siteSettings?.socialLinks ?? []}
+        newsletter={siteSettings?.newsletter ?? null}
+      />
     </>
   );
 }

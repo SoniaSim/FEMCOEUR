@@ -88,9 +88,9 @@ export default defineType({
           name: "items",
           title: "Statistiques",
           description:
-            "2 à 4 statistiques sourcées. La bande est masquée s'il y en a moins de 2.",
+            "2 à 5 statistiques sourcées. La bande est masquée s'il y en a moins de 2.",
           type: "array",
-          validation: (Rule) => Rule.min(2).max(4),
+          validation: (Rule) => Rule.min(2).max(5),
           of: [
             {
               type: "object",

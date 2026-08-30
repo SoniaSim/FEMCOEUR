@@ -41,6 +41,9 @@ export type ContactEmail = NonNullable<
 export type SocialLink = NonNullable<
   NonNullable<SiteSettingsQueryResult>["socialLinks"]
 >[number];
+export type NewsletterSettings = NonNullable<
+  NonNullable<SiteSettingsQueryResult>["newsletter"]
+>;
 export type FooterColumn = NonNullable<
   NonNullable<SiteSettingsQueryResult>["footerColumns"]
 >[number];

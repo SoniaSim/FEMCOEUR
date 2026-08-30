@@ -501,6 +501,11 @@ export type SiteSettings = {
       _key: string;
     } & SocialLink
   >;
+  newsletter?: {
+    title: string;
+    description: string;
+    buttonLabel?: string;
+  };
   footerColumns?: Array<{
     title: string;
     links?: Array<{
@@ -660,7 +665,7 @@ export type AllSanitySchemaTypes =
 
 // Source: lib/sanity/queries.ts
 // Variable: siteSettingsQuery
-// Query: *[_id == "siteSettings"][0] {    associationName,    tagline,    shortMission,    "logo": logo {   "url": asset->url,  alt },    contactEmails[] {      label,      email,      description,      icon    },    socialLinks[] {      platform,      url    },    footerColumns[] {      title,      links[] {        label,        href      }    }  }
+// Query: *[_id == "siteSettings"][0] {    associationName,    tagline,    shortMission,    "logo": logo {   "url": asset->url,  alt },    contactEmails[] {      label,      email,      description,      icon    },    socialLinks[] {      platform,      url    },    newsletter {      title,      description,      buttonLabel    },    footerColumns[] {      title,      links[] {        label,        href      }    }  }
 export type SiteSettingsQueryResult =
   | {
       associationName: null;
@@ -669,6 +674,7 @@ export type SiteSettingsQueryResult =
       logo: null;
       contactEmails: null;
       socialLinks: null;
+      newsletter: null;
       footerColumns: null;
     }
   | {
@@ -689,6 +695,11 @@ export type SiteSettingsQueryResult =
         platform: "facebook" | "instagram" | "linkedin" | "twitter" | "youtube";
         url: string;
       }> | null;
+      newsletter: {
+        title: string;
+        description: string;
+        buttonLabel: string | null;
+      } | null;
       footerColumns: Array<{
         title: string;
         links: Array<{
@@ -1161,7 +1172,7 @@ export type MembersListQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id == "siteSettings"][0] {\n    associationName,\n    tagline,\n    shortMission,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    contactEmails[] {\n      label,\n      email,\n      description,\n      icon\n    },\n    socialLinks[] {\n      platform,\n      url\n    },\n    footerColumns[] {\n      title,\n      links[] {\n        label,\n        href\n      }\n    }\n  }\n': SiteSettingsQueryResult;
+    '\n  *[_id == "siteSettings"][0] {\n    associationName,\n    tagline,\n    shortMission,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    contactEmails[] {\n      label,\n      email,\n      description,\n      icon\n    },\n    socialLinks[] {\n      platform,\n      url\n    },\n    newsletter {\n      title,\n      description,\n      buttonLabel\n    },\n    footerColumns[] {\n      title,\n      links[] {\n        label,\n        href\n      }\n    }\n  }\n': SiteSettingsQueryResult;
     '\n  *[_id == "homePage"][0] {\n    welcome {\n      titlePrefix,\n      titleHighlight,\n      tagline,\n      subtitle,\n      "heroImage": heroImage { \n  "url": asset->url,\n  alt\n }\n    },\n    keyStats {\n      eyebrow,\n      title,\n      items[] { _key, value, label, sourceLabel, sourceUrl }\n    },\n    whyFeminine {\n      title,\n      items[] { _key, title, text, icon }\n    },\n    whatWeDo {\n      title,\n      items[] { _key, title, description, icon }\n    },\n    callToAction {\n      title,\n      subtitle,\n      items[] { _key, title, description, icon, buttonLabel, href, variant }\n    },\n    seo { title, description }\n  }\n': HomePageQueryResult;
     '\n  *[_id == "contactPage"][0] {\n    hero { title, subtitle },\n    formIntro,\n    contactInfoTitle,\n    seo { title, description }\n  }\n': ContactPageQueryResult;
     '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle, cta { label, href } },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    testimonials[]->{ _id, name, role, content, image { \n  "url": asset->url,\n  alt\n } },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;

@@ -1,4 +1,8 @@
-import { getEventBySlug, getEvents } from "@/lib/sanity/fetch";
+import {
+  getEventBySlug,
+  getEvents,
+  getSiteSettings,
+} from "@/lib/sanity/fetch";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
@@ -16,6 +20,7 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { getRecapLink } from "@/lib/events/recap";
 import { EventGallerySection } from "@/components/content/events/EventGallerySection";
+import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
 
 export async function generateStaticParams() {
   const events = await getEvents();
@@ -63,7 +68,10 @@ export default async function EventPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const event = await getEventBySlug(slug);
+  const [event, siteSettings] = await Promise.all([
+    getEventBySlug(slug),
+    getSiteSettings(),
+  ]);
 
   if (!event) {
     notFound();
@@ -282,6 +290,11 @@ export default async function EventPage({
           </div>
         </div>
       </section>
+
+      <StayInTouchSection
+        socialLinks={siteSettings?.socialLinks ?? []}
+        newsletter={siteSettings?.newsletter ?? null}
+      />
     </>
   );
 }

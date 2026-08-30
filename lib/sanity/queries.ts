@@ -34,6 +34,11 @@ export const siteSettingsQuery = defineQuery(`
       platform,
       url
     },
+    newsletter {
+      title,
+      description,
+      buttonLabel
+    },
     footerColumns[] {
       title,
       links[] {

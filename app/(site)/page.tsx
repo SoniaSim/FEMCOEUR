@@ -4,7 +4,7 @@ import { KeyStatsSection } from "@/components/content/home/KeyStatsSection";
 import { WhyFeminineSection } from "@/components/content/home/WhyFeminineSection";
 import { WhatWeDoSection } from "@/components/content/home/WhatWeDoSection";
 import { CallToActionSection } from "@/components/content/home/CallToActionSection";
-import { FollowUsSection } from "@/components/content/shared/FollowUsSection";
+import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
 import { getHomePage, getSiteSettings } from "@/lib/sanity/fetch";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -81,7 +81,10 @@ export default async function Home() {
           items={data.callToAction.items}
         />
       ) : null}
-      <FollowUsSection socialLinks={socialLinks} />
+      <StayInTouchSection
+        socialLinks={socialLinks}
+        newsletter={siteSettings?.newsletter ?? null}
+      />
     </>
   );
 }
