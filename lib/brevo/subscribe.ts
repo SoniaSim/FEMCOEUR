@@ -1,4 +1,5 @@
 const DOI_ENDPOINT = "https://api.brevo.com/v3/contacts/doubleOptinConfirmation";
+const BLOCKED_CONTACTS_ENDPOINT = "https://api.brevo.com/v3/smtp/blockedContacts";
 
 /**
  * Résultat de l'appel à Brevo, décrit tel qu'il s'est réellement produit.
@@ -63,6 +64,44 @@ async function readErrorPayload(
 }
 
 /**
+ * Lève un éventuel blocage transactionnel sur l'adresse.
+ *
+ * Le lien « Se désinscrire » du mail de bienvenue (envoyé par le scénario Brevo
+ * comme email transactionnel) inscrit l'adresse sur la liste de blocage
+ * transactionnelle. Or le mail de confirmation double opt-in est lui aussi
+ * transactionnel : sans ce déblocage, une personne désabonnée depuis le mail de
+ * bienvenue ne recevrait plus jamais de confirmation et ne pourrait plus se
+ * réinscrire (constaté le 06/09/2026, événements Brevo « blocked »).
+ *
+ * Ne concerne que les emails transactionnels : le blocklistage marketing n'est
+ * levé que par le clic de confirmation, comme prévu par le double opt-in.
+ * Une erreur ici ne doit pas faire échouer l'inscription — on tente, on
+ * continue. 404 = l'adresse n'était pas bloquée, c'est le cas normal.
+ */
+async function unblockTransactional(
+  email: string,
+  apiKey: string
+): Promise<void> {
+  try {
+    const response = await fetch(
+      `${BLOCKED_CONTACTS_ENDPOINT}/${encodeURIComponent(email)}`,
+      {
+        method: "DELETE",
+        headers: { "api-key": apiKey, accept: "application/json" },
+      }
+    );
+    if (!response.ok && response.status !== 404) {
+      console.warn(
+        `[newsletter] déblocage transactionnel ignoré : Brevo a répondu ${response.status}`
+      );
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "erreur inconnue";
+    console.warn(`[newsletter] déblocage transactionnel ignoré : ${message}`);
+  }
+}
+
+/**
  * Inscrit une adresse en double opt-in : Brevo envoie l'email de confirmation,
  * et le contact n'entre dans la liste qu'après le clic. C'est ce clic, horodaté
  * par Brevo, qui constitue la preuve du consentement exigée par le RGPD.
@@ -78,6 +117,8 @@ export async function subscribeToNewsletter(
       detail: `variables d'environnement manquantes ou invalides : ${config.missing.join(", ")}`,
     };
   }
+
+  await unblockTransactional(email, config.apiKey);
 
   let response: Response;
 
