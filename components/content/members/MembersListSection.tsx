@@ -17,6 +17,18 @@ const ROLE_LABELS: Record<string, string> = {
   "membre-bureau": "Membre du bureau",
 };
 
+// Pas de valeur (membres créés avant l'ajout du champ) = "Dre." par défaut.
+const HONORIFIC_LABELS: Record<string, string | null> = {
+  dre: "Dre.",
+  dr: "Dr.",
+  none: null,
+};
+
+function formatHonorific(honorific: string | null | undefined): string | null {
+  if (!honorific) return "Dre.";
+  return HONORIFIC_LABELS[honorific] ?? null;
+}
+
 function formatRole(role: string | null | undefined): string | null {
   if (!role) return null;
   return ROLE_LABELS[role] ?? role;
@@ -25,6 +37,9 @@ function formatRole(role: string | null | undefined): string | null {
 function MemberCard({ member }: { member: Member }) {
   const fullName =
     [member.firstName, member.lastName].filter(Boolean).join(" ") || "Membre";
+  const displayName = [formatHonorific(member.honorific), fullName]
+    .filter(Boolean)
+    .join(" ");
   const bio = toPlainText(member.biography);
   const hasContacts = Boolean(member.linkedin || member.email);
 
@@ -42,7 +57,7 @@ function MemberCard({ member }: { member: Member }) {
       </Avatar>
 
       <h3 className="text-lg md:text-xl font-bold text-foreground leading-tight mb-3">
-        Dre. {member.firstName} {member.lastName}
+        {displayName}
       </h3>
 
       <div className="flex flex-wrap items-center justify-center gap-2 mb-4">

@@ -131,7 +131,7 @@ export default async function ArticlePage({
                   <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
                     <User className="w-3.5 h-3.5 text-primary" />
                   </span>
-                  <span className="font-semibold">Dre. {article.author}</span>
+                  <span className="font-semibold">{article.author}</span>
                 </div>
               )}
             </div>

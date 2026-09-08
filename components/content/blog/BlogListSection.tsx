@@ -67,7 +67,7 @@ function ArticleCard({ article }: { article: Article }) {
               <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
                 <User className="w-3.5 h-3.5 text-primary" />
               </span>
-              <span className="line-clamp-1">Dre. {article.author}</span>
+              <span className="line-clamp-1">{article.author}</span>
             </div>
           )}
         </div>

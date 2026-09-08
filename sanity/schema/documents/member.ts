@@ -18,6 +18,22 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "honorific",
+      type: "string",
+      title: "Civilité",
+      description:
+        "Préfixe affiché devant le nom. « Aucune » pour les membres non médecins.",
+      initialValue: "dre",
+      options: {
+        list: [
+          { title: "Dre", value: "dre" },
+          { title: "Dr", value: "dr" },
+          { title: "Aucune", value: "none" },
+        ],
+        layout: "radio",
+      },
+    }),
+    defineField({
       name: "specialty",
       type: "string",
       title: "Spécialité",

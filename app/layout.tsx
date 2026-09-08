@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://femcoeur.fr"),
   title: {
     template: "%s | FEMCOEUR",
-    default: "FEMCOEUR — Premier réseau français de cardiologues femmes",
+    default: "FEMCOEUR — Association de cardiologues femmes",
   },
   description:
-    "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+    "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
   keywords: [
     "cardiologues femmes",
     "FEMCOEUR",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     apple: "/simple-logo.png",
   },
   openGraph: {
-    title: "FEMCOEUR — Premier réseau français de cardiologues femmes",
+    title: "FEMCOEUR — Association de cardiologues femmes",
     description:
-      "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+      "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
     url: "https://femcoeur.fr",
     siteName: "FEMCOEUR",
     locale: "fr_FR",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FEMCOEUR — Premier réseau français de cardiologues femmes",
+    title: "FEMCOEUR — Association de cardiologues femmes",
     description:
-      "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie.",
+      "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie.",
     images: ["/simple-logo.png"],
   },
   alternates: {

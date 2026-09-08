@@ -14,7 +14,7 @@ export default defineType({
           name: "titlePrefix",
           title: "Début du titre (en noir)",
           type: "string",
-          description: "Ex : « Bienvenue au sein du premier réseau français de »",
+          description: "Ex : « Bienvenue au sein de l'association de »",
           validation: (Rule) => Rule.required(),
         }),
         defineField({

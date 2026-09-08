@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo?.title ?? "À propos",
     description:
       data?.seo?.description ??
-      "Découvrez la mission, l'histoire et les valeurs de FEMCOEUR, le premier réseau français de cardiologues femmes.",
+      "Découvrez la mission, l'histoire et les valeurs de FEMCOEUR, l'association de cardiologues femmes.",
     alternates: { canonical: "https://femcoeur.fr/about" },
   };
 }

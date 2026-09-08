@@ -129,7 +129,7 @@ export const articlesListQuery = defineQuery(`
     "id": _id,
     title,
     "slug": slug.current,
-    "author": author->firstName + " " + author->lastName,
+    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,
     "date": publishedAt,
     "image": mainImage { ${imageFields} },
     categories
@@ -141,7 +141,7 @@ export const articleBySlugQuery = defineQuery(`
     "id": _id,
     title,
     "slug": slug.current,
-    "author": author->firstName + " " + author->lastName,
+    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,
     "date": publishedAt,
     "image": mainImage { ${imageFields} },
     body,
@@ -211,6 +211,7 @@ export const membersListQuery = defineQuery(`
     lastName asc
   ) {
     "id": _id,
+    honorific,
     firstName,
     lastName,
     role,

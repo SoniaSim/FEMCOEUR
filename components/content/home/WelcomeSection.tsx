@@ -49,7 +49,7 @@ export function WelcomeSection({
               <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-primary/20 rounded-full px-4 py-1.5 mb-6 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 <span className="text-xs font-semibold text-primary uppercase tracking-widest">
-                  Premier réseau français
+                  Association de cardiologues femmes
                 </span>
               </div>
 

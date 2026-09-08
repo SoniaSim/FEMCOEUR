@@ -12,18 +12,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       data?.seo?.title ??
-      "FEMCOEUR — Premier réseau français de cardiologues femmes",
+      "FEMCOEUR — Association de cardiologues femmes",
     description:
       data?.seo?.description ??
-      "FEMCOEUR est le premier réseau français de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.",
+      "FEMCOEUR est une association de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.",
     alternates: { canonical: "https://femcoeur.fr" },
     openGraph: {
       title:
         data?.seo?.title ??
-        "FEMCOEUR — Premier réseau français de cardiologues femmes",
+        "FEMCOEUR — Association de cardiologues femmes",
       description:
         data?.seo?.description ??
-        "FEMCOEUR est le premier réseau français de cardiologues femmes.",
+        "FEMCOEUR est une association de cardiologues femmes.",
       url: "https://femcoeur.fr",
     },
   };
@@ -45,7 +45,7 @@ export default async function Home() {
       <WelcomeSection
         titlePrefix={
           data?.welcome?.titlePrefix ??
-          "Bienvenue au sein du premier réseau français de"
+          "Bienvenue au sein de l'association de"
         }
         titleHighlight={
           data?.welcome?.titleHighlight ??

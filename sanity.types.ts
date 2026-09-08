@@ -213,6 +213,7 @@ export type Member = {
   _rev: string;
   firstName: string;
   lastName: string;
+  honorific?: "dre" | "dr" | "none";
   specialty: string;
   biography?: BlockContent;
   photo?: {
@@ -1042,7 +1043,7 @@ export type AboutPageQueryResult =
 
 // Source: lib/sanity/queries.ts
 // Variable: articlesListQuery
-// Query: *[_type == "article"] | order(publishedAt desc) {    "id": _id,    title,    "slug": slug.current,    "author": author->firstName + " " + author->lastName,    "date": publishedAt,    "image": mainImage {   "url": asset->url,  alt },    categories  }
+// Query: *[_type == "article"] | order(publishedAt desc) {    "id": _id,    title,    "slug": slug.current,    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,    "date": publishedAt,    "image": mainImage {   "url": asset->url,  alt },    categories  }
 export type ArticlesListQueryResult = Array<{
   id: string;
   title: string;
@@ -1058,7 +1059,7 @@ export type ArticlesListQueryResult = Array<{
 
 // Source: lib/sanity/queries.ts
 // Variable: articleBySlugQuery
-// Query: *[_type == "article" && slug.current == $slug][0] {    "id": _id,    title,    "slug": slug.current,    "author": author->firstName + " " + author->lastName,    "date": publishedAt,    "image": mainImage {   "url": asset->url,  alt },    body,    categories,      seo {    title,    description,    image {   "url": asset->url,  alt }  }  }
+// Query: *[_type == "article" && slug.current == $slug][0] {    "id": _id,    title,    "slug": slug.current,    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,    "date": publishedAt,    "image": mainImage {   "url": asset->url,  alt },    body,    categories,      seo {    title,    description,    image {   "url": asset->url,  alt }  }  }
 export type ArticleBySlugQueryResult = {
   id: string;
   title: string;
@@ -1143,9 +1144,10 @@ export type EventBySlugQueryResult = {
 
 // Source: lib/sanity/queries.ts
 // Variable: membersListQuery
-// Query: *[_type == "member"] | order(    select(      role == "presidente" => 0,      role == "vice-presidente" => 1,      role == "tresoriere" => 2,      role == "secretaire" => 3,      4    ) asc,    lastName asc  ) {    "id": _id,    firstName,    lastName,    role,    specialty,    biography,    photo {   "url": asset->url,  alt },    email,    phone,    linkedin  }
+// Query: *[_type == "member"] | order(    select(      role == "presidente" => 0,      role == "vice-presidente" => 1,      role == "tresoriere" => 2,      role == "secretaire" => 3,      4    ) asc,    lastName asc  ) {    "id": _id,    honorific,    firstName,    lastName,    role,    specialty,    biography,    photo {   "url": asset->url,  alt },    email,    phone,    linkedin  }
 export type MembersListQueryResult = Array<{
   id: string;
+  honorific: "dr" | "dre" | "none" | null;
   firstName: string;
   lastName: string;
   role:
@@ -1177,10 +1179,10 @@ declare module "@sanity/client" {
     '\n  *[_id == "contactPage"][0] {\n    hero { title, subtitle },\n    formIntro,\n    contactInfoTitle,\n    seo { title, description }\n  }\n': ContactPageQueryResult;
     '\n  *[_id == "joinPage"][0] {\n    hero { title, subtitle, cta { label, href } },\n    modalities[] { _key, title, description, icon },\n    membershipFee { amount, year },\n    testimonials[]->{ _id, name, role, content, image { \n  "url": asset->url,\n  alt\n } },\n    cta { title, body, button { label, href } },\n    seo { title, description }\n  }\n': JoinPageQueryResult;
     '\n  *[_id == "aboutPage"][0] {\n    hero { title, subtitle },\n    mission {\n      title,\n      body,\n      images[] {\n        _key,\n        "url": asset->url,\n        alt,\n        "hotspot": hotspot { x, y }\n      }\n    },\n    history { title, body },\n    values[] { _key, title, description, icon },\n    keyActions[] { _key, title, description, icon },\n    seo { title, description }\n  }\n': AboutPageQueryResult;
-    '\n  *[_type == "article"] | order(publishedAt desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': ArticlesListQueryResult;
-    '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
+    '\n  *[_type == "article"] | order(publishedAt desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    categories\n  }\n': ArticlesListQueryResult;
+    '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
     '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status\n  }\n': EventsListQueryResult;
     '\n  *[_type == "event" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    "gallery": gallery[defined(asset)]{\n      _key,\n      "url": asset->url,\n      alt,\n      "width": asset->metadata.dimensions.width,\n      "height": asset->metadata.dimensions.height,\n      "lqip": asset->metadata.lqip\n    },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': EventBySlugQueryResult;
-    '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    phone,\n    linkedin\n  }\n': MembersListQueryResult;
+    '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    honorific,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    phone,\n    linkedin\n  }\n': MembersListQueryResult;
   }
 }
