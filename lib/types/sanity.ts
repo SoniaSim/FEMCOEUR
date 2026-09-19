@@ -14,6 +14,7 @@ import type {
   EventsListQueryResult,
   EventBySlugQueryResult,
   MembersListQueryResult,
+  PartnersListQueryResult,
 } from "@/sanity.types";
 
 // ── Pages singletons ───────────────────────────────────────────
@@ -31,6 +32,7 @@ export type ArticleDetail = NonNullable<ArticleBySlugQueryResult>;
 export type Event = EventsListQueryResult[number];
 export type EventDetail = NonNullable<EventBySlugQueryResult>;
 export type Member = MembersListQueryResult[number];
+export type Partner = PartnersListQueryResult[number];
 
 // ── Sous-types extraits pour les composants ───────────────────
 

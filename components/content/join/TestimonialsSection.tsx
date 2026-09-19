@@ -56,7 +56,7 @@ export function TestimonialsSection({
             id="testimonials-title"
             className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground leading-tight"
           >
-            Pourquoi elles ont adhéré
+            Pourquoi elles/ils ont adhéré
           </h2>
           <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-primary to-accent" />
         </div>

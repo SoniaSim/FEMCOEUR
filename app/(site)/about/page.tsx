@@ -1,9 +1,10 @@
 import { AboutHeroSection } from "@/components/content/about/AboutHeroSection";
 import { MissionSection } from "@/components/content/about/MissionSection";
 import { HistorySection } from "@/components/content/about/HistorySection";
+import { GodmotherSection } from "@/components/content/about/GodmotherSection";
 import { KeyActionsSection } from "@/components/content/about/KeyActionsSection";
 import { ValuesSection } from "@/components/content/about/ValuesSection";
-import { getAboutPage } from "@/lib/sanity/fetch";
+import { getAboutPage, getPartners } from "@/lib/sanity/fetch";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const data = await getAboutPage();
+  const [data, partners] = await Promise.all([getAboutPage(), getPartners()]);
 
   return (
     <>
@@ -36,6 +37,7 @@ export default async function AboutPage() {
       {data?.history && (
         <HistorySection title={data.history.title} body={data.history.body} />
       )}
+      <GodmotherSection title={data?.godmother?.title} partners={partners} />
       {data?.keyActions?.length ? (
         <KeyActionsSection actions={data.keyActions} />
       ) : null}

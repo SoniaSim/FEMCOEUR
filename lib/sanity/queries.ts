@@ -116,6 +116,7 @@ export const aboutPageQuery = defineQuery(`
       }
     },
     history { title, body },
+    godmother { title },
     values[] { _key, title, description, icon },
     keyActions[] { _key, title, description, icon },
     seo { title, description }
@@ -224,3 +225,20 @@ export const membersListQuery = defineQuery(`
   }
 `);
 
+
+export const partnersListQuery = defineQuery(`
+  *[_type == "partner" && active != false] | order(
+    select(kind == "marraine" => 0, 1) asc,
+    order asc,
+    name asc
+  ) {
+    "id": _id,
+    name,
+    kind,
+    "logo": logo { ${imageFields} },
+    tagline,
+    description,
+    website,
+    featuredLink { label, url }
+  }
+`);

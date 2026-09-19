@@ -8,6 +8,7 @@ import eventSchema from './documents/event'
 import memberSchema from './documents/member'
 import resourceSchema from './documents/resource'
 import testimonialSchema from './documents/testimonial'
+import partnerSchema from './documents/partner'
 import siteSettingsSchema from './documents/singletons/siteSettings'
 import homePageSchema from './documents/singletons/homePage'
 import aboutPageSchema from './documents/singletons/aboutPage'
@@ -33,4 +34,5 @@ export const schemaTypes = [
   memberSchema,
   resourceSchema,
   testimonialSchema,
+  partnerSchema,
 ]

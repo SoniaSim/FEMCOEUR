@@ -12,6 +12,7 @@ const TAG_MAP: Record<string, string[]> = {
   event: ["events"],
   member: ["members"],
   testimonial: ["testimonials"],
+  partner: ["partners"],
 };
 
 type WebhookBody = {

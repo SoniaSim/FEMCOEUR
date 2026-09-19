@@ -10,7 +10,12 @@ export default defineType({
       title: "Section hero",
       type: "object",
       fields: [
-        defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
+        defineField({
+          name: "title",
+          title: "Titre",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
         defineField({ name: "subtitle", title: "Sous-titre", type: "text" }),
       ],
     }),
@@ -19,7 +24,12 @@ export default defineType({
       title: "Section mission",
       type: "object",
       fields: [
-        defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
+        defineField({
+          name: "title",
+          title: "Titre",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
         defineField({ name: "body", title: "Contenu", type: "blockContent" }),
         defineField({
           name: "images",
@@ -39,7 +49,9 @@ export default defineType({
                   title: "Texte alternatif",
                   validation: (Rule) =>
                     Rule.custom((alt, context) => {
-                      const parent = context.parent as { asset?: unknown } | undefined;
+                      const parent = context.parent as
+                        | { asset?: unknown }
+                        | undefined;
                       if (parent?.asset && (!alt || !String(alt).trim())) {
                         return "Texte alternatif requis lorsqu'une image est définie";
                       }
@@ -57,7 +69,12 @@ export default defineType({
       title: "Section histoire",
       type: "object",
       fields: [
-        defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
+        defineField({
+          name: "title",
+          title: "Titre",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
         defineField({ name: "body", title: "Contenu", type: "blockContent" }),
       ],
     }),
@@ -69,8 +86,18 @@ export default defineType({
         {
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "description", title: "Description", type: "text", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "title",
+              title: "Titre",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
           ],
           preview: {
@@ -90,8 +117,18 @@ export default defineType({
         {
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "description", title: "Description", type: "text", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "title",
+              title: "Titre",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "icon", title: "Icône", type: "iconPicker" }),
           ],
           preview: {
@@ -104,12 +141,38 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "godmother",
+      title: "Section « Notre association marraine »",
+      description:
+        "Le contenu (logo, texte, liens) vient des documents « Partenaire » de type Marraine. Ici, seulement le titre de la section. Section masquée s'il n'y a aucune marraine active.",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          title: "Titre",
+          type: "string",
+          initialValue: "Notre association marraine",
+          validation: (Rule) => Rule.max(60),
+        }),
+      ],
+    }),
+    defineField({
       name: "seo",
       title: "Référencement (SEO)",
       type: "object",
       fields: [
-        defineField({ name: "title", title: "Titre SEO", type: "string", validation: (Rule) => Rule.required() }),
-        defineField({ name: "description", title: "Description SEO", type: "text", validation: (Rule) => Rule.required() }),
+        defineField({
+          name: "title",
+          title: "Titre SEO",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "description",
+          title: "Description SEO",
+          type: "text",
+          validation: (Rule) => Rule.required(),
+        }),
         defineField({ name: "ogImage", title: "Image OG", type: "image" }),
       ],
     }),

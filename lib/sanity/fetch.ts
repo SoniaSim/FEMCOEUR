@@ -10,6 +10,7 @@ import {
   eventsListQuery,
   eventBySlugQuery,
   membersListQuery,
+  partnersListQuery,
 } from "./queries";
 import type {
   SiteSettingsQueryResult,
@@ -22,6 +23,7 @@ import type {
   EventsListQueryResult,
   EventBySlugQueryResult,
   MembersListQueryResult,
+  PartnersListQueryResult,
 } from "@/sanity.types";
 
 // ── Site Settings ───────────────────────────────────────────────
@@ -111,5 +113,13 @@ export async function getMembers() {
     membersListQuery,
     {},
     { next: { tags: ["members"] } }
+  );
+}
+
+export async function getPartners() {
+  return client.fetch<PartnersListQueryResult>(
+    partnersListQuery,
+    {},
+    { next: { tags: ["partners"] } }
   );
 }
