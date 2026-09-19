@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       data?.seo?.description ??
       "FEMCOEUR est une association de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.",
-    alternates: { canonical: "https://femcoeur.fr" },
+    alternates: { canonical: "/" },
     openGraph: {
       title:
         data?.seo?.title ??
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         data?.seo?.description ??
         "FEMCOEUR est une association de cardiologues femmes.",
-      url: "https://femcoeur.fr",
+      url: "/",
     },
   };
 }

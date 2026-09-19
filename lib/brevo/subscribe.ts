@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/site-url";
+
 const DOI_ENDPOINT = "https://api.brevo.com/v3/contacts/doubleOptinConfirmation";
 const BLOCKED_CONTACTS_ENDPOINT = "https://api.brevo.com/v3/smtp/blockedContacts";
 
@@ -29,7 +31,6 @@ function readConfig(): BrevoConfig | { missing: string[] } {
   const apiKey = process.env.BREVO_API_KEY;
   const listId = Number(process.env.BREVO_NEWSLETTER_LIST_ID);
   const templateId = Number(process.env.BREVO_DOI_TEMPLATE_ID);
-  const siteUrl = process.env.SITE_URL ?? "https://femcoeur.fr";
 
   const missing: string[] = [];
   if (!apiKey) missing.push("BREVO_API_KEY");
@@ -49,7 +50,7 @@ function readConfig(): BrevoConfig | { missing: string[] } {
     templateId,
     // Page d'atterrissage après clic sur le lien de confirmation. Brevo exige
     // ce paramètre ; la page elle-même est livrée en phase 3.
-    redirectionUrl: `${siteUrl.replace(/\/$/, "")}/newsletter/confirmee`,
+    redirectionUrl: `${SITE_URL}/newsletter/confirmee`,
   };
 }
 

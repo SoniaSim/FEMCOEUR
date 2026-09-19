@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Rencontrez l'équipe de FEMCOEUR, des cardiologues femmes engagées qui font avancer la cardiologie au féminin en France.",
   alternates: {
-    canonical: "https://femcoeur.fr/equipe",
+    canonical: "/equipe",
   },
 };
 

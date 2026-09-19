@@ -115,31 +115,6 @@ export type Testimonial = {
   };
 };
 
-export type SanityFileAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-};
-
-export type Resource = {
-  _id: string;
-  _type: "resource";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: string;
-  type: "pdf" | "link" | "video";
-  category: "guides-cliniques" | "recommandations" | "formation";
-  file?: {
-    asset?: SanityFileAssetReference;
-    media?: unknown;
-    _type: "file";
-  };
-  link?: string;
-};
-
 export type ArticleReference = {
   _ref: string;
   _type: "reference";
@@ -260,7 +235,6 @@ export type Member = {
     | "secretaire-adjointe"
     | "membre-bureau";
   email?: string;
-  phone?: string;
   linkedin?: string;
 };
 
@@ -667,8 +641,6 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Testimonial
-  | SanityFileAssetReference
-  | Resource
   | ArticleReference
   | Event
   | Seo
@@ -1195,7 +1167,7 @@ export type EventBySlugQueryResult = {
 
 // Source: lib/sanity/queries.ts
 // Variable: membersListQuery
-// Query: *[_type == "member"] | order(    select(      role == "presidente" => 0,      role == "vice-presidente" => 1,      role == "tresoriere" => 2,      role == "secretaire" => 3,      4    ) asc,    lastName asc  ) {    "id": _id,    honorific,    firstName,    lastName,    role,    specialty,    biography,    photo {   "url": asset->url,  alt },    email,    phone,    linkedin  }
+// Query: *[_type == "member"] | order(    select(      role == "presidente" => 0,      role == "vice-presidente" => 1,      role == "tresoriere" => 2,      role == "secretaire" => 3,      4    ) asc,    lastName asc  ) {    "id": _id,    honorific,    firstName,    lastName,    role,    specialty,    biography,    photo {   "url": asset->url,  alt },    email,    linkedin  }
 export type MembersListQueryResult = Array<{
   id: string;
   honorific: "dr" | "dre" | "none" | null;
@@ -1217,7 +1189,6 @@ export type MembersListQueryResult = Array<{
     alt: string | null;
   } | null;
   email: string | null;
-  phone: string | null;
   linkedin: string | null;
 }>;
 
@@ -1254,7 +1225,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "article" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "author": select(author->honorific == "none" => "", author->honorific == "dr" => "Dr. ", "Dre. ") + author->firstName + " " + author->lastName,\n    "date": publishedAt,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    body,\n    categories,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': ArticleBySlugQueryResult;
     '\n  *[_type == "event"] | order(startDate desc) {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status\n  }\n': EventsListQueryResult;
     '\n  *[_type == "event" && slug.current == $slug][0] {\n    "id": _id,\n    title,\n    "slug": slug.current,\n    "date": startDate,\n    endDate,\n    location,\n    description,\n    "image": mainImage { \n  "url": asset->url,\n  alt\n },\n    "gallery": gallery[defined(asset)]{\n      _key,\n      "url": asset->url,\n      alt,\n      "width": asset->metadata.dimensions.width,\n      "height": asset->metadata.dimensions.height,\n      "lqip": asset->metadata.lqip\n    },\n    registrationLink,\n    recapLink,\n    "relatedArticleSlug": relatedArticle->slug.current,\n    "relatedArticleTitle": relatedArticle->title,\n    status,\n    \n  seo {\n    title,\n    description,\n    image { \n  "url": asset->url,\n  alt\n }\n  }\n\n  }\n': EventBySlugQueryResult;
-    '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    honorific,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    phone,\n    linkedin\n  }\n': MembersListQueryResult;
+    '\n  *[_type == "member"] | order(\n    select(\n      role == "presidente" => 0,\n      role == "vice-presidente" => 1,\n      role == "tresoriere" => 2,\n      role == "secretaire" => 3,\n      4\n    ) asc,\n    lastName asc\n  ) {\n    "id": _id,\n    honorific,\n    firstName,\n    lastName,\n    role,\n    specialty,\n    biography,\n    photo { \n  "url": asset->url,\n  alt\n },\n    email,\n    linkedin\n  }\n': MembersListQueryResult;
     '\n  *[_type == "partner" && active != false] | order(\n    select(kind == "marraine" => 0, 1) asc,\n    order asc,\n    name asc\n  ) {\n    "id": _id,\n    name,\n    kind,\n    "logo": logo { \n  "url": asset->url,\n  alt\n },\n    tagline,\n    description,\n    website,\n    featuredLink { label, url }\n  }\n': PartnersListQueryResult;
   }
 }

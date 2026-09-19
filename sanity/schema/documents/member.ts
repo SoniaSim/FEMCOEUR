@@ -95,11 +95,6 @@ export default defineType({
         }),
     }),
     defineField({
-      name: "phone",
-      type: "string",
-      title: "Téléphone",
-    }),
-    defineField({
       name: "linkedin",
       type: "url",
       title: "LinkedIn",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CANONICAL_ORIGIN } from "@/lib/site-url";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://femcoeur.fr"),
+  metadataBase: new URL(CANONICAL_ORIGIN),
   title: {
     template: "%s | FEMCOEUR",
     default: "FEMCOEUR — Association de cardiologues femmes",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     title: "FEMCOEUR — Association de cardiologues femmes",
     description:
       "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
-    url: "https://femcoeur.fr",
+    url: CANONICAL_ORIGIN,
     siteName: "FEMCOEUR",
     locale: "fr_FR",
     type: "website",
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     images: ["/simple-logo.png"],
   },
   alternates: {
-    canonical: "https://femcoeur.fr",
+    canonical: "/",
   },
 };
 

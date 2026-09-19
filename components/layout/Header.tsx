@@ -35,7 +35,6 @@ const navigationItems = [
   { href: "/join", label: "Rejoindre", icon: UserPlus },
   { href: "/equipe", label: "L'équipe", icon: Users },
   { href: "/events", label: "Événements", icon: Calendar },
-  // { href: "/resources", label: "Ressources", icon: BookOpen }, // Désactivé pour le lancement
   { href: "/actualites", label: "Actualités", icon: FileText },
   { href: "/contact", label: "Contact", icon: Mail },
 ];

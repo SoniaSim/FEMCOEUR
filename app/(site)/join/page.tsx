@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       data?.seo?.description ??
       "Rejoignez FEMCOEUR, l'association de cardiologues femmes.",
-    alternates: { canonical: "https://femcoeur.fr/join" },
+    alternates: { canonical: "/join" },
   };
 }
 

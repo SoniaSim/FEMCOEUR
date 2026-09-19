@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Découvrez nos rencontres "cardiologies femmes" : webinaires experts, ateliers patients et sessions de formation certifiante.',
   alternates: {
-    canonical: "https://femcoeur.fr/events",
+    canonical: "/events",
   },
 };
 

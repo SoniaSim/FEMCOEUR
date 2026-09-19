@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Analyses d\'expertes, témoignages de patientes et veille scientifique pour que la "cardiologie des femmes" soit au cœur des pratiques.',
   alternates: {
-    canonical: "https://femcoeur.fr/actualites",
+    canonical: "/actualites",
   },
 };
 

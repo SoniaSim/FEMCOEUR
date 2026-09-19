@@ -51,11 +51,11 @@ export async function generateMetadata({
   return {
     title: event.seo?.title ?? title,
     description: event.seo?.description ?? "",
-    alternates: { canonical: `https://femcoeur.fr/events/${slug}` },
+    alternates: { canonical: `/events/${slug}` },
     openGraph: {
       title: (event.seo?.title ?? title) || undefined,
       description: event.seo?.description ?? undefined,
-      url: `https://femcoeur.fr/events/${slug}`,
+      url: `/events/${slug}`,
       type: "article",
       images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
     },

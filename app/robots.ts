@@ -1,3 +1,4 @@
+import { CANONICAL_ORIGIN } from "@/lib/site-url";
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://femcoeur.fr/sitemap.xml",
+    sitemap: `${CANONICAL_ORIGIN}/sitemap.xml`,
   };
 }

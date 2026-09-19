@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       data?.seo?.description ??
       "Contactez FEMCOEUR pour toute question sur la cardiologie des femmes, un projet ou un partenariat.",
-    alternates: { canonical: "https://femcoeur.fr/contact" },
+    alternates: { canonical: "/contact" },
   };
 }
 

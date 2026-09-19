@@ -220,7 +220,6 @@ export const membersListQuery = defineQuery(`
     biography,
     photo { ${imageFields} },
     email,
-    phone,
     linkedin
   }
 `);

@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       data?.seo?.description ??
       "Découvrez la mission, l'histoire et les valeurs de FEMCOEUR, l'association de cardiologues femmes.",
-    alternates: { canonical: "https://femcoeur.fr/about" },
+    alternates: { canonical: "/about" },
   };
 }
 

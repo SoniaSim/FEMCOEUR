@@ -79,7 +79,7 @@ export function Footer({ siteSettings }: FooterProps) {
               href="/confidentialite"
               className="transition-colors hover:text-primary"
             >
-              Politique de confidentialité
+              Mentions légales &amp; confidentialité
             </Link>
           </nav>
         </div>

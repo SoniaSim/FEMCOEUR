@@ -6,7 +6,6 @@ import socialLinkSchema from './objects/socialLink'
 import articleSchema from './documents/article'
 import eventSchema from './documents/event'
 import memberSchema from './documents/member'
-import resourceSchema from './documents/resource'
 import testimonialSchema from './documents/testimonial'
 import partnerSchema from './documents/partner'
 import siteSettingsSchema from './documents/singletons/siteSettings'
@@ -32,7 +31,6 @@ export const schemaTypes = [
   articleSchema,
   eventSchema,
   memberSchema,
-  resourceSchema,
   testimonialSchema,
   partnerSchema,
 ]

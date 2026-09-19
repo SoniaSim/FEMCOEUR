@@ -54,12 +54,12 @@ export async function generateMetadata({
     title: article.seo?.title ?? title,
     description: article.seo?.description ?? "",
     alternates: {
-      canonical: `https://femcoeur.fr/actualites/${slug}`,
+      canonical: `/actualites/${slug}`,
     },
     openGraph: {
       title: (article.seo?.title ?? title) || undefined,
       description: article.seo?.description ?? undefined,
-      url: `https://femcoeur.fr/actualites/${slug}`,
+      url: `/actualites/${slug}`,
       type: "article",
       images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
     },
