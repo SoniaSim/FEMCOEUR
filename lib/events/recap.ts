@@ -10,12 +10,12 @@ export interface RecapLink {
 
 /**
  * Détermine le lien "En savoir plus" d'un événement passé.
- * Priorité : article du blog interne > URL externe (recapLink).
+ * Priorité : article interne (Actualités) > URL externe (recapLink).
  * Retourne null si aucun lien n'est défini.
  */
 export function getRecapLink(event: RecapSource): RecapLink | null {
   if (event.relatedArticleSlug) {
-    return { href: `/blog/${event.relatedArticleSlug}`, isExternal: false };
+    return { href: `/actualites/${event.relatedArticleSlug}`, isExternal: false };
   }
   if (event.recapLink) {
     return { href: event.recapLink, isExternal: true };

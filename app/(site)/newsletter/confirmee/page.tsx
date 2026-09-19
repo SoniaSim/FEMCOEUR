@@ -54,7 +54,7 @@ export default function NewsletterConfirmedPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild>
-                <Link href="/blog">Lire nos articles</Link>
+                <Link href="/actualites">Lire nos articles</Link>
               </Button>
               <Button asChild variant="outline">
                 <Link href="/events">Voir les événements</Link>

@@ -67,7 +67,7 @@ function SocialLinkCard({ link, icon: Icon, variant }: SocialLinkCardProps) {
 /**
  * Séparateur « Suivez-nous » + grille de réseaux sociaux.
  * Partagé par `FollowUsSection` (page /join) et `StayInTouchSection` (accueil,
- * blog, événements) : la logique de grille selon le nombre de réseaux n'existe
+ * actualités, événements) : la logique de grille selon le nombre de réseaux n'existe
  * qu'ici.
  */
 export function SocialLinksRow({

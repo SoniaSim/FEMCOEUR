@@ -130,7 +130,7 @@ Toujours utiliser `basePortableTextComponents` (`lib/portable-text-components.ts
 
 4. **Animations heros au load = NON**. L'utilisatrice les trouvait "trop". Garder les heros statiques au chargement, seulement les sections numérotées ont des Reveal scroll.
 
-5. **Modal events vs page détail** : on a choisi page dédiée (`/events/[slug]`) pour la partageabilité et le SEO. Pareil pour blog (`/blog/[slug]`). Pas de modal.
+5. **Modal events vs page détail** : on a choisi page dédiée (`/events/[slug]`) pour la partageabilité et le SEO. Pareil pour les actualités (`/actualites/[slug]`). Pas de modal.
 
 6. **Article lié pour les events passés** : champ `relatedArticle` (référence interne) ou `recapLink` (URL externe), priorité à l'interne. Helper `lib/events/recap.ts`.
 

@@ -20,7 +20,7 @@ function formatCategory(value: string): string {
 function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
-      href={`/blog/${article.slug ?? ""}`}
+      href={`/actualites/${article.slug ?? ""}`}
       className="card-base card-interactive group relative overflow-hidden flex flex-col h-full"
     >
       {/* Accent top au hover */}
@@ -83,7 +83,7 @@ function ArticleCard({ article }: { article: Article }) {
   );
 }
 
-export async function BlogListSection() {
+export async function ActualitesListSection() {
   const allArticles = await getArticles();
 
   if (allArticles.length === 0) {

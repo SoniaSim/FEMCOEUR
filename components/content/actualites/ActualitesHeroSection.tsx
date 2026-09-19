@@ -1,7 +1,7 @@
 import { SquiggleUnderline } from "@/components/ui/squiggle-underline";
 import { PageHero } from "@/components/content/shared/PageHero";
 
-export function BlogHeroSection() {
+export function ActualitesHeroSection() {
   return (
     <PageHero
       badge="Prise de parole"
@@ -9,7 +9,7 @@ export function BlogHeroSection() {
       rightImage="/illustrations/resource.svg"
     >
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-tight mb-6">
-        Blog &amp;{" "}
+        Nos{" "}
         <span className="relative inline-block text-primary">
           Actualités
           <SquiggleUnderline />

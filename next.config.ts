@@ -17,6 +17,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // L'ancienne rubrique /blog a été renommée /actualites — on préserve
+      // les liens existants (SEO, newsletters déjà envoyées, partages).
+      { source: "/blog", destination: "/actualites", permanent: true },
+      {
+        source: "/blog/:slug",
+        destination: "/actualites/:slug",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

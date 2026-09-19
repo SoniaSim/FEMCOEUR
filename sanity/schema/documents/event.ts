@@ -103,7 +103,7 @@ export default defineType({
       type: "reference",
       title: "Article lié (compte-rendu)",
       description:
-        "Article du blog FEMCOEUR qui raconte l'événement. Affiché sur la carte des événements passés.",
+        "Article FEMCOEUR (Actualités) qui raconte l'événement. Affiché sur la carte des événements passés.",
       to: [{ type: "article" }],
     }),
     defineField({

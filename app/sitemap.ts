@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/blog`,
+      url: `${BASE_URL}/actualites`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         String(article.date).trim() !== ""
     )
     .map((article) => ({
-      url: `${BASE_URL}/blog/${article.slug}`,
+      url: `${BASE_URL}/actualites/${article.slug}`,
       lastModified: new Date(article.date as string),
       changeFrequency: "monthly" as const,
       priority: 0.7,

@@ -54,12 +54,12 @@ export async function generateMetadata({
     title: article.seo?.title ?? title,
     description: article.seo?.description ?? "",
     alternates: {
-      canonical: `https://femcoeur.fr/blog/${slug}`,
+      canonical: `https://femcoeur.fr/actualites/${slug}`,
     },
     openGraph: {
       title: (article.seo?.title ?? title) || undefined,
       description: article.seo?.description ?? undefined,
-      url: `https://femcoeur.fr/blog/${slug}`,
+      url: `https://femcoeur.fr/actualites/${slug}`,
       type: "article",
       images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
     },
@@ -95,11 +95,11 @@ export default async function ArticlePage({
         >
           <div className="max-w-4xl mx-auto">
             <Link
-              href="/blog"
+              href="/actualites"
               className="inline-flex items-center gap-2 text-sm font-semibold text-foreground/65 hover:text-primary transition-colors mb-8"
             >
               <ArrowLeft className="w-4 h-4" />
-              Retour au blog
+              Retour aux actualités
             </Link>
 
             {article.categories && article.categories.length > 0 && (
@@ -199,9 +199,9 @@ export default async function ArticlePage({
               size="lg"
               className="gap-2 font-bold border-primary/30 text-primary hover:bg-primary/10 hover:text-primary"
             >
-              <Link href="/blog">
+              <Link href="/actualites">
                 <ArrowLeft className="w-4 h-4" />
-                Retour au blog
+                Retour aux actualités
               </Link>
             </Button>
           </div>

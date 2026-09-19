@@ -40,9 +40,9 @@ export default function ArticleError({
               size="lg"
               className="gap-2 font-bold px-7 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary"
             >
-              <Link href="/blog">
+              <Link href="/actualites">
                 <ArrowLeft className="w-4 h-4" />
-                Retour au blog
+                Retour aux actualités
               </Link>
             </Button>
           </div>
