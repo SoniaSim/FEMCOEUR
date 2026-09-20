@@ -13,6 +13,11 @@ import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
+import {
+  OG_DEFAULT_IMAGE,
+  baseOpenGraph,
+  toOgImageUrl,
+} from "@/lib/seo/open-graph";
 
 const CATEGORY_LABELS: Record<string, string> = {
   research: "Recherche",
@@ -57,11 +62,14 @@ export async function generateMetadata({
       canonical: `/actualites/${slug}`,
     },
     openGraph: {
+      ...baseOpenGraph,
       title: (article.seo?.title ?? title) || undefined,
       description: article.seo?.description ?? undefined,
       url: `/actualites/${slug}`,
       type: "article",
-      images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
+      images: ogImageUrl
+        ? [{ url: toOgImageUrl(ogImageUrl), alt: ogImageAlt }]
+        : [OG_DEFAULT_IMAGE],
     },
   };
 }

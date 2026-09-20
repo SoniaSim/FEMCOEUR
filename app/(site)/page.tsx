@@ -6,25 +6,32 @@ import { WhatWeDoSection } from "@/components/content/home/WhatWeDoSection";
 import { CallToActionSection } from "@/components/content/home/CallToActionSection";
 import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
 import { getHomePage, getSiteSettings } from "@/lib/sanity/fetch";
+import { baseOpenGraph } from "@/lib/seo/open-graph";
+
+/** Derniers recours si les champs SEO de la page d'accueil sont vides dans Sanity. */
+const FALLBACK_TITLE = "FEMCOEUR — Association de cardiologues femmes";
+const FALLBACK_DESCRIPTION =
+  "FEMCOEUR est une association de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
+  const title = data?.seo?.title ?? FALLBACK_TITLE;
+  const description = data?.seo?.description ?? FALLBACK_DESCRIPTION;
+
   return {
-    title:
-      data?.seo?.title ??
-      "FEMCOEUR — Association de cardiologues femmes",
-    description:
-      data?.seo?.description ??
-      "FEMCOEUR est une association de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.",
+    // `absolute` court-circuite le gabarit « %s | FEMCOEUR » du layout racine.
+    // Il est juste pour les pages intérieures (« Événements | FEMCOEUR ») mais
+    // absurde ici : le titre de la home porte déjà la marque, et le gabarit la
+    // doublait tout en poussant le titre au-delà des 60 caractères utiles.
+    title: { absolute: title },
+    description,
     alternates: { canonical: "/" },
     openGraph: {
-      title:
-        data?.seo?.title ??
-        "FEMCOEUR — Association de cardiologues femmes",
-      description:
-        data?.seo?.description ??
-        "FEMCOEUR est une association de cardiologues femmes.",
+      ...baseOpenGraph,
+      title,
+      description,
       url: "/",
+      type: "website",
     },
   };
 }

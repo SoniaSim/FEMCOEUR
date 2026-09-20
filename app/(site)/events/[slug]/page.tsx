@@ -21,6 +21,11 @@ import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { getRecapLink } from "@/lib/events/recap";
 import { EventGallerySection } from "@/components/content/events/EventGallerySection";
 import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
+import {
+  OG_DEFAULT_IMAGE,
+  baseOpenGraph,
+  toOgImageUrl,
+} from "@/lib/seo/open-graph";
 
 export async function generateStaticParams() {
   const events = await getEvents();
@@ -53,11 +58,17 @@ export async function generateMetadata({
     description: event.seo?.description ?? "",
     alternates: { canonical: `/events/${slug}` },
     openGraph: {
+      ...baseOpenGraph,
       title: (event.seo?.title ?? title) || undefined,
       description: event.seo?.description ?? undefined,
       url: `/events/${slug}`,
       type: "article",
-      images: ogImageUrl ? [{ url: ogImageUrl, alt: ogImageAlt }] : [],
+      // Le repli sur l'image par défaut, et non sur un tableau vide : un
+      // événement sans visuel se partageait sans aucun aperçu, précisément sur
+      // les pages qu'on fait circuler pour le remplir.
+      images: ogImageUrl
+        ? [{ url: toOgImageUrl(ogImageUrl), alt: ogImageAlt }]
+        : [OG_DEFAULT_IMAGE],
     },
   };
 }

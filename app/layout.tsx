@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CANONICAL_ORIGIN } from "@/lib/site-url";
+import { OG_DEFAULT_IMAGE, baseOpenGraph } from "@/lib/seo/open-graph";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -35,21 +36,19 @@ export const metadata: Metadata = {
     apple: "/simple-logo.png",
   },
   openGraph: {
+    ...baseOpenGraph,
     title: "FEMCOEUR — Association de cardiologues femmes",
     description:
       "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
     url: CANONICAL_ORIGIN,
-    siteName: "FEMCOEUR",
-    locale: "fr_FR",
     type: "website",
-    images: ["/simple-logo.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "FEMCOEUR — Association de cardiologues femmes",
     description:
       "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie.",
-    images: ["/simple-logo.png"],
+    images: [OG_DEFAULT_IMAGE.url],
   },
   alternates: {
     canonical: "/",
