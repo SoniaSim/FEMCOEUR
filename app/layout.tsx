@@ -48,6 +48,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  // Preuve de propriété du site pour Google Search Console.
+  verification: {
+    google: "C2PMjSBCgTU8IHT2UI2J0N2YIrt73l-wOdY2nTE0kYI",
+  },
 };
 
 export default function RootLayout({
