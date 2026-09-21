@@ -9,7 +9,7 @@ const DIRECTRICE_PUBLICATION = "Thiziri Si Moussi";
 const NUMERO_RNA = "W133040952";
 const NUMERO_SIREN = "988853776";
 
-const DATE_MISE_A_JOUR = "19 septembre 2026";
+const DATE_MISE_A_JOUR = "21 septembre 2026";
 
 export const metadata: Metadata = {
   title: "Mentions légales et confidentialité",
@@ -262,16 +262,40 @@ export default async function ConfidentialitePage() {
             </p>
           </SousSection>
 
-          <SousSection titre="Cookies">
+          <SousSection titre="Cookies et mesure de fréquentation">
             <p>
-              Le site{" "}
-              <Terme>
-                ne dépose aucun cookie de mesure d’audience ni de publicité
-              </Terme>
-              . Nous n’utilisons ni Google Analytics, ni outil de suivi
-              équivalent, ni bouton de partage traçant votre navigation. C’est
-              pourquoi vous ne verrez jamais de bandeau cookies sur ce site :
-              nous n’avons rien à vous faire accepter.
+              Le site <Terme>ne dépose aucun cookie</Terme> — ni de mesure
+              d’audience, ni de publicité — et n’intègre aucun bouton de partage
+              traçant votre navigation. C’est pourquoi vous ne verrez jamais de
+              bandeau cookies sur ce site : nous n’avons rien à vous faire
+              accepter.
+            </p>
+            <p>
+              Nous mesurons néanmoins la fréquentation du site, avec{" "}
+              <Terme>Vercel Web Analytics</Terme>, l’outil de notre hébergeur. À
+              chaque page consultée, il enregistre l’horodatage, l’adresse de la
+              page, le site qui vous a orientée vers nous, une localisation
+              approximative — pays, région, ville — ainsi que le type
+              d’appareil, le système et le navigateur utilisés.
+            </p>
+            <p>
+              Ces données sont <Terme>agrégées</Terme> : elles nous indiquent
+              combien de personnes ont lu une page et par quel chemin elles sont
+              arrivées, pas qui l’a lue. Aucune adresse IP n’est conservée et
+              aucun profil n’est constitué. Pour éviter de compter deux fois la
+              même visite, l’outil calcule une empreinte technique à partir de
+              votre requête ; elle est{" "}
+              <Terme>écartée au bout de vingt-quatre heures</Terme> et ne permet
+              ni de vous reconnaître d’un jour sur l’autre, ni de vous suivre
+              sur d’autres sites.
+            </p>
+            <p>
+              Le fonctionnement de ce dispositif est documenté par notre
+              hébergeur :{" "}
+              <LienExterne href="https://vercel.com/docs/analytics/privacy-policy">
+                Vercel Web Analytics — Privacy and Compliance
+              </LienExterne>
+              .
             </p>
           </SousSection>
         </Section>
@@ -371,8 +395,9 @@ export default async function ConfidentialitePage() {
               contact. Les serveurs sont situés en France.
             </li>
             <li>
-              <Terme>Vercel Inc.</Terme> (États-Unis) — hébergement du site et
-              journaux techniques. Le site est configuré pour s’exécuter sur les
+              <Terme>Vercel Inc.</Terme> (États-Unis) — hébergement du site,
+              journaux techniques et mesure de fréquentation. Le site est
+              configuré pour s’exécuter sur les
               serveurs parisiens de Vercel : le traitement de vos requêtes a
               donc lieu dans l’Union européenne. Vercel restant une société
               américaine, elle demeure susceptible d’accéder à ces données

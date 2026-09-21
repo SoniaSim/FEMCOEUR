@@ -25,6 +25,7 @@
     "@sanity/image-url": "^2.1.1",
     "@sanity/locale-fr-fr": "^1.2.29",
     "@types/lodash": "^4.17.23",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
