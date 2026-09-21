@@ -4,6 +4,15 @@ import { StayInTouchSection } from "@/components/content/shared/StayInTouchSecti
 import { getSiteSettings } from "@/lib/sanity/fetch";
 import type { Metadata } from "next";
 
+/**
+ * La répartition « à venir / passés » se calcule au rendu par comparaison de
+ * dates. Le layout du site fixe `revalidate = false`, donc sans valeur ici la
+ * comparaison serait figée au build : un événement passé resterait annoncé « à
+ * venir » jusqu'à la prochaine publication Sanity. Une heure suffit — un
+ * basculement de date qui prend jusqu'à soixante minutes est invisible.
+ */
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Événements",
   description:

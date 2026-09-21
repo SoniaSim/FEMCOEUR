@@ -30,11 +30,6 @@ export const metadata: Metadata = {
     "santé cardiovasculaire femme",
     "réseau cardiologue France",
   ],
-  icons: {
-    icon: "/simple-logo.png",
-    shortcut: "/simple-logo.png",
-    apple: "/simple-logo.png",
-  },
   openGraph: {
     ...baseOpenGraph,
     title: "FEMCOEUR — Association de cardiologues femmes",

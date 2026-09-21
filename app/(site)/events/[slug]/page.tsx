@@ -19,6 +19,10 @@ import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { getRecapLink } from "@/lib/events/recap";
+import {
+  isCancelled as isCancelledEvent,
+  isUpcoming,
+} from "@/lib/events/schedule";
 import { EventGallerySection } from "@/components/content/events/EventGallerySection";
 import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
 import {
@@ -26,6 +30,13 @@ import {
   baseOpenGraph,
   toOgImageUrl,
 } from "@/lib/seo/open-graph";
+
+/**
+ * La pastille « À venir / Passé » est dérivée des dates au rendu ; sans
+ * revalidation temporelle elle resterait figée au build. Même raison que sur
+ * `/events`, voir `lib/events/schedule.ts`.
+ */
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const events = await getEvents();
@@ -88,8 +99,10 @@ export default async function EventPage({
     notFound();
   }
 
-  const isPast = event.status === "past";
-  const isCancelled = event.status === "cancelled";
+  // Dérivé des dates comme la liste, sans quoi la pastille de cette page
+  // pourrait annoncer « À venir » pour un événement rangé dans les passés.
+  const isCancelled = isCancelledEvent(event);
+  const isPast = !isCancelled && !isUpcoming(event);
   const recap = isPast ? getRecapLink(event) : null;
 
   return (

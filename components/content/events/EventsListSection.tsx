@@ -7,6 +7,7 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Calendar, ExternalLink, BookOpen } from "lucide-react";
 import { getRecapLink } from "@/lib/events/recap";
+import { splitBySchedule } from "@/lib/events/schedule";
 import { EmptyState } from "@/components/content/shared/EmptyState";
 import type { Event } from "@/lib/types/sanity";
 
@@ -129,8 +130,8 @@ function EventCard({ event, variant }: { event: Event; variant: "upcoming" | "pa
 
 export async function EventsListSection() {
   const allEvents = await getEvents();
-  const upcomingEvents = allEvents.filter((e) => e.status === "upcoming");
-  const pastEvents = allEvents.filter((e) => e.status === "past");
+  const { upcoming: upcomingEvents, past: pastEvents } =
+    splitBySchedule(allEvents);
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-background to-primary/5">
