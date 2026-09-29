@@ -15,10 +15,10 @@ import {
   BookOpen,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { getRecapLink } from "@/lib/events/recap";
+import { formatEventPeriod } from "@/lib/events/format";
 import {
   isCancelled as isCancelledEvent,
   isUpcoming,
@@ -149,7 +149,7 @@ export default async function EventPage({
                 <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Calendar className="w-3.5 h-3.5 text-primary" />
                 </span>
-                <span>{formatSanityDateFr(event.date)}</span>
+                <span>{formatEventPeriod(event)}</span>
               </div>
               {event.location && (
                 <div className="flex items-center gap-2.5 text-sm text-foreground/70">
@@ -184,9 +184,45 @@ export default async function EventPage({
         </section>
       )}
 
+      {/* ===== AFFICHE =====
+          Affichée à son ratio naturel, sans recadrage : une affiche porte des
+          logos, une date limite et souvent un QR code, et chaque zone rognée
+          emporte de l'information. Elle est aussi cliquable vers le fichier
+          d'origine — un QR code doit pouvoir être agrandi pour être scanné. */}
+      {event.poster?.url && (
+        <section className="pt-10 md:pt-14 pb-2 bg-background">
+          <div className="container">
+            <figure className="max-w-3xl mx-auto">
+              <a
+                href={event.poster.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-2xl overflow-hidden border border-primary/15 shadow-sm transition-shadow hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <SanityImage
+                  image={event.poster}
+                  fallbackAlt={`Affiche : ${event.title ?? ""}`}
+                  width={event.poster.width ?? 1200}
+                  height={event.poster.height ?? 1200}
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="w-full h-auto"
+                />
+              </a>
+              <figcaption className="mt-3 text-center text-sm text-foreground/60">
+                Cliquez sur l&apos;affiche pour l&apos;agrandir
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      )}
+
       {/* ===== DESCRIPTION ===== */}
       <section
-        className={`bg-background ${event.image?.url ? "pt-10 md:pt-14 pb-10 md:pb-14" : "pt-4 pb-10 md:pb-14"}`}
+        className={`bg-background ${
+          event.image?.url || event.poster?.url
+            ? "pt-10 md:pt-14 pb-10 md:pb-14"
+            : "pt-4 pb-10 md:pb-14"
+        }`}
       >
         <div className="container">
           <article className="max-w-3xl mx-auto">

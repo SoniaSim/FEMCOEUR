@@ -26,6 +26,7 @@ type Programmed = {
   date?: string | null;
   endDate?: string | null;
   status?: string | null;
+  featured?: boolean | null;
 };
 
 /** Date qui détermine si l'événement est derrière nous : sa fin, sinon son début. */
@@ -74,4 +75,25 @@ export function splitBySchedule<T extends Programmed>(
   past.sort((a, b) => (referenceTime(b) ?? 0) - (referenceTime(a) ?? 0));
 
   return { upcoming, past };
+}
+
+/**
+ * Événement annoncé sur la page d'accueil.
+ *
+ * Par défaut le plus proche, mais un événement coché « Mettre en avant » lui est
+ * préféré : le rendez-vous qui compte pour l'association n'est pas toujours le
+ * prochain dans le calendrier. Au 29/09/2026, la Journée du 21 novembre passait
+ * ainsi derrière un congrès du 21 octobre.
+ *
+ * La recherche se fait **parmi les événements à venir uniquement** : une mise en
+ * avant cesse donc d'elle-même une fois l'événement terminé, sans que personne
+ * ait à décocher la case. C'est le même principe que la dérivation par dates —
+ * un réglage qu'on oublie ne doit pas pouvoir périmer la page d'accueil.
+ */
+export function pickHighlight<T extends Programmed>(
+  events: T[],
+  now: Date = new Date()
+): T | undefined {
+  const { upcoming } = splitBySchedule(events, now);
+  return upcoming.find((event) => event.featured) ?? upcoming[0];
 }

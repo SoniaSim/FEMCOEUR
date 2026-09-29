@@ -2,11 +2,11 @@ import { getEvents } from "@/lib/sanity/fetch";
 import { toPlainText } from "@/lib/sanity/portable-text";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { formatSanityDateFr } from "@/lib/sanity/formatSanityDate";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Calendar, ExternalLink, BookOpen } from "lucide-react";
 import { getRecapLink } from "@/lib/events/recap";
+import { formatEventPeriod } from "@/lib/events/format";
 import { splitBySchedule } from "@/lib/events/schedule";
 import { EmptyState } from "@/components/content/shared/EmptyState";
 import type { Event } from "@/lib/types/sanity";
@@ -72,7 +72,7 @@ function EventCard({ event, variant }: { event: Event; variant: "upcoming" | "pa
             <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
               <Calendar className="w-3.5 h-3.5 text-primary" />
             </span>
-            <span>{formatSanityDateFr(event.date)}</span>
+            <span>{formatEventPeriod(event)}</span>
           </div>
           <div className="flex items-center gap-2.5 text-sm text-foreground/70">
             <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">

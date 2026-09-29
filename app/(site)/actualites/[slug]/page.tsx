@@ -18,17 +18,7 @@ import {
   baseOpenGraph,
   toOgImageUrl,
 } from "@/lib/seo/open-graph";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  research: "Recherche",
-  clinical: "Clinique",
-  news: "Actualités",
-  prevention: "Prévention",
-};
-
-function formatCategory(value: string): string {
-  return CATEGORY_LABELS[value] ?? value;
-}
+import { formatCategory } from "@/lib/articles/categories";
 
 export async function generateStaticParams() {
   const articles = await getArticles();

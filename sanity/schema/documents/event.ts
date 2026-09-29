@@ -72,6 +72,39 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "poster",
+      type: "image",
+      title: "Affiche",
+      description:
+        "Visuel de communication complet — logos partenaires, QR code, date limite. Affiché en entier et en grand sur la page de l'événement, jamais recadré. À ne pas confondre avec l'image de l'événement, qui illustre les vignettes et se recadre : une affiche y perdrait ses logos et son QR code deviendrait inscannable.",
+      options: { hotspot: false },
+      fields: [
+        defineField({
+          name: "alt",
+          type: "string",
+          title: "Texte alternatif",
+          description:
+            "Décrivez ce que dit l'affiche : une personne qui ne la voit pas doit accéder à la même information.",
+          validation: (Rule) =>
+            Rule.custom((alt, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && (!alt || !String(alt).trim())) {
+                return "Texte alternatif requis lorsqu'une affiche est définie";
+              }
+              return true;
+            }),
+        }),
+      ],
+    }),
+    defineField({
+      name: "featured",
+      type: "boolean",
+      title: "Mettre en avant sur la page d'accueil",
+      description:
+        "Par défaut, la page d'accueil annonce l'événement à venir le plus proche. Cochez cette case pour lui préférer celui-ci. La mise en avant cesse d'elle-même une fois l'événement terminé — inutile de revenir la décocher.",
+      initialValue: false,
+    }),
+    defineField({
       name: "gallery",
       type: "array",
       title: "Galerie photo (events passés)",

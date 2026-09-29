@@ -167,7 +167,13 @@ export const eventsListQuery = defineQuery(`
     recapLink,
     "relatedArticleSlug": relatedArticle->slug.current,
     "relatedArticleTitle": relatedArticle->title,
-    status
+    status,
+    featured,
+    "poster": poster {
+      ${imageFields},
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height
+    }
   }
 `);
 
@@ -181,6 +187,11 @@ export const eventBySlugQuery = defineQuery(`
     location,
     description,
     "image": mainImage { ${imageFields} },
+    "poster": poster {
+      ${imageFields},
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height
+    },
     "gallery": gallery[defined(asset)]{
       _key,
       "url": asset->url,

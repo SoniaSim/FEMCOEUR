@@ -4,9 +4,26 @@ import { KeyStatsSection } from "@/components/content/home/KeyStatsSection";
 import { WhyFeminineSection } from "@/components/content/home/WhyFeminineSection";
 import { WhatWeDoSection } from "@/components/content/home/WhatWeDoSection";
 import { CallToActionSection } from "@/components/content/home/CallToActionSection";
+import { MissionCardSection } from "@/components/content/home/MissionCardSection";
+import { NextEventSection } from "@/components/content/home/NextEventSection";
+import { LatestArticlesSection } from "@/components/content/home/LatestArticlesSection";
 import { StayInTouchSection } from "@/components/content/shared/StayInTouchSection";
-import { getHomePage, getSiteSettings } from "@/lib/sanity/fetch";
+import {
+  getArticles,
+  getEvents,
+  getHomePage,
+  getSiteSettings,
+} from "@/lib/sanity/fetch";
+import { pickHighlight } from "@/lib/events/schedule";
 import { baseOpenGraph } from "@/lib/seo/open-graph";
+
+/**
+ * Le bandeau « Prochain rendez-vous » compare des dates au rendu. Sans
+ * revalidation temporelle, la comparaison serait figée au build et un événement
+ * passé resterait annoncé en haut de la page d'accueil. Voir
+ * `lib/events/schedule.ts`.
+ */
+export const revalidate = 3600;
 
 /** Derniers recours si les champs SEO de la page d'accueil sont vides dans Sanity. */
 const FALLBACK_TITLE = "FEMCOEUR — Association de cardiologues femmes";
@@ -37,15 +54,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [data, siteSettings] = await Promise.all([
+  const [data, siteSettings, events, articles] = await Promise.all([
     getHomePage(),
     getSiteSettings(),
+    getEvents(),
+    getArticles(),
   ]);
 
   const socialLinks = siteSettings?.socialLinks ?? [];
   // Bande masquée sous 2 stats : une stat seule ressemble à une erreur.
   const keyStats = data?.keyStats;
   const keyStatItems = keyStats?.items ?? [];
+  // Le plus proche des événements à venir, sauf si l'un d'eux est coché
+  // « Mettre en avant » dans Sanity.
+  const nextEvent = pickHighlight(events);
 
   return (
     <>
@@ -60,8 +82,12 @@ export default async function Home() {
         }
         tagline={data?.welcome?.tagline}
         heroImage={data?.welcome?.heroImage}
-        subtitle={data?.welcome?.subtitle}
       />
+      {/* Bloc de mise en avant, juste sous le hero. Absent s'il n'y a aucun
+          événement à venir : sur une page d'accueil, un état vide annoncé est
+          pire que pas de section. */}
+      {nextEvent && <NextEventSection event={nextEvent} />}
+      <MissionCardSection subtitle={data?.welcome?.subtitle} />
       {keyStats && keyStatItems.length >= 2 && (
         <KeyStatsSection
           stats={keyStatItems}
@@ -81,6 +107,7 @@ export default async function Home() {
           items={data.whatWeDo.items}
         />
       ) : null}
+      <LatestArticlesSection articles={articles} />
       {data?.callToAction?.items?.length ? (
         <CallToActionSection
           title={data.callToAction.title}

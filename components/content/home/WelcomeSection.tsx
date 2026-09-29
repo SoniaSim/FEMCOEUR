@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
-import type { BlockContent } from "@/sanity.types";
-import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { SquiggleUnderline } from "@/components/ui/squiggle-underline";
-import { EditorialCard } from "@/components/content/shared/EditorialCard";
 import { Button } from "@/components/ui/button";
 
 interface WelcomeSectionProps {
@@ -12,7 +8,6 @@ interface WelcomeSectionProps {
   titleHighlight: string;
   tagline?: string | null;
   heroImage?: { url: string | null; alt: string | null } | null;
-  subtitle?: BlockContent | null;
 }
 
 // Accroche par défaut si le champ Sanity est vide (voix engagée).
@@ -23,22 +18,29 @@ const DEFAULT_TAGLINE =
 const FALLBACK_PHOTO =
   "https://cdn.sanity.io/images/1tnur7yz/production/d8e01495e0c19feaa10f1da8265d723af1bd2e13-2560x1920.jpg";
 
+/**
+ * Hero de la page d'accueil.
+ *
+ * La carte « qui nous sommes » qui le suivait vit désormais dans
+ * `MissionCardSection` : les deux étaient deux `<section>` indépendantes dans
+ * un même fragment, et les séparer permet d'intercaler l'annonce d'événement
+ * entre elles depuis `app/(site)/page.tsx` — où l'ordre réel des blocs devient
+ * ainsi lisible.
+ */
 export function WelcomeSection({
   titlePrefix,
   titleHighlight,
   tagline,
   heroImage,
-  subtitle,
 }: WelcomeSectionProps) {
   const taglineText = tagline?.trim() || DEFAULT_TAGLINE;
   const photoUrl = heroImage?.url ?? FALLBACK_PHOTO;
   const photoAlt =
     heroImage?.alt?.trim() ||
     "Membres de FEMCOEUR réunies lors d'une journée du réseau";
+  // Hero « split éditorial » : texte engagé à gauche, photo de la communauté à droite.
   return (
-    <>
-      {/* Hero « split éditorial » : texte engagé à gauche, photo de la communauté à droite */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full bg-accent/15 blur-2xl pointer-events-none" />
 
@@ -99,19 +101,6 @@ export function WelcomeSection({
             </div>
           </div>
         </div>
-      </section>
-
-      {subtitle && subtitle.length > 0 && (
-        <section id="mission" className="py-4 md:py-6 bg-background">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <EditorialCard cta={{ label: "Rejoindre le mouvement", href: "/join" }}>
-                <PortableText value={subtitle} components={basePortableTextComponents} />
-              </EditorialCard>
-            </div>
-          </div>
-        </section>
-      )}
-    </>
+    </section>
   );
 }
