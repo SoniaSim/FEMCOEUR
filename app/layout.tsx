@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_ORIGIN),
   title: {
     template: "%s | FEMCOEUR",
-    default: "FEMCOEUR — Association de cardiologues femmes",
+    default: "FEMCOEUR — Association de femmes en spécialité  cardiovasculaire",
   },
   description:
-    "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+    "FEMCOEUR est une Association de femmes en spécialité  cardiovasculaire. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
   keywords: [
     "cardiologues femmes",
     "FEMCOEUR",
@@ -32,17 +32,17 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     ...baseOpenGraph,
-    title: "FEMCOEUR — Association de cardiologues femmes",
+    title: "FEMCOEUR — Association de femmes en spécialité  cardiovasculaire",
     description:
-      "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
+      "FEMCOEUR est une Association de femmes en spécialité  cardiovasculaire. Nous promouvons la place de la femme dans la cardiologie et la prise en charge des maladies cardiovasculaires au féminin.",
     url: CANONICAL_ORIGIN,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FEMCOEUR — Association de cardiologues femmes",
+    title: "FEMCOEUR — Association de femmes en spécialité  cardiovasculaire",
     description:
-      "FEMCOEUR est une association de cardiologues femmes. Nous promouvons la place de la femme dans la cardiologie.",
+      "FEMCOEUR est une Association de femmes en spécialité  cardiovasculaire. Nous promouvons la place de la femme dans la cardiologie.",
     images: [OG_DEFAULT_IMAGE.url],
   },
   alternates: {

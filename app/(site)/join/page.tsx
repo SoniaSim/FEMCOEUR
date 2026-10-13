@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo?.title ?? "Rejoindre FEMCOEUR",
     description:
       data?.seo?.description ??
-      "Rejoignez FEMCOEUR, l'association de cardiologues femmes.",
+      "Rejoignez FEMCOEUR, l'Association de femmes en spécialité  cardiovasculaire.",
     alternates: { canonical: "/join" },
   };
 }
@@ -42,8 +42,12 @@ export default async function JoinPage() {
         <MembershipModalitiesSection
           modalities={data.modalities}
           fee={
-            data.membershipFee?.amount != null && data.membershipFee?.year != null
-              ? { amount: data.membershipFee.amount, year: data.membershipFee.year }
+            data.membershipFee?.amount != null &&
+            data.membershipFee?.year != null
+              ? {
+                  amount: data.membershipFee.amount,
+                  year: data.membershipFee.year,
+                }
               : null
           }
         />

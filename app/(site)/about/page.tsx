@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo?.title ?? "À propos",
     description:
       data?.seo?.description ??
-      "Découvrez la mission, l'histoire et les valeurs de FEMCOEUR, l'association de cardiologues femmes.",
+      "Découvrez la mission, l'histoire et les valeurs de FEMCOEUR, l'Association de femmes en spécialité  cardiovasculaire.",
     alternates: { canonical: "/about" },
   };
 }

@@ -26,9 +26,10 @@ import { baseOpenGraph } from "@/lib/seo/open-graph";
 export const revalidate = 3600;
 
 /** Derniers recours si les champs SEO de la page d'accueil sont vides dans Sanity. */
-const FALLBACK_TITLE = "FEMCOEUR — Association de cardiologues femmes";
+const FALLBACK_TITLE =
+  "FEMCOEUR — Association de femmes en spécialité  cardiovasculaire";
 const FALLBACK_DESCRIPTION =
-  "FEMCOEUR est une association de cardiologues femmes. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.";
+  "FEMCOEUR est une Association de femmes en spécialité  cardiovasculaire. Nous œuvrons pour la reconnaissance des spécificités cardiovasculaires féminines et la promotion des femmes dans la cardiologie.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
@@ -73,8 +74,7 @@ export default async function Home() {
     <>
       <WelcomeSection
         titlePrefix={
-          data?.welcome?.titlePrefix ??
-          "Bienvenue au sein de l'association de"
+          data?.welcome?.titlePrefix ?? "Bienvenue au sein de l'association de"
         }
         titleHighlight={
           data?.welcome?.titleHighlight ??
