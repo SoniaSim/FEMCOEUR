@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Clock, ExternalLink, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SanityImage } from "@/components/ui/SanityImage";
+import { getEventCtaLabel } from "@/lib/events/cta";
 import { formatEventPeriod } from "@/lib/events/format";
 import { toPlainText } from "@/lib/sanity/portable-text";
 import type { Event } from "@/lib/types/sanity";
@@ -129,7 +130,7 @@ export function NextEventSection({ event }: { event: Event }) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Participer
+                      {getEventCtaLabel(event, "Participer")}
                       <ExternalLink className="w-4 h-4" />
                     </Link>
                   </Button>

@@ -128,8 +128,41 @@ export default defineType({
     defineField({
       name: "registrationLink",
       type: "url",
-      title: "Lien d'inscription",
-      description: "URL vers le formulaire d'inscription (événement à venir)",
+      title: "Lien de participation",
+      description:
+        "URL vers le formulaire d'inscription, le questionnaire, l'enquête… (événement à venir)",
+    }),
+    defineField({
+      name: "registrationCta",
+      type: "object",
+      title: "Encart d'appel à l'action",
+      description:
+        "Textes de l'encart affiché en bas de la page de l'événement, et libellé du bouton sur les cartes. Tout est facultatif : laissé vide, l'encart parle d'inscription. À personnaliser quand l'événement n'en est pas vraiment un — une enquête, un questionnaire, un appel à témoignages.",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: "heading",
+          type: "string",
+          title: "Titre",
+          description:
+            "Par défaut : « Inscrivez-vous à cet événement ». Par exemple : « Participez à l'enquête ».",
+        }),
+        defineField({
+          name: "text",
+          type: "text",
+          rows: 2,
+          title: "Texte",
+          description:
+            "Par défaut : « Les places sont limitées — réservez la vôtre dès maintenant. ». Par exemple : « 5 minutes suffisent, les réponses sont anonymes. »",
+        }),
+        defineField({
+          name: "buttonLabel",
+          type: "string",
+          title: "Libellé du bouton",
+          description:
+            "Par défaut : « S'inscrire » (« Participer » sur la page d'accueil). Par exemple : « Répondre au questionnaire ».",
+        }),
+      ],
     }),
     defineField({
       name: "relatedArticle",

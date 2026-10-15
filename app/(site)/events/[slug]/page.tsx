@@ -18,6 +18,7 @@ import type { Metadata } from "next";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { basePortableTextComponents } from "@/lib/portable-text-components";
 import { getRecapLink } from "@/lib/events/recap";
+import { getEventCta } from "@/lib/events/cta";
 import { formatEventPeriod } from "@/lib/events/format";
 import {
   isCancelled as isCancelledEvent,
@@ -104,6 +105,7 @@ export default async function EventPage({
   const isCancelled = isCancelledEvent(event);
   const isPast = !isCancelled && !isUpcoming(event);
   const recap = isPast ? getRecapLink(event) : null;
+  const cta = getEventCta(event);
 
   return (
     <>
@@ -272,11 +274,10 @@ export default async function EventPage({
                   {!isPast && event.registrationLink && (
                     <>
                       <h2 className="text-2xl md:text-3xl font-black text-foreground mb-3 leading-tight">
-                        Inscrivez-vous à cet événement
+                        {cta.heading}
                       </h2>
-                      <p className="text-base text-foreground/65 mb-6">
-                        Les places sont limitées — réservez la vôtre dès
-                        maintenant.
+                      <p className="text-base text-foreground/65 mb-6 whitespace-pre-line">
+                        {cta.text}
                       </p>
                       <Button
                         asChild
@@ -288,7 +289,7 @@ export default async function EventPage({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          S&apos;inscrire
+                          {cta.buttonLabel}
                           <ExternalLink className="w-4 h-4" />
                         </Link>
                       </Button>

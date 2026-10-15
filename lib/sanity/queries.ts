@@ -164,6 +164,7 @@ export const eventsListQuery = defineQuery(`
     description,
     "image": mainImage { ${imageFields} },
     registrationLink,
+    registrationCta,
     recapLink,
     "relatedArticleSlug": relatedArticle->slug.current,
     "relatedArticleTitle": relatedArticle->title,
@@ -201,6 +202,7 @@ export const eventBySlugQuery = defineQuery(`
       "lqip": asset->metadata.lqip
     },
     registrationLink,
+    registrationCta,
     recapLink,
     "relatedArticleSlug": relatedArticle->slug.current,
     "relatedArticleTitle": relatedArticle->title,

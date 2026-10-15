@@ -6,6 +6,7 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapPin, Calendar, ExternalLink, BookOpen } from "lucide-react";
 import { getRecapLink } from "@/lib/events/recap";
+import { getEventCtaLabel } from "@/lib/events/cta";
 import { formatEventPeriod } from "@/lib/events/format";
 import { splitBySchedule } from "@/lib/events/schedule";
 import { EmptyState } from "@/components/content/shared/EmptyState";
@@ -96,7 +97,7 @@ function EventCard({ event, variant }: { event: Event; variant: "upcoming" | "pa
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                S&apos;inscrire
+                {getEventCtaLabel(event)}
                 <ExternalLink className="w-4 h-4" />
               </Link>
             </Button>
